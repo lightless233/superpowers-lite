@@ -403,7 +403,7 @@ They are simply not part of the workflow unless they add clear value to the curr
 
 ## Installation
 
-Superpowers Lite is distributed as a skills-only plugin for both Codex and Claude Code. The platforms share the same `SKILL.md` files while using their own plugin manifests.
+Superpowers Lite is distributed as a skills-only plugin for Codex, Claude Code, Kimi Code, and Qoder. All four platforms share the same `SKILL.md` files while using their own plugin manifests.
 
 ### Codex
 
@@ -437,6 +437,30 @@ Then install the plugin:
 
 Start a new Claude Code session after installation, or run `/reload-plugins` to reload the plugin.
 
+### Kimi Code
+
+Install directly from GitHub in Kimi Code:
+
+```text
+/plugins install https://github.com/lightless233/superpowers-lite
+```
+
+Run `/reload` or `/new` after installation. `using-lite` loads at session start, and the other Skills load on demand.
+
+### Qoder
+
+After cloning the repository, open the plugins page in Qoder IDE, choose **Create Plugin → Import from local folder**, and import:
+
+```text
+plugins/superpowers-lite
+```
+
+For Qoder CLI or Agent SDK development, pass the same directory as a local plugin. The corresponding CLI option is:
+
+```bash
+qodercli --plugin-dir ./plugins/superpowers-lite
+```
+
 In normal use, you should not need to invoke every Skill manually. `superpowers-lite:using-lite` acts as the router and selects only the phases that add value.
 
 You can still invoke an individual Skill explicitly through its plugin namespace. Codex uses the `$` prefix:
@@ -453,6 +477,20 @@ Claude Code uses the `/` prefix:
 /superpowers-lite:lite-debugging
 ```
 
+Kimi Code uses its Skill command:
+
+```text
+/skill:using-lite
+/skill:lite-debugging
+```
+
+Qoder plugin Skills use plugin-qualified names:
+
+```text
+/superpowers-lite:using-lite
+/superpowers-lite:lite-debugging
+```
+
 ## Repository Structure
 
 ```text
@@ -462,12 +500,15 @@ Claude Code uses the `/` prefix:
 │       └── marketplace.json          # Codex marketplace
 ├── .claude-plugin/
 │   └── marketplace.json              # Claude Code marketplace
+├── kimi.plugin.json                  # Kimi Code manifest
 ├── plugins/
 │   └── superpowers-lite/
 │       ├── .codex-plugin/
 │       │   └── plugin.json           # Codex manifest
 │       ├── .claude-plugin/
 │       │   └── plugin.json           # Claude Code manifest
+│       ├── .qoder-plugin/
+│       │   └── plugin.json           # Qoder manifest
 │       └── skills/
 │           ├── using-lite/
 │           ├── lite-brainstorming/
@@ -481,7 +522,7 @@ Claude Code uses the `/` prefix:
 └── LICENSE
 ```
 
-Each Skill's `SKILL.md` is shared by Codex and Claude Code. The `agents/openai.yaml` files provide Codex-specific interface metadata and are ignored by Claude Code.
+Each Skill's `SKILL.md` is shared by all four platforms. The `agents/openai.yaml` files provide Codex-specific interface metadata and are ignored by the other platforms.
 
 ## Design Principles
 

@@ -1,0 +1,25 @@
+{
+  "name": "superpowers-lite",
+  "version": "0.1.0",
+  "description": "A lightweight engineering workflow router and skill set for coding agents.",
+  "keywords": [
+    "engineering-workflow",
+    "skills",
+    "productivity"
+  ],
+  "author": "lightless233",
+  "homepage": "https://github.com/lightless233/superpowers-lite",
+  "license": "MIT",
+  "skills": "./plugins/superpowers-lite/skills/",
+  "sessionStart": {
+    "skill": "using-lite"
+  },
+  "skillInstructions": "Within this plugin, references written as `superpowers-lite:<skill-name>` refer to the plugin Skill named `<skill-name>`. Load that Skill with Kimi Code's Skill mechanism. Users can invoke it manually with `/skill:<skill-name>`.",
+  "interface": {
+    "displayName": "Superpowers Lite",
+    "shortDescription": "Route engineering work through the lightest reliable workflow.",
+    "longDescription": "A lightweight set of skills for design, specification, planning, debugging, testing, and verification without mandatory ceremony.",
+    "developerName": "lightless233",
+    "websiteURL": "https://github.com/lightless233/superpowers-lite"
+  }
+}
