@@ -1,0 +1,20 @@
+{
+  "name": "lightless233-plugins",
+  "interface": {
+    "displayName": "Lightless233 Plugins"
+  },
+  "plugins": [
+    {
+      "name": "superpowers-lite",
+      "source": {
+        "source": "local",
+        "path": "./plugins/superpowers-lite"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}

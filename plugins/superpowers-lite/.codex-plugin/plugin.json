@@ -1,0 +1,30 @@
+{
+  "name": "superpowers-lite",
+  "version": "0.1.0",
+  "description": "A lightweight engineering workflow router and skill set for Codex.",
+  "author": {
+    "name": "lightless233",
+    "url": "https://github.com/lightless233"
+  },
+  "homepage": "https://github.com/lightless233/superpowers-lite",
+  "repository": "https://github.com/lightless233/superpowers-lite",
+  "license": "MIT",
+  "keywords": [
+    "codex",
+    "engineering-workflow",
+    "skills"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Superpowers Lite",
+    "shortDescription": "Route engineering work through the lightest reliable workflow.",
+    "longDescription": "A lightweight set of Codex skills for design, specification, planning, debugging, testing, and verification without mandatory ceremony.",
+    "developerName": "lightless233",
+    "category": "Productivity",
+    "capabilities": [
+      "Engineering",
+      "Workflow"
+    ],
+    "defaultPrompt": "Use Superpowers Lite to select the lightest reliable workflow for this engineering task."
+  }
+}

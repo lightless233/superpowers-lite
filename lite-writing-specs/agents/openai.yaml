@@ -1,4 +1,0 @@
-interface:
-  display_name: "Lite Writing Specs"
-  short_description: "Define behavior and contracts without implementation detail"
-  default_prompt: "Use $lite-writing-specs to capture only the behavior and contracts this change must satisfy."

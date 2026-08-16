@@ -406,20 +406,25 @@ Superpowers Lite 以仅包含 Codex Skills 的插件形式分发。
 将仓库添加为插件 marketplace：
 
 ```bash
-codex plugin marketplace add <owner>/superpowers-lite
+codex plugin marketplace add lightless233/superpowers-lite --ref master
 ```
 
 然后安装插件：
 
 ```bash
-codex plugin add superpowers-lite@superpowers-lite
+codex plugin add superpowers-lite@lightless233-plugins
 ```
 
 安装后启动新的 Codex session，使已安装的 Skills 能够进入新上下文。
 
-正常使用时，你不需要手动调用每一个 Skill。`using-lite` 会作为 Router，只选择能够增加价值的阶段。
+正常使用时，你不需要手动调用每一个 Skill。`superpowers-lite:using-lite` 会作为 Router，只选择能够增加价值的阶段。
 
-你仍然可以在需要时显式调用单个 Skill。
+你仍然可以在需要时通过命名空间显式调用单个 Skill，例如：
+
+```text
+$superpowers-lite:using-lite
+$superpowers-lite:lite-debugging
+```
 
 ## 仓库结构
 

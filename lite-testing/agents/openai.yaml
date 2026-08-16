@@ -1,4 +1,0 @@
-interface:
-  display_name: "Lite Testing"
-  short_description: "Choose behavior-focused tests with useful scope"
-  default_prompt: "Use $lite-testing to choose behavior-focused testing that provides useful protection for this change."

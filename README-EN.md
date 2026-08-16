@@ -408,20 +408,25 @@ Superpowers Lite is distributed as a Codex skill-only plugin.
 Add the repository as a plugin marketplace:
 
 ```bash
-codex plugin marketplace add <owner>/superpowers-lite
+codex plugin marketplace add lightless233/superpowers-lite --ref master
 ```
 
 Then install the plugin:
 
 ```bash
-codex plugin add superpowers-lite@superpowers-lite
+codex plugin add superpowers-lite@lightless233-plugins
 ```
 
 Start a new Codex session after installation so the installed Skills are available to the new context.
 
-In normal use, you should not need to invoke every Skill manually. `using-lite` acts as the router and selects only the phases that add value.
+In normal use, you should not need to invoke every Skill manually. `superpowers-lite:using-lite` acts as the router and selects only the phases that add value.
 
-You can still invoke an individual Skill explicitly when desired.
+You can still invoke an individual Skill explicitly through its plugin namespace when desired:
+
+```text
+$superpowers-lite:using-lite
+$superpowers-lite:lite-debugging
+```
 
 ## Repository Structure
 

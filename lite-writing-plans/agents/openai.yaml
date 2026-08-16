@@ -1,4 +1,0 @@
-interface:
-  display_name: "Lite Writing Plans"
-  short_description: "Organize clear implementation work at the right detail"
-  default_prompt: "Use $lite-writing-plans to organize this decided implementation work at the appropriate level of detail."

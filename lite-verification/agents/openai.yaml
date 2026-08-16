@@ -1,4 +1,0 @@
-interface:
-  display_name: "Lite Verification"
-  short_description: "Match completion claims to fresh sufficient evidence"
-  default_prompt: "Use $lite-verification to gather fresh evidence sufficient for the completion claim."

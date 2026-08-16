@@ -1,4 +1,0 @@
-interface:
-  display_name: "Lite Brainstorming"
-  short_description: "Resolve material ambiguity and design trade-offs"
-  default_prompt: "Use $lite-brainstorming to resolve consequential design questions before specification or implementation."
