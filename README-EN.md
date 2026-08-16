@@ -403,7 +403,9 @@ They are simply not part of the workflow unless they add clear value to the curr
 
 ## Installation
 
-Superpowers Lite is distributed as a Codex skill-only plugin.
+Superpowers Lite is distributed as a skills-only plugin for both Codex and Claude Code. The platforms share the same `SKILL.md` files while using their own plugin manifests.
+
+### Codex
 
 Add the repository as a plugin marketplace:
 
@@ -419,13 +421,36 @@ codex plugin add superpowers-lite@lightless233-plugins
 
 Start a new Codex session after installation so the installed Skills are available to the new context.
 
+### Claude Code
+
+Add the marketplace from Claude Code:
+
+```text
+/plugin marketplace add lightless233/superpowers-lite
+```
+
+Then install the plugin:
+
+```text
+/plugin install superpowers-lite@lightless233-plugins
+```
+
+Start a new Claude Code session after installation, or run `/reload-plugins` to reload the plugin.
+
 In normal use, you should not need to invoke every Skill manually. `superpowers-lite:using-lite` acts as the router and selects only the phases that add value.
 
-You can still invoke an individual Skill explicitly through its plugin namespace when desired:
+You can still invoke an individual Skill explicitly through its plugin namespace. Codex uses the `$` prefix:
 
 ```text
 $superpowers-lite:using-lite
 $superpowers-lite:lite-debugging
+```
+
+Claude Code uses the `/` prefix:
+
+```text
+/superpowers-lite:using-lite
+/superpowers-lite:lite-debugging
 ```
 
 ## Repository Structure
@@ -434,11 +459,15 @@ $superpowers-lite:lite-debugging
 .
 ├── .agents/
 │   └── plugins/
-│       └── marketplace.json
+│       └── marketplace.json          # Codex marketplace
+├── .claude-plugin/
+│   └── marketplace.json              # Claude Code marketplace
 ├── plugins/
 │   └── superpowers-lite/
 │       ├── .codex-plugin/
-│       │   └── plugin.json
+│       │   └── plugin.json           # Codex manifest
+│       ├── .claude-plugin/
+│       │   └── plugin.json           # Claude Code manifest
 │       └── skills/
 │           ├── using-lite/
 │           ├── lite-brainstorming/
@@ -452,7 +481,7 @@ $superpowers-lite:lite-debugging
 └── LICENSE
 ```
 
-Each Skill contains its own `SKILL.md` and Codex-specific `agents/openai.yaml` metadata.
+Each Skill's `SKILL.md` is shared by Codex and Claude Code. The `agents/openai.yaml` files provide Codex-specific interface metadata and are ignored by Claude Code.
 
 ## Design Principles
 

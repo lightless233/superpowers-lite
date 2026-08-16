@@ -401,7 +401,9 @@ Superpowers Lite 本身不强制要求：
 
 ## 安装
 
-Superpowers Lite 以仅包含 Codex Skills 的插件形式分发。
+Superpowers Lite 以 Skills-only 插件形式分发，同时支持 Codex 和 Claude Code。两个平台共用同一套 `SKILL.md`，并分别使用各自的插件清单。
+
+### Codex
 
 将仓库添加为插件 marketplace：
 
@@ -417,13 +419,36 @@ codex plugin add superpowers-lite@lightless233-plugins
 
 安装后启动新的 Codex session，使已安装的 Skills 能够进入新上下文。
 
+### Claude Code
+
+在 Claude Code 中添加 marketplace：
+
+```text
+/plugin marketplace add lightless233/superpowers-lite
+```
+
+然后安装插件：
+
+```text
+/plugin install superpowers-lite@lightless233-plugins
+```
+
+安装后启动新的 Claude Code session，或运行 `/reload-plugins` 重新加载插件。
+
 正常使用时，你不需要手动调用每一个 Skill。`superpowers-lite:using-lite` 会作为 Router，只选择能够增加价值的阶段。
 
-你仍然可以在需要时通过命名空间显式调用单个 Skill，例如：
+你仍然可以在需要时通过命名空间显式调用单个 Skill。Codex 使用 `$` 前缀：
 
 ```text
 $superpowers-lite:using-lite
 $superpowers-lite:lite-debugging
+```
+
+Claude Code 使用 `/` 前缀：
+
+```text
+/superpowers-lite:using-lite
+/superpowers-lite:lite-debugging
 ```
 
 ## 仓库结构
@@ -432,11 +457,15 @@ $superpowers-lite:lite-debugging
 .
 ├── .agents/
 │   └── plugins/
-│       └── marketplace.json
+│       └── marketplace.json          # Codex marketplace
+├── .claude-plugin/
+│   └── marketplace.json              # Claude Code marketplace
 ├── plugins/
 │   └── superpowers-lite/
 │       ├── .codex-plugin/
-│       │   └── plugin.json
+│       │   └── plugin.json           # Codex manifest
+│       ├── .claude-plugin/
+│       │   └── plugin.json           # Claude Code manifest
 │       └── skills/
 │           ├── using-lite/
 │           ├── lite-brainstorming/
@@ -450,7 +479,7 @@ $superpowers-lite:lite-debugging
 └── LICENSE
 ```
 
-每个 Skill 都包含自己的 `SKILL.md` 和 Codex 专用的 `agents/openai.yaml` 元数据。
+每个 Skill 的 `SKILL.md` 由 Codex 和 Claude Code 共用。`agents/openai.yaml` 提供 Codex 专用的界面元数据，Claude Code 会忽略这些辅助文件。
 
 ## 设计原则
 
