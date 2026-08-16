@@ -83,6 +83,96 @@ lite-brainstorming lite-writing-specs lite-debugging lite-writing-plans
 
 任何不能显著提升信心的阶段都可以跳过。
 
+## 安装
+
+Superpowers Lite 以 Skills-only 插件形式分发，同时支持 Codex、Claude Code、Kimi Code 和 Qoder。四个平台共用同一套 `SKILL.md`，并分别使用各自的插件清单。
+
+### Codex
+
+将仓库添加为插件 marketplace：
+
+```bash
+codex plugin marketplace add lightless233/superpowers-lite --ref master
+```
+
+然后安装插件：
+
+```bash
+codex plugin add superpowers-lite@lightless233-plugins
+```
+
+安装后启动新的 Codex session，使已安装的 Skills 能够进入新上下文。
+
+### Claude Code
+
+在 Claude Code 中添加 marketplace：
+
+```text
+/plugin marketplace add lightless233/superpowers-lite
+```
+
+然后安装插件：
+
+```text
+/plugin install superpowers-lite@lightless233-plugins
+```
+
+安装后启动新的 Claude Code session，或运行 `/reload-plugins` 重新加载插件。
+
+### Kimi Code
+
+在 Kimi Code 中直接从 GitHub 安装：
+
+```text
+/plugins install https://github.com/lightless233/superpowers-lite
+```
+
+安装后运行 `/reload` 或 `/new`。`using-lite` 会在 session 开始时加载，其他 Skills 按需加载。
+
+### Qoder
+
+克隆仓库后，在 Qoder IDE 的插件页选择 **Create Plugin → Import from local folder**，导入：
+
+```text
+plugins/superpowers-lite
+```
+
+使用 Qoder CLI 或 Agent SDK 调试时，将同一目录作为本地 plugin 传入；CLI 对应的参数是：
+
+```bash
+qodercli --plugin-dir ./plugins/superpowers-lite
+```
+
+正常使用时，你不需要手动调用每一个 Skill。`superpowers-lite:using-lite` 会作为 Router，只选择能够增加价值的阶段。
+
+你仍然可以在需要时通过命名空间显式调用单个 Skill。Codex 使用 `$` 前缀：
+
+```text
+$superpowers-lite:using-lite
+$superpowers-lite:lite-debugging
+```
+
+Claude Code 使用 `/` 前缀：
+
+```text
+/superpowers-lite:using-lite
+/superpowers-lite:lite-debugging
+```
+
+Kimi Code 通过 Skill 命令调用：
+
+```text
+/skill:using-lite
+/skill:lite-debugging
+```
+
+Qoder 中的插件 Skill 使用插件限定名：
+
+```text
+/superpowers-lite:using-lite
+/superpowers-lite:lite-debugging
+```
+
 ## Skills
 
 | Skill | 职责 |
@@ -399,96 +489,6 @@ Superpowers Lite 本身不强制要求：
 
 它们只是不属于默认工作流，除非能为当前任务带来明确价值。
 
-## 安装
-
-Superpowers Lite 以 Skills-only 插件形式分发，同时支持 Codex、Claude Code、Kimi Code 和 Qoder。四个平台共用同一套 `SKILL.md`，并分别使用各自的插件清单。
-
-### Codex
-
-将仓库添加为插件 marketplace：
-
-```bash
-codex plugin marketplace add lightless233/superpowers-lite --ref master
-```
-
-然后安装插件：
-
-```bash
-codex plugin add superpowers-lite@lightless233-plugins
-```
-
-安装后启动新的 Codex session，使已安装的 Skills 能够进入新上下文。
-
-### Claude Code
-
-在 Claude Code 中添加 marketplace：
-
-```text
-/plugin marketplace add lightless233/superpowers-lite
-```
-
-然后安装插件：
-
-```text
-/plugin install superpowers-lite@lightless233-plugins
-```
-
-安装后启动新的 Claude Code session，或运行 `/reload-plugins` 重新加载插件。
-
-### Kimi Code
-
-在 Kimi Code 中直接从 GitHub 安装：
-
-```text
-/plugins install https://github.com/lightless233/superpowers-lite
-```
-
-安装后运行 `/reload` 或 `/new`。`using-lite` 会在 session 开始时加载，其他 Skills 按需加载。
-
-### Qoder
-
-克隆仓库后，在 Qoder IDE 的插件页选择 **Create Plugin → Import from local folder**，导入：
-
-```text
-plugins/superpowers-lite
-```
-
-使用 Qoder CLI 或 Agent SDK 调试时，将同一目录作为本地 plugin 传入；CLI 对应的参数是：
-
-```bash
-qodercli --plugin-dir ./plugins/superpowers-lite
-```
-
-正常使用时，你不需要手动调用每一个 Skill。`superpowers-lite:using-lite` 会作为 Router，只选择能够增加价值的阶段。
-
-你仍然可以在需要时通过命名空间显式调用单个 Skill。Codex 使用 `$` 前缀：
-
-```text
-$superpowers-lite:using-lite
-$superpowers-lite:lite-debugging
-```
-
-Claude Code 使用 `/` 前缀：
-
-```text
-/superpowers-lite:using-lite
-/superpowers-lite:lite-debugging
-```
-
-Kimi Code 通过 Skill 命令调用：
-
-```text
-/skill:using-lite
-/skill:lite-debugging
-```
-
-Qoder 中的插件 Skill 使用插件限定名：
-
-```text
-/superpowers-lite:using-lite
-/superpowers-lite:lite-debugging
-```
-
 ## 仓库结构
 
 ```text
@@ -546,6 +546,12 @@ Superpowers Lite 遵循几条刻意保持简单的规则：
 
 > **完成声明绝不能超出已有证据。**
 
+Superpowers Lite 刻意保持小而精。在增加另一个 Skill 或强制工作流步骤前，请先问：
+
+> **它对编码质量的提升，是否足以证明其协调成本和上下文成本是值得的？**
+
+如果不是，它很可能不应该出现在这里。
+
 ## 与 Superpowers 的关系
 
 Superpowers Lite 受到 Superpowers 工程纪律的启发，但刻意选择了不同的权衡。
@@ -563,16 +569,6 @@ Superpowers：
 Superpowers Lite：
 最小充分流程优先
 ```
-
-## 状态
-
-Superpowers Lite 刻意保持小而精。
-
-在增加另一个 Skill 或强制工作流步骤前，请先问：
-
-> **它对编码质量的提升，是否足以证明其协调成本和上下文成本是值得的？**
-
-如果不是，它很可能不应该出现在这里。
 
 ## 许可证
 

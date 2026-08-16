@@ -83,6 +83,96 @@ This is a relationship map, **not a mandatory pipeline**.
 
 Every phase can be skipped when it does not add meaningful confidence.
 
+## Installation
+
+Superpowers Lite is distributed as a skills-only plugin for Codex, Claude Code, Kimi Code, and Qoder. All four platforms share the same `SKILL.md` files while using their own plugin manifests.
+
+### Codex
+
+Add the repository as a plugin marketplace:
+
+```bash
+codex plugin marketplace add lightless233/superpowers-lite --ref master
+```
+
+Then install the plugin:
+
+```bash
+codex plugin add superpowers-lite@lightless233-plugins
+```
+
+Start a new Codex session after installation so the installed Skills are available to the new context.
+
+### Claude Code
+
+Add the marketplace from Claude Code:
+
+```text
+/plugin marketplace add lightless233/superpowers-lite
+```
+
+Then install the plugin:
+
+```text
+/plugin install superpowers-lite@lightless233-plugins
+```
+
+Start a new Claude Code session after installation, or run `/reload-plugins` to reload the plugin.
+
+### Kimi Code
+
+Install directly from GitHub in Kimi Code:
+
+```text
+/plugins install https://github.com/lightless233/superpowers-lite
+```
+
+Run `/reload` or `/new` after installation. `using-lite` loads at session start, and the other Skills load on demand.
+
+### Qoder
+
+After cloning the repository, open the plugins page in Qoder IDE, choose **Create Plugin → Import from local folder**, and import:
+
+```text
+plugins/superpowers-lite
+```
+
+For Qoder CLI or Agent SDK development, pass the same directory as a local plugin. The corresponding CLI option is:
+
+```bash
+qodercli --plugin-dir ./plugins/superpowers-lite
+```
+
+In normal use, you should not need to invoke every Skill manually. `superpowers-lite:using-lite` acts as the router and selects only the phases that add value.
+
+You can still invoke an individual Skill explicitly through its plugin namespace. Codex uses the `$` prefix:
+
+```text
+$superpowers-lite:using-lite
+$superpowers-lite:lite-debugging
+```
+
+Claude Code uses the `/` prefix:
+
+```text
+/superpowers-lite:using-lite
+/superpowers-lite:lite-debugging
+```
+
+Kimi Code uses its Skill command:
+
+```text
+/skill:using-lite
+/skill:lite-debugging
+```
+
+Qoder plugin Skills use plugin-qualified names:
+
+```text
+/superpowers-lite:using-lite
+/superpowers-lite:lite-debugging
+```
+
 ## Skills
 
 | Skill | Responsibility |
@@ -401,96 +491,6 @@ These tools and practices may still be useful.
 
 They are simply not part of the workflow unless they add clear value to the current task.
 
-## Installation
-
-Superpowers Lite is distributed as a skills-only plugin for Codex, Claude Code, Kimi Code, and Qoder. All four platforms share the same `SKILL.md` files while using their own plugin manifests.
-
-### Codex
-
-Add the repository as a plugin marketplace:
-
-```bash
-codex plugin marketplace add lightless233/superpowers-lite --ref master
-```
-
-Then install the plugin:
-
-```bash
-codex plugin add superpowers-lite@lightless233-plugins
-```
-
-Start a new Codex session after installation so the installed Skills are available to the new context.
-
-### Claude Code
-
-Add the marketplace from Claude Code:
-
-```text
-/plugin marketplace add lightless233/superpowers-lite
-```
-
-Then install the plugin:
-
-```text
-/plugin install superpowers-lite@lightless233-plugins
-```
-
-Start a new Claude Code session after installation, or run `/reload-plugins` to reload the plugin.
-
-### Kimi Code
-
-Install directly from GitHub in Kimi Code:
-
-```text
-/plugins install https://github.com/lightless233/superpowers-lite
-```
-
-Run `/reload` or `/new` after installation. `using-lite` loads at session start, and the other Skills load on demand.
-
-### Qoder
-
-After cloning the repository, open the plugins page in Qoder IDE, choose **Create Plugin → Import from local folder**, and import:
-
-```text
-plugins/superpowers-lite
-```
-
-For Qoder CLI or Agent SDK development, pass the same directory as a local plugin. The corresponding CLI option is:
-
-```bash
-qodercli --plugin-dir ./plugins/superpowers-lite
-```
-
-In normal use, you should not need to invoke every Skill manually. `superpowers-lite:using-lite` acts as the router and selects only the phases that add value.
-
-You can still invoke an individual Skill explicitly through its plugin namespace. Codex uses the `$` prefix:
-
-```text
-$superpowers-lite:using-lite
-$superpowers-lite:lite-debugging
-```
-
-Claude Code uses the `/` prefix:
-
-```text
-/superpowers-lite:using-lite
-/superpowers-lite:lite-debugging
-```
-
-Kimi Code uses its Skill command:
-
-```text
-/skill:using-lite
-/skill:lite-debugging
-```
-
-Qoder plugin Skills use plugin-qualified names:
-
-```text
-/superpowers-lite:using-lite
-/superpowers-lite:lite-debugging
-```
-
 ## Repository Structure
 
 ```text
@@ -548,6 +548,12 @@ Superpowers Lite follows a few deliberately simple rules:
 
 > **Never claim completion beyond the available evidence.**
 
+Superpowers Lite is intentionally small. Before adding another Skill or mandatory workflow step, ask:
+
+> **Does this clearly improve coding quality enough to justify its coordination and context cost?**
+
+If not, it probably does not belong here.
+
 ## Relationship to Superpowers
 
 Superpowers Lite is inspired by the engineering discipline of Superpowers, but deliberately makes different trade-offs.
@@ -565,16 +571,6 @@ process consistency first
 Superpowers Lite:
 minimum sufficient process first
 ```
-
-## Status
-
-Superpowers Lite is intentionally small.
-
-Before adding another Skill or mandatory workflow step, ask:
-
-> **Does this clearly improve coding quality enough to justify its coordination and context cost?**
-
-If not, it probably does not belong here.
 
 ## License
 
