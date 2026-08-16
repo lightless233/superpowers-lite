@@ -1,0 +1,4 @@
+interface:
+  display_name: "Lite Debugging"
+  short_description: "Investigate unclear failures with focused evidence"
+  default_prompt: "Use $lite-debugging to investigate this unclear failure and identify a supported root cause before choosing a fix."

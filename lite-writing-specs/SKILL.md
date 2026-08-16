@@ -1,0 +1,54 @@
+---
+name: lite-writing-specs
+description: Use when a non-trivial coding task has behavior, externally visible contracts, boundaries, or acceptance criteria that should be made explicit before implementation.
+---
+
+# Writing Lightweight Specs
+
+Describe what the system must do. Do not design how the implementation will be organized.
+
+## Confirm a Spec Adds Value
+
+If the change is already obvious and has no meaningful behavior or contract to define, stop and return control to the router. SIMPLE changes such as typos, direct configuration edits, and narrow bug fixes usually need no spec.
+
+If consequential architecture choices remain unresolved, stop and use `lite-brainstorming`. A spec records decided behavior; it does not choose the architecture.
+
+## Resolve Only Material Unknowns
+
+Gather only the project context needed to understand existing behavior and contracts. Follow an established project pattern when it resolves the question. Use a reasonable default only for non-contractual details that do not materially affect observable behavior, scope, or public contracts.
+
+Ask the user only when an unknown would materially change behavior, an architecture boundary, scope, a public contract, or acceptance criteria. Do not ask questions merely to fill a template.
+
+## Write the Minimum Sufficient Spec
+
+Include only the sections that constrain implementation or determine completion. Use whichever are useful and omit the rest:
+
+- **Goal:** the intended outcome.
+- **Required behavior:** observable behavior and state changes.
+- **Inputs and outputs:** important data, validation, and results.
+- **Important contracts:** public or cross-component interfaces and caller-visible error semantics.
+- **Constraints and edge cases:** limits and boundaries that affect correctness.
+- **Non-goals:** nearby work explicitly outside scope.
+- **Acceptance criteria:** observable conditions that establish completion.
+
+Do not add enterprise template sections such as stakeholders, personas, risk matrices, rollout strategy, business impact, success metrics, or decision logs unless the task explicitly requires them.
+
+## Keep Contracts Separate from Implementation
+
+Include externally visible behavior, public APIs, cross-component contracts, user-required interfaces, and error semantics that matter to callers.
+
+Leave out private helper names, local variables and types, private function signatures, internal file organization, task decomposition, and algorithm details unless one is itself an explicit public or cross-component contract.
+
+## Control Artifacts
+
+A spec phase does not imply a spec file. Keep a short spec in the current session by default.
+
+Persist it only when work spans sessions, delegation needs a durable contract, the user requests a file, the feature is sufficiently complex, or future maintenance clearly benefits.
+
+## Stop at the Spec
+
+Check that the result is internally consistent, unambiguous where it matters, and free of unsupported implementation decisions. Then stop.
+
+Do not write an implementation plan, create tasks, implement code, design tests, perform verification, operate Git, dispatch workers, or request review.
+
+Do not introduce a mandatory spec-approval gate. Once the spec is complete, return control to `using-lite`.
