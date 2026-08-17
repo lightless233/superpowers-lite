@@ -45,6 +45,15 @@ Test at the lowest level that reliably proves the behavior, but not below the le
 
 Choose scope from change reach, contract importance, regression risk, reuse, and affected boundaries. Protect the changed behavior and its meaningful blast radius; do not automatically require unit, integration, end-to-end, and full-suite coverage together.
 
+Match checks to the workflow stage when review is used:
+
+- implementation uses focused tests;
+- the task's planned acceptance, integration, or end-to-end checks run before broad review, with a full suite only when task risk justifies it;
+- a batched review fix uses focused regression tests; and
+- scoped re-review reads applicable evidence and runs only the minimum directly relevant checks.
+
+Reserve full suites, race checks, cross-platform checks, and complete end-to-end coverage for task risk or milestone integration that warrants them. Do not automatically run them for every small fix or test-only change, duplicate a valid full-suite result from the same revision, or turn scoped re-review into full integration testing.
+
 Add edge cases when justified by requirements, a known failure, a real boundary, the data model, a dependency contract, or plausible regression risk. Do not generate a generic edge-case matrix or pursue coverage percentage as an end in itself.
 
 When a test fails, distinguish the intended behavior failure from setup errors, wrong assumptions, unrelated existing failures, and actual regressions.

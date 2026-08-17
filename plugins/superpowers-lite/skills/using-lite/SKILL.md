@@ -46,6 +46,10 @@ lite-brainstorming lite-writing-specs lite-debugging lite-writing-plans
                                │
                                ▼
                        lite-verification
+                 planned acceptance evidence
+                               │
+                               ▼
+               optional one-pass review gate
                                │
                                ▼
                     supported completion claim
@@ -133,6 +137,56 @@ For MIXED execution, apply the appropriate column to each work unit.
 ## Skip Unneeded Phases
 
 Use `superpowers-lite:lite-brainstorming` only when consequential design uncertainty remains. Skip a spec for a trivial change and a plan when implementation is one obvious unit. Use meaningful testing where it protects behavior; a simple task may perform an obvious check without invoking `superpowers-lite:lite-testing`. Use `superpowers-lite:lite-verification` before making a completion claim.
+
+## Converge Optional Code Review
+
+Code review is optional. When it adds value, use it as a bounded task-convergence gate, not an open-ended search-and-repair loop. The default automatic budget for one task is one broad review, one batched fix wave, and one scoped re-review. Never exceed that budget merely because another automatic round might help.
+
+### Gather Acceptance Evidence First
+
+Before the broad review, run the reasonable acceptance, smoke, integration, black-box, or end-to-end checks selected from the task's acceptance criteria and risk. Exercise the real CLI, API, or UI entry when the task changes externally observable behavior; focused integration checks may be sufficient for library or internal-only work. Do not invent an end-to-end test for ceremony.
+
+Give the reviewer the task requirements and acceptance criteria, implementation diff, implementer or worker report, focused test evidence, planned acceptance results, and known failures or concerns. Do not start the formal gate while planned task-acceptance evidence is missing.
+
+### Review the Task Broadly Once
+
+The first and only broad review covers the whole task rather than isolated changed files: requirements, acceptance criteria, the implementation diff, cross-file and cross-layer invariants, important failure paths, equivalent entry paths, integration boundaries, acceptance evidence, and regression risk. Stay within task scope; this is not a repository-wide architecture audit.
+
+Report all reasonably discoverable substantive findings together. When one path violates an invariant, inspect the other task-relevant paths that share it now. A reviewer must not intentionally save discoverable blockers for later rounds.
+
+Classify every finding:
+
+- **BLOCKING:** it violates an explicit requirement or acceptance criterion; causes a correctness failure in a currently supported use; risks realistic data loss, corruption, or unrecoverable state; breaks compatibility promised by the task; directly introduces a security issue; breaks the task's main product flow; or invalidates the task's verification conclusion.
+- **DEFERRED:** it is pre-existing, out of scope, speculative, future hardening, an architecture or optional refactor improvement, a style preference, relevant only to an unsupported model or future feature, or otherwise unrelated to the task.
+
+Only BLOCKING findings enter repair. A real issue is not automatically a blocker for this task.
+
+If the broad review has no BLOCKING findings, the gate is clean; skip an empty fix wave and re-review.
+
+### Fix Once, Then Re-review Once
+
+Send the complete blocking batch to the same implementer or delegated worker in one fix wave. Fix the shared invariants rather than only the cited lines, check directly affected adjacent paths, and return one result with focused regression evidence for the whole batch without expanding into unrelated work or future tasks. Do not repair and review findings one at a time.
+
+The single scoped re-review then:
+
+1. marks each original blocker `ADDRESSED` or `NOT ADDRESSED`; and
+2. checks only the fix diff, directly affected execution paths, and necessary adjacent paths sharing the original invariant for regressions introduced by the fix.
+
+It is not a second broad review, repository scan, hardening pass, or reason to repeat all verification. Read applicable fix evidence and run only the minimum scoped check needed.
+
+### Break the Loop
+
+After scoped re-review, stop automatic repair:
+
+- If clean, complete the task without inventing new verification scope.
+- If an original blocker remains, a fix introduced a blocking regression, or blocking status is disputed, report the unresolved finding, what the worker tried, the cause or impact, which fix introduced a regression when applicable, and whether further repair is recommended. Ask the user whether to continue; do not dispatch a second fix wave automatically.
+- Record unrelated, pre-existing, or hardening observations as DEFERRED without reopening the task.
+
+A task-scoped blocker first raised during re-review that reasonably should have been found in the broad review is a reviewer miss, not a normal new round. Defer it by default. If it is a critical correctness or data-loss issue, stop and report it under the breaker; do not start another repair loop automatically.
+
+The Controller fixes the planned acceptance scope before broad review. After a clean gate, newly imagined tests or extra coverage are DEFERRED. Reopen only when an explicit acceptance criterion was not actually checked, existing evidence is shown invalid, or a critical correctness or data-corruption problem appears.
+
+Trigger the same breaker early when elapsed time is clearly disproportionate, worker/reviewer traffic is abnormal, or the same invariant repeatedly fails to converge.
 
 ## Keep the Workflow Lightweight
 

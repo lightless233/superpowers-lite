@@ -74,6 +74,10 @@ lite-brainstorming lite-writing-specs lite-debugging lite-writing-plans
                                │
                                ▼
                        lite-verification
+                 planned acceptance evidence
+                               │
+                               ▼
+               optional one-pass review gate
                                │
                                ▼
                     supported completion claim
@@ -82,6 +86,35 @@ lite-brainstorming lite-writing-specs lite-debugging lite-writing-plans
 这是一张关系图，**不是强制执行的流水线**。
 
 任何不能显著提升信心的阶段都可以跳过。
+
+## 有界的 Review 收敛
+
+Code review 仍然不是必选阶段。需要 review 时，它应该收敛当前 Task，而不是制造没有上限的修复循环：
+
+```text
+IMPLEMENT
+   ↓
+RUN PLANNED ACCEPTANCE / BLACK-BOX / E2E
+   ↓
+ONE BROAD TASK REVIEW
+   ↓
+BATCH ALL BLOCKING FINDINGS
+   ↓
+ONE FIX WAVE
+   ↓
+ONE SCOPED RE-REVIEW
+   ↓
+CLEAN → COMPLETE
+STILL BLOCKED → BREAKER / USER
+```
+
+验收范围应在 broad review 前根据 acceptance criteria 和风险确定。外部行为优先验证真实 CLI、API 或 UI 入口；内部改动可使用足够的 focused integration evidence，不为形式制造 E2E。
+
+Broad review 一次检查完整 Task，并把当前可发现的 blockers 成批提出。只有违反要求、破坏受支持用法的正确性、数据安全、承诺兼容性、主要流程、安全性或验证有效性的问题才阻塞；既存问题、推测风险、hardening、可选重构和 Task 外观察应 deferred。
+
+默认自动预算是一次 broad review、一次 batched fix、一次 scoped re-review。Re-review 只验证原 blockers 和 fix 直接引入的 regression；之后若仍阻塞或 finding 是否 blocking 存在争议，停止自动修复并交给用户。Gate clean 后不再因为想到更多测试而扩大验收范围。
+
+> **Review 应该收敛 Task，而不是创建无边界的 repair loop。**
 
 ## 安装
 

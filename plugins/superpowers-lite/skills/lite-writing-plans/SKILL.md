@@ -38,7 +38,7 @@ Describe meaningful engineering units that can each be understood, implemented, 
 - dependencies and integration order
 - important boundaries and existing contracts
 - relevant integration points
-- verification expectations
+- verification expectations, including the planned acceptance entry and scope when behavior is externally observable
 
 Leave local engineering decisions to the implementing model. Usually omit private helper names and signatures, local types and variables, exact internal file decomposition, test function names, shell commands, code snippets, and step-by-step implementation instructions. Include such a detail only when it is an established public or cross-component contract or a required architecture constraint.
 
@@ -61,9 +61,11 @@ Build each current brief from the current repository state, the decided requirem
 - relevant files and dependencies
 - existing contracts and required cross-task contracts
 - constraints, scope boundaries, and caller-visible error semantics
-- acceptance criteria and verification
+- acceptance criteria and planned verification
 
 Make the brief self-contained enough for a worker with no prior task context, even if the environment reuses an existing worker. Specify constraints and contracts, not every keystroke; leave private decomposition, local abstractions, algorithms, commands, and test names open unless they are contractually required.
+
+Choose acceptance scope once from the task's risk and externally observable contracts. Prefer the real CLI, API, or UI entry when one is affected; focused integration checks are enough for internal-only work when they prove the contract. Do not manufacture end-to-end coverage or enumerate every possible check merely to make the plan look complete.
 
 ## Preserve Phase Boundaries
 
