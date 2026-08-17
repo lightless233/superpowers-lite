@@ -32,9 +32,17 @@ The breadth of the claim must not exceed the breadth of the evidence. If only on
 
 ## Freeze Acceptance Scope Before Review
 
-When optional code review is used, the Controller selects and runs reasonable task-acceptance checks before the one broad review. The reviewer receives those results with the requirements, diff, implementation report, focused evidence, and known concerns; missing planned acceptance evidence means the formal gate is not ready.
+When optional code review is used, the Controller freezes reasonable task-acceptance scope before its first run and gathers that evidence before the one broad review. The reviewer receives the results with the requirements, diff, implementation report, focused evidence, and known concerns; missing planned acceptance evidence means the formal gate is not ready.
 
-After a clean review gate, do not add checks merely because more coverage can be imagined. Reopen the task only when an explicit acceptance criterion was skipped, the evidence used by the gate is shown invalid, or a critical correctness or data-corruption issue appears. Additional hardening and coverage are deferred.
+Failed planned acceptance returns control to `superpowers-lite:using-lite` for at most one batched pre-review correction. Refresh only failed checks and evidence directly invalidated by the correction. If the acceptance criteria still fail, trigger the breaker for user direction rather than entering another verification-and-repair cycle.
+
+Do not expand the frozen scope merely because more coverage can be imagined. Add a check only when the original acceptance criterion cannot prove the claimed behavior, existing evidence is shown invalid, or the correction directly changes explicitly required behavior that was not covered.
+
+## Refresh Invalidated Evidence Before Scoped Re-review
+
+If the post-review fix wave changes behavior covered by earlier acceptance evidence, refresh the affected black-box, integration, or acceptance checks before scoped re-review and give those results to the reviewer. Do not rerun unrelated checks or the complete acceptance set unless the fix's reach invalidates the complete set. Refresh invalidated evidence before scoped re-review, not after it.
+
+A clean scoped re-review should normally be the final automatic gate. After a clean broad review with no fix, or a clean scoped re-review after refreshed evidence, do not add checks merely because more coverage can be imagined. Reopen only when an explicit acceptance criterion was skipped, evidence used by the gate is shown invalid, or a critical correctness or data-corruption issue appears. Additional hardening and coverage are deferred.
 
 ## Report the Actual State
 
@@ -46,7 +54,7 @@ Treat worker or sub-agent reports as useful information, not automatically suffi
 
 `superpowers-lite:lite-testing` decides what behavior merits testing and what testing approach provides useful protection. `superpowers-lite:lite-verification` gathers evidence for the specific claim being made now.
 
-Do not design tests, prescribe TDD, re-run brainstorming or planning, perform architecture or code review, or expand into unrelated checks. If planned verification before broad review reveals a real mismatch, return control to `superpowers-lite:using-lite`; after the review budget is exhausted, follow its circuit breaker instead of starting another automatic repair loop.
+Do not design tests, prescribe TDD, re-run brainstorming or planning, perform architecture or code review, or expand into unrelated checks. If planned verification before broad review reveals a real mismatch, return control to the bounded correction path in `superpowers-lite:using-lite`; if another correction, review, or fix would exceed its budget, follow the circuit breaker instead of starting another automatic repair loop.
 
 Verification does not imply a report file. Create an artifact only when the user requests one.
 

@@ -96,11 +96,15 @@ IMPLEMENT
    ↓
 RUN PLANNED ACCEPTANCE / BLACK-BOX / E2E
    ↓
+IF NEEDED: ONE PRE-REVIEW CORRECTION / BREAKER
+   ↓
 ONE BROAD TASK REVIEW
    ↓
 BATCH ALL BLOCKING FINDINGS
    ↓
 ONE FIX WAVE
+   ↓
+REFRESH INVALIDATED ACCEPTANCE EVIDENCE
    ↓
 ONE SCOPED RE-REVIEW
    ↓
@@ -108,11 +112,11 @@ CLEAN → COMPLETE
 STILL BLOCKED → BREAKER / USER
 ```
 
-Set acceptance scope from the acceptance criteria and risk before broad review. Prefer the real CLI, API, or UI entry for external behavior; focused integration evidence may be enough for internal work, and no end-to-end test is created for ceremony.
+Freeze acceptance scope from the acceptance criteria and risk before its first run. Prefer the real CLI, API, or UI entry for external behavior; focused integration evidence may be enough for internal work, and no end-to-end test is created for ceremony. Failure permits one batched correction and reruns only failed or invalidated evidence; another failure triggers the breaker.
 
 The broad review covers the whole task once and batches the blockers that are reasonably discoverable now. Only requirement violations, correctness failures in supported use, data-safety risks, promised compatibility breaks, task-introduced security issues, broken main flows, or invalid verification block the task. Pre-existing issues, speculative risks, hardening, optional refactors, and out-of-scope observations are deferred.
 
-The default automatic budget is one broad review, one batched fix wave, and one scoped re-review. Re-review only validates the original blockers and regressions directly introduced by the fix. If the task remains blocked or blocking status is disputed, automatic repair stops for user direction. A clean gate is not followed by newly imagined acceptance scope.
+The default automatic budget is one pre-review correction, one broad review, one post-review batched fix wave, and one scoped re-review. If a fix invalidates acceptance evidence, only affected checks are refreshed before re-review. A late reviewer miss triggers the breaker when it meets blocking admission and is otherwise deferred; it never starts a second automatic fix. A clean scoped re-review is normally the final automatic gate.
 
 > **Review should converge a task, not create an unbounded repair loop.**
 

@@ -96,11 +96,15 @@ IMPLEMENT
    ↓
 RUN PLANNED ACCEPTANCE / BLACK-BOX / E2E
    ↓
+IF NEEDED: ONE PRE-REVIEW CORRECTION / BREAKER
+   ↓
 ONE BROAD TASK REVIEW
    ↓
 BATCH ALL BLOCKING FINDINGS
    ↓
 ONE FIX WAVE
+   ↓
+REFRESH INVALIDATED ACCEPTANCE EVIDENCE
    ↓
 ONE SCOPED RE-REVIEW
    ↓
@@ -108,11 +112,11 @@ CLEAN → COMPLETE
 STILL BLOCKED → BREAKER / USER
 ```
 
-验收范围应在 broad review 前根据 acceptance criteria 和风险确定。外部行为优先验证真实 CLI、API 或 UI 入口；内部改动可使用足够的 focused integration evidence，不为形式制造 E2E。
+验收范围应在第一次运行前根据 acceptance criteria 和风险冻结。外部行为优先验证真实 CLI、API 或 UI 入口；内部改动可使用足够的 focused integration evidence，不为形式制造 E2E。失败时只允许一次 batched correction，并只重跑失败或受 correction 影响的证据；仍失败则触发 breaker。
 
 Broad review 一次检查完整 Task，并把当前可发现的 blockers 成批提出。只有违反要求、破坏受支持用法的正确性、数据安全、承诺兼容性、主要流程、安全性或验证有效性的问题才阻塞；既存问题、推测风险、hardening、可选重构和 Task 外观察应 deferred。
 
-默认自动预算是一次 broad review、一次 batched fix、一次 scoped re-review。Re-review 只验证原 blockers 和 fix 直接引入的 regression；之后若仍阻塞或 finding 是否 blocking 存在争议，停止自动修复并交给用户。Gate clean 后不再因为想到更多测试而扩大验收范围。
+默认自动预算是一次 pre-review correction、一次 broad review、一次 post-review batched fix、一次 scoped re-review。Fix 使 acceptance evidence 失效时，只在 re-review 前刷新受影响的检查。Late reviewer miss 若满足 blocking admission 则触发 breaker，否则 deferred；它不会自动开启第二轮 fix。Clean scoped re-review 通常是最后一个自动 gate。
 
 > **Review 应该收敛 Task，而不是创建无边界的 repair loop。**
 
