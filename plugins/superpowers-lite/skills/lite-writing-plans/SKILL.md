@@ -65,6 +65,8 @@ Build each current brief from the current repository state, the decided requirem
 
 Make the brief self-contained enough for a worker with no prior task context, even if the environment reuses an existing worker. Specify constraints and contracts, not every keystroke; leave private decomposition, local abstractions, algorithms, commands, and test names open unless they are contractually required.
 
+Pass a short brief directly in worker context by default. If `superpowers-lite:using-lite` has activated a durable execution workspace because direct handoff is not reliable enough, place only the current just-in-time brief there and follow [delegated-execution-workspace.md](../using-lite/references/delegated-execution-workspace.md). Do not create every future brief in advance.
+
 Choose acceptance scope once from the task's risk and externally observable contracts. Prefer the real CLI, API, or UI entry when one is affected; focused integration checks are enough for internal-only work when they prove the contract. Do not manufacture end-to-end coverage or enumerate every possible check merely to make the plan look complete.
 
 ## Preserve Phase Boundaries
@@ -75,7 +77,19 @@ A plan may state how a task can be verified and what behavior needs coverage. Le
 
 A planning phase does not imply a plan file. Keep a short inline plan in the session, and pass a single delegated brief directly as worker context when practical.
 
-Persist a plan or brief only when work spans sessions, multiple workers need stable shared context, compaction risk is meaningful, the user requests it, feature complexity justifies it, or future maintenance clearly benefits.
+Persist an implementation plan only when work spans sessions, multiple workers need stable shared context, compaction risk is meaningful, the user requests it, feature complexity justifies it, or future maintenance clearly benefits.
+
+A delegated brief does not become a durable project document merely because file-based handoff is useful. Keep it in direct worker context by default; when a durable execution workspace is already active, store the brief there as short-lived execution state rather than under `docs/plans/`. File-based handoff does not by itself justify persisting a plan or activating a workspace.
+
+When persisting a plan, use an explicit user-provided location first, then a clear existing project convention. If neither exists, use the repository-relative path:
+
+```text
+docs/plans/NNN-YYYY-MM-DD-slug.md
+```
+
+`NNN` is a repository-wide work-item number shared with persisted specs. If a spec already exists for the same work item, reuse its complete `NNN-YYYY-MM-DD-slug` stem. For a new work item, inspect the numeric prefixes in both `docs/specs/` and `docs/plans/`, take the highest allocated number, and increment it, starting at `001`. A work item with only a plan still reserves its number. Never reuse or renumber an allocated number; after `999`, continue with `1000`.
+
+Use the date on which the work item was first documented and a short lowercase kebab-case slug. Recheck that the candidate number is still available immediately before creating the file so concurrent work does not silently reuse it. Create missing default directories only when the plan is actually being persisted.
 
 ## Stop at the Plan
 

@@ -134,6 +134,14 @@ Use MIXED execution when different work units benefit from different modes. Exec
 
 For MIXED execution, apply the appropriate column to each work unit.
 
+### Use Durable Delegated Handoffs Only When Needed
+
+Direct prompts and short worker reports are the default handoff for DELEGATED and MIXED work. Do not create files merely because a sub-agent is involved.
+
+Use a durable execution workspace only when direct handoff has a meaningful reliability or context cost: compaction or interruption could lose execution state, a brief or report is too large to pass cleanly in messages, the same handoff must be consumed by multiple agents, or several coordinated delegated units need stable shared results. Do not activate it for one short isolated delegated task or to preserve a process record.
+
+When those conditions apply and the work already justifies a persisted implementation plan, read and follow [delegated-execution-workspace.md](references/delegated-execution-workspace.md). Do not persist a plan solely to enable the workspace; if the task does not independently justify a plan file, keep the handoff direct.
+
 ## Skip Unneeded Phases
 
 Use `superpowers-lite:lite-brainstorming` only when consequential design uncertainty remains. Skip a spec for a trivial change and a plan when implementation is one obvious unit. Use meaningful testing where it protects behavior; a simple task may perform an obvious check without invoking `superpowers-lite:lite-testing`. Use `superpowers-lite:lite-verification` before making a completion claim.
@@ -203,5 +211,17 @@ Artifacts are a tool, not a requirement. A phase does not imply a file.
 - SIMPLE: create no workflow artifacts.
 - STANDARD: keep short work in the session by default.
 - COMPLEX: persist only when durable context clearly helps.
+
+When a spec or plan is persisted, place it predictably:
+
+1. Follow an explicit user-provided location.
+2. Otherwise, follow a clear existing project convention.
+3. Otherwise, use these repository-relative defaults:
+   - specs: `docs/specs/NNN-YYYY-MM-DD-slug.md`
+   - plans: `docs/plans/NNN-YYYY-MM-DD-slug.md`
+
+Treat `NNN` as a repository-wide work-item number shared by specs and plans, not as an independent sequence in each directory. Start at `001`; for a new work item, inspect both default directories and increment the highest existing numeric prefix. A spec and plan for the same work item reuse the same number, date, and slug. Never reuse or renumber an allocated number; continue with `1000` after `999`.
+
+Use the date on which the work item was first documented and a short lowercase kebab-case slug. Recheck the candidate number immediately before creating a file so concurrent work does not silently reuse it. The phase-owning skills define how to apply these defaults without turning persistence into a requirement.
 
 Do not force worktrees, branches, commits, pull requests, reviewers, sub-agents, or orchestration. Use them only when they provide clear value for the current task and environment. The workflow serves the task.

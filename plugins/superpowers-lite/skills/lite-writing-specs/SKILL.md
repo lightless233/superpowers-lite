@@ -45,6 +45,16 @@ A spec phase does not imply a spec file. Keep a short spec in the current sessio
 
 Persist it only when work spans sessions, delegation needs a durable contract, the user requests a file, the feature is sufficiently complex, or future maintenance clearly benefits.
 
+When persisting a spec, use an explicit user-provided location first, then a clear existing project convention. If neither exists, use the repository-relative path:
+
+```text
+docs/specs/NNN-YYYY-MM-DD-slug.md
+```
+
+`NNN` is a repository-wide work-item number shared with persisted plans. If a plan already exists for the same work item, reuse its complete `NNN-YYYY-MM-DD-slug` stem. For a new work item, inspect the numeric prefixes in both `docs/specs/` and `docs/plans/`, take the highest allocated number, and increment it, starting at `001`. A work item with only a spec still reserves its number. Never reuse or renumber an allocated number; after `999`, continue with `1000`.
+
+Use the date on which the work item was first documented and a short lowercase kebab-case slug. Recheck that the candidate number is still available immediately before creating the file so concurrent work does not silently reuse it. Create missing default directories only when the spec is actually being persisted.
+
 ## Stop at the Spec
 
 Check that the result is internally consistent, unambiguous where it matters, and free of unsupported implementation decisions. Then stop.
