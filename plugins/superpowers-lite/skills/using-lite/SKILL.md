@@ -126,6 +126,28 @@ Use MIXED execution when different work units benefit from different modes. Exec
 
 `superpowers-lite:using-lite` chooses the execution mode. Given that choice, `superpowers-lite:lite-writing-plans` decides how much planning detail is useful; it does not decide whether sub-agents should be used.
 
+### Adapt to Host Capabilities
+
+Treat execution mode as a portable preference, not a dependency on a particular coding agent or tool surface.
+
+- Never assume that sub-agents, parallel execution, or specialized agent roles are available.
+- If delegation is unavailable, execute the selected workflow INLINE without changing its workflow depth or skipping useful phases.
+- If generic delegation is available but specialized roles are not, delegate only when a self-contained brief and the generic agent are sufficient for the work unit.
+- Use specialized roles only when the host explicitly exposes them and their responsibilities match the task.
+- Do not block the task, reduce confidence checks, or ask the user to install agents merely because optional delegation is unavailable.
+
+A missing execution capability changes how the work is performed, not what reasoning, testing, or verification the task needs.
+
+### Select Exploration Depth When Available
+
+When read-only exploration would benefit from delegation, match the exploration depth to the available role:
+
+- Prefer a fast, bounded exploration role for focused file or symbol discovery, tracing a known execution path, locating relevant tests, and finding an existing implementation pattern.
+- Prefer a deeper-capability exploration role, or keep the work INLINE, when subsystem boundaries or the failure domain are unclear, the trace crosses multiple components, or the task involves consequential concurrency, lifecycle, security, persistence, or architectural concerns.
+- If fast exploration returns contradictions or material evidence gaps, escalate to a deeper available role or continue the investigation INLINE instead of repeating shallow scans.
+
+If the host exposes no specialized exploration role, perform the necessary exploration INLINE or use a generic delegated agent only when the task can be made self-contained.
+
 | Complexity | Inline execution | Delegated execution |
 |---|---|---|
 | SIMPLE | Usually no plan | Short, self-contained task brief |

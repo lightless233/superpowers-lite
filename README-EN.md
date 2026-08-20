@@ -248,6 +248,10 @@ Execution mode determines planning detail.
 
 A complex task does not automatically need sub-agents, and a standard task may still benefit from delegation when its boundaries are clean.
 
+Execution mode adapts to the capabilities exposed by the current host. When sub-agents or parallel execution are unavailable, Lite preserves the same workflow depth and falls back to INLINE execution; missing optional delegation never blocks the task or removes necessary testing or verification.
+
+When the host exposes specialized exploration roles, Lite can use a fast role for bounded file discovery, call-path tracing, and test discovery, then select deeper exploration for unclear boundaries, cross-component work, or high-consequence investigations. With only a generic sub-agent, Lite delegates only work that can be understood from a self-contained brief; otherwise the current agent performs it INLINE.
+
 ### `lite-brainstorming`
 
 Used only when there is something consequential to decide.
@@ -537,6 +541,11 @@ They are simply not part of the workflow unless they add clear value to the curr
 │       └── marketplace.json          # Codex marketplace
 ├── .claude-plugin/
 │   └── marketplace.json              # Claude Code marketplace
+├── agents/                            # Optional Codex sub-agent profiles
+│   ├── explorer.toml                  # Fast, bounded read-only exploration
+│   ├── deep_explorer.toml             # Deep, cross-component exploration
+│   ├── worker.toml                    # General implementation worker
+│   └── reviewer.toml                  # Independent review gate
 ├── kimi.plugin.json                  # Kimi Code manifest
 ├── plugins/
 │   └── superpowers-lite/
@@ -559,7 +568,7 @@ They are simply not part of the workflow unless they add clear value to the curr
 └── LICENSE
 ```
 
-Each Skill's `SKILL.md` is shared by all four platforms. The `agents/openai.yaml` files provide Codex-specific interface metadata and are ignored by the other platforms.
+Each Skill's `SKILL.md` is shared by all four platforms. Skills do not depend on the top-level `agents/` directory; those files are optional accelerators for Codex environments that support them. The `agents/openai.yaml` files inside each Skill provide Codex-specific interface metadata and are ignored by the other platforms.
 
 ## Design Principles
 

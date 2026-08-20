@@ -248,6 +248,10 @@ MIXED
 
 复杂任务并不自动需要 sub-agent；当任务边界清晰时，STANDARD 任务也可能从 delegation 中获益。
 
+执行模式会适应当前宿主提供的能力。没有 sub-agent 或 parallel execution 时，Lite 会保持相同的工作流深度并退化为 INLINE；缺少可选的 delegation 能力不会阻塞任务，也不会跳过必要的测试或验证。
+
+当宿主提供专用探索角色时，Lite 可以让快速角色处理有界的文件定位、调用链追踪和测试发现，并在边界不清、跨组件或高风险调查中选择更深的探索能力。只有通用 sub-agent 时，仅委派能够通过自包含 Brief 独立完成的工作；没有合适角色时则由当前 Agent INLINE 完成。
+
 ### `lite-brainstorming`
 
 仅在确实存在影响重大的决策时使用。
@@ -535,6 +539,11 @@ Superpowers Lite 本身不强制要求：
 │       └── marketplace.json          # Codex marketplace
 ├── .claude-plugin/
 │   └── marketplace.json              # Claude Code marketplace
+├── agents/                            # 可选的 Codex sub-agent profiles
+│   ├── explorer.toml                  # 快速、有界的只读探索
+│   ├── deep_explorer.toml             # 深度、跨组件的只读探索
+│   ├── worker.toml                    # 通用实现 worker
+│   └── reviewer.toml                  # 独立 review gate
 ├── kimi.plugin.json                  # Kimi Code manifest
 ├── plugins/
 │   └── superpowers-lite/
@@ -557,7 +566,7 @@ Superpowers Lite 本身不强制要求：
 └── LICENSE
 ```
 
-每个 Skill 的 `SKILL.md` 由四个平台共用。`agents/openai.yaml` 提供 Codex 专用的界面元数据，其他平台会忽略这些辅助文件。
+每个 Skill 的 `SKILL.md` 由四个平台共用。Skill 不依赖 top-level `agents/`：这些文件只是支持它们的 Codex 环境可选使用的加速配置。各 Skill 内的 `agents/openai.yaml` 提供 Codex 专用的界面元数据，其他平台会忽略这些辅助文件。
 
 ## 设计原则
 
