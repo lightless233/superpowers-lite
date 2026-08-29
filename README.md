@@ -122,7 +122,7 @@ Broad review 一次检查完整 Task，并把当前可发现的 blockers 成批�
 
 ## 安装
 
-Superpowers Lite 以 Skills-only 插件形式分发，同时支持 Codex、Claude Code、Kimi Code 和 Qoder。四个平台共用同一套 `SKILL.md`，并分别使用各自的插件清单。
+Superpowers Lite 以 Skills-only package/plugin 形式分发，同时支持 Codex、Claude Code、Kimi Code、Pi 和 Qoder。五个平台共用同一套 `SKILL.md`，并使用各平台对应的 package 或 plugin manifest。
 
 ### Codex
 
@@ -166,6 +166,22 @@ codex plugin add superpowers-lite@lightless233-plugins
 
 安装后运行 `/reload` 或 `/new`。`using-lite` 会在 session 开始时加载，其他 Skills 按需加载。
 
+### Pi
+
+使用 Pi 直接从 GitHub 安装：
+
+```bash
+pi install https://github.com/lightless233/superpowers-lite
+```
+
+也可以固定到指定 ref：
+
+```bash
+pi install git:github.com/lightless233/superpowers-lite@master
+```
+
+安装后启动新的 Pi session，或在交互模式中运行 `/reload` 以发现这些 Skills。
+
 ### Qoder
 
 克隆仓库后，在 Qoder IDE 的插件页选择 **Create Plugin → Import from local folder**，导入：
@@ -197,6 +213,13 @@ Claude Code 使用 `/` 前缀：
 ```
 
 Kimi Code 通过 Skill 命令调用：
+
+```text
+/skill:using-lite
+/skill:lite-debugging
+```
+
+Pi 同样通过 Skill 命令调用：
 
 ```text
 /skill:using-lite
@@ -545,6 +568,7 @@ Superpowers Lite 本身不强制要求：
 │   ├── worker.toml                    # 通用实现 worker
 │   └── reviewer.toml                  # 独立 review gate
 ├── kimi.plugin.json                  # Kimi Code manifest
+├── package.json                      # Pi package manifest
 ├── plugins/
 │   └── superpowers-lite/
 │       ├── .codex-plugin/
@@ -566,7 +590,7 @@ Superpowers Lite 本身不强制要求：
 └── LICENSE
 ```
 
-每个 Skill 的 `SKILL.md` 由四个平台共用。Skill 不依赖 top-level `agents/`：这些文件只是支持它们的 Codex 环境可选使用的加速配置。各 Skill 内的 `agents/openai.yaml` 提供 Codex 专用的界面元数据，其他平台会忽略这些辅助文件。
+每个 Skill 的 `SKILL.md` 由五个平台共用。Skill 不依赖 top-level `agents/`：这些文件只是支持它们的 Codex 环境可选使用的加速配置。各 Skill 内的 `agents/openai.yaml` 提供 Codex 专用的界面元数据，其他平台会忽略这些辅助文件。
 
 ## 设计原则
 

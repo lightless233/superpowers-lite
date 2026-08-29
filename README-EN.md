@@ -122,7 +122,7 @@ The default automatic budget is one pre-review correction, one broad review, one
 
 ## Installation
 
-Superpowers Lite is distributed as a skills-only plugin for Codex, Claude Code, Kimi Code, and Qoder. All four platforms share the same `SKILL.md` files while using their own plugin manifests.
+Superpowers Lite is distributed as a skills-only package/plugin for Codex, Claude Code, Kimi Code, Pi, and Qoder. All five platforms share the same `SKILL.md` files while using the appropriate package or plugin manifest for each platform.
 
 ### Codex
 
@@ -166,6 +166,22 @@ Install directly from GitHub in Kimi Code:
 
 Run `/reload` or `/new` after installation. `using-lite` loads at session start, and the other Skills load on demand.
 
+### Pi
+
+Install directly from GitHub with Pi:
+
+```bash
+pi install https://github.com/lightless233/superpowers-lite
+```
+
+You can also pin the package to a specific ref:
+
+```bash
+pi install git:github.com/lightless233/superpowers-lite@master
+```
+
+Start a new Pi session after installation, or run `/reload` in interactive mode to discover the Skills.
+
 ### Qoder
 
 After cloning the repository, open the plugins page in Qoder IDE, choose **Create Plugin → Import from local folder**, and import:
@@ -197,6 +213,13 @@ Claude Code uses the `/` prefix:
 ```
 
 Kimi Code uses its Skill command:
+
+```text
+/skill:using-lite
+/skill:lite-debugging
+```
+
+Pi uses the same Skill command:
 
 ```text
 /skill:using-lite
@@ -547,6 +570,7 @@ They are simply not part of the workflow unless they add clear value to the curr
 │   ├── worker.toml                    # General implementation worker
 │   └── reviewer.toml                  # Independent review gate
 ├── kimi.plugin.json                  # Kimi Code manifest
+├── package.json                      # Pi package manifest
 ├── plugins/
 │   └── superpowers-lite/
 │       ├── .codex-plugin/
@@ -568,7 +592,7 @@ They are simply not part of the workflow unless they add clear value to the curr
 └── LICENSE
 ```
 
-Each Skill's `SKILL.md` is shared by all four platforms. Skills do not depend on the top-level `agents/` directory; those files are optional accelerators for Codex environments that support them. The `agents/openai.yaml` files inside each Skill provide Codex-specific interface metadata and are ignored by the other platforms.
+Each Skill's `SKILL.md` is shared by all five platforms. Skills do not depend on the top-level `agents/` directory; those files are optional accelerators for Codex environments that support them. The `agents/openai.yaml` files inside each Skill provide Codex-specific interface metadata and are ignored by the other platforms.
 
 ## Design Principles
 
