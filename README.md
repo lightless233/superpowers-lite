@@ -238,6 +238,8 @@ Qoder 中的插件 Skill 使用插件限定名：
 | Skill | 职责 |
 |---|---|
 | `using-lite` | 选择有价值的工作流阶段和执行模式 |
+| `lite-elephant` | 在手动角色工作流中编写 Spec、审核 Plan 和审查代码 |
+| `lite-goldfish` | 在手动角色工作流中独立审查 Spec、规划、实现和修复 |
 | `lite-brainstorming` | 解决影响重大的设计不确定性 |
 | `lite-writing-specs` | 定义必要行为和契约 |
 | `lite-writing-plans` | 组织已经确定的实现工作 |
@@ -274,6 +276,43 @@ MIXED
 执行模式会适应当前宿主提供的能力。没有 sub-agent 或 parallel execution 时，Lite 会保持相同的工作流深度并退化为 INLINE；缺少可选的 delegation 能力不会阻塞任务，也不会跳过必要的测试或验证。
 
 当宿主提供专用探索角色时，Lite 可以让快速角色处理有界的文件定位、调用链追踪和测试发现，并在边界不清、跨组件或高风险调查中选择更深的探索能力。只有通用 sub-agent 时，仅委派能够通过自包含 Brief 独立完成的工作；没有合适角色时则由当前 Agent INLINE 完成。
+
+### 手动大象 / 金鱼交接（可选）
+
+需要跨模型独立审查时，通过 Harness 明确选择 `lite-elephant` 或 `lite-goldfish`，并指定本次阶段和输入路径。两者是逻辑角色，不绑定模型；用户负责启动独立会话、交接和决定下一阶段。每次只执行指定阶段。
+
+| 入口 | 支持阶段 |
+|---|---|
+| `lite-elephant` | `spec`：编写或修订 Spec；`plan-review`：审核 Plan；`code-review`：审查代码 |
+| `lite-goldfish` | `spec-clarity`：Spec 盲读；`spec-alignment`：目标一致性审查；`plan`：编写或修订 Plan；`implement`：实现；`fix`：修复用户确认的问题 |
+
+常见交接顺序是：Elephant 写 Spec → Goldfish 独立审查 → Goldfish 写 Plan → Elephant 审核 Plan → Goldfish 实现 → Elephant 审查代码 → 按需由 Goldfish 修复。按任务选择有价值的阶段；模型给出的就绪结论不代替用户的决定和交接。
+
+例如，在 Codex 中显式选择金鱼并执行 Spec 清晰性盲读：
+
+```text
+$superpowers-lite:lite-goldfish
+Stage: spec-clarity
+Spec: docs/specs/001-YYYY-MM-DD-feature.md
+```
+
+审核 Plan：
+
+```text
+$superpowers-lite:lite-elephant
+Stage: plan-review
+Requirements: path/to/requirements.md
+Spec: docs/specs/001-YYYY-MM-DD-feature.md
+Plan: docs/plans/001-YYYY-MM-DD-feature.md
+```
+
+示例路径需替换为项目中的实际路径。其他 Harness 使用各自的 Skill 选择机制；不依赖自动匹配来指定角色。入口会先列出角色、阶段和输入范围，缺少必要信息时先确认。角色阶段由当前会话 INLINE 执行，完成后停下，不自动启动另一个 Agent 或跨阶段继续。
+
+`spec-clarity` 只读指定 Spec，检查能否独立理解及其内部一致性；`spec-alignment` 另读原始需求，检查目标是否偏移。盲读需要未接触相关背景的新会话；如果 Harness 已注入任务背景或外部记忆，Skill 无法消除这些信息，也不能提供真正的环境隔离。
+
+Spec、Plan 和必要的 Review 文件保存在实际开发项目中，沿用既有目录约定并按需创建。原始需求不可静默改写；审查只将有依据的需求违背或真实缺陷列为必须修复，可选优化单独列出。
+
+各阶段的输入、输出与固定交接模板见[手动交接契约](plugins/superpowers-lite/skills/using-lite/references/manual-handoff-contracts.md)。
 
 ### `lite-brainstorming`
 
@@ -557,6 +596,7 @@ Superpowers Lite 本身不强制要求：
 
 ```text
 .
+├── AGENTS.md                          # 仓库中维护的长期工程规则
 ├── .agents/
 │   └── plugins/
 │       └── marketplace.json          # Codex marketplace
@@ -579,6 +619,8 @@ Superpowers Lite 本身不强制要求：
 │       │   └── plugin.json           # Qoder manifest
 │       └── skills/
 │           ├── using-lite/
+│           ├── lite-elephant/
+│           ├── lite-goldfish/
 │           ├── lite-brainstorming/
 │           ├── lite-writing-specs/
 │           ├── lite-writing-plans/

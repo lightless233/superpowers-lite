@@ -60,12 +60,22 @@ This is a relationship map, not a mandatory pipeline. `superpowers-lite:using-li
 | Skill | Responsibility |
 |---|---|
 | `superpowers-lite:using-lite` | Choose useful workflow phases and execution mode |
+| `superpowers-lite:lite-elephant` | Author Specs and review Plans or code in a user-selected manual role |
+| `superpowers-lite:lite-goldfish` | Independently review Specs, plan, implement, or fix in a user-selected manual role |
 | `superpowers-lite:lite-brainstorming` | Resolve consequential design uncertainty |
 | `superpowers-lite:lite-writing-specs` | Define required behavior and contracts |
 | `superpowers-lite:lite-writing-plans` | Organize decided implementation work |
 | `superpowers-lite:lite-debugging` | Investigate unclear root causes before choosing a fix |
 | `superpowers-lite:lite-testing` | Choose and run meaningful behavioral tests or checks |
 | `superpowers-lite:lite-verification` | Determine what fresh evidence supports the completion claim |
+
+## Respect Explicit Manual Roles
+
+When the user explicitly selects `superpowers-lite:lite-elephant` or `superpowers-lite:lite-goldfish` through the harness or a direct request, load that entry before gathering task context. Follow its selected stage, permitted inputs, human decisions, and manual stopping boundary. If the user requests this manual workflow without choosing a role or stage, clarify before reading task files; do not choose a role from the model name or an ordinary request to review a document.
+
+Each manual role stage executes INLINE in its user-started session. Do not delegate any part of it. When an underlying phase skill returns here, return to the active role's stage boundary instead of proceeding to the next phase, switching roles, dispatching agents, or replacing an external handoff with work in the current session. Capability fallback does not authorize another stage. The user performs the handoff and supplies the next stage instruction.
+
+The role entries share [manual-handoff-contracts.md](references/manual-handoff-contracts.md). Load that reference only for an explicitly selected manual workflow; it is not a general review requirement. Manual handoff adds an opt-in boundary, not a fourth execution mode or a mandatory pipeline. Ordinary Lite routing is unchanged.
 
 ## Route the Request
 
