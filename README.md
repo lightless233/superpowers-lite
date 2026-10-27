@@ -122,7 +122,7 @@ Broad review 一次检查完整 Task，并把当前可发现的 blockers 成批�
 
 ## 安装
 
-Superpowers Lite 以 Skills-only package/plugin 形式分发，同时支持 Codex、Claude Code、Kimi Code、Pi 和 Qoder。五个平台共用同一套 `SKILL.md`，并使用各平台对应的 package 或 plugin manifest。
+Superpowers Lite 以 Skills-only 包分发，支持 Codex、Claude Code、CodeBuddy Code、WorkBuddy、Kimi Code、Pi、OpenCode 和 Qoder。各宿主共用同一套 `SKILL.md`，通过相应的插件、包或原生 Skills 机制加载。
 
 ### Codex
 
@@ -156,12 +156,36 @@ codex plugin add superpowers-lite@lightless233-plugins
 
 安装后启动新的 Claude Code session，或运行 `/reload-plugins` 重新加载插件。
 
+### CodeBuddy Code
+
+在 CodeBuddy Code 中添加插件市场并安装：
+
+```text
+/plugin marketplace add lightless233/superpowers-lite
+/plugin install superpowers-lite@lightless233-plugins
+/reload-plugins
+```
+
+本地开发时也可以在仓库根目录运行 `/plugin marketplace add .`，再按上述名称安装。市场入口为 `.codebuddy-plugin/marketplace.json`，插件清单为 `plugins/superpowers-lite/.codebuddy-plugin/plugin.json`。参见 [CodeBuddy 插件市场文档](https://www.codebuddy.cn/docs/cli/plugin-marketplaces)。
+
+### WorkBuddy
+
+在 WorkBuddy 的插件市场页面点击添加市场（`+`），输入仓库地址：
+
+```text
+https://github.com/lightless233/superpowers-lite
+```
+
+在新增的 `lightless233-plugins` 市场中找到 `superpowers-lite`，安装并启用。仓库提供 `.workbuddy-plugin/marketplace.json` 和 `plugins/superpowers-lite/.workbuddy-plugin/plugin.json`，与 CodeBuddy 入口共用同一套 Skills。参见 [WorkBuddy 插件文档](https://www.workbuddy.cn/docs/workbuddy/Plugins)。
+
+安装后在新任务中通过 WorkBuddy 的技能选择机制明确选择 `using-lite`，或在手动交接时选择 `lite-elephant` / `lite-goldfish` 并提供阶段和路径。
+
 ### Kimi Code
 
 在 Kimi Code 中直接从 GitHub 安装：
 
 ```text
-/plugins install https://github.com/lightless233/superpowers-lite
+/plugins install https://github.com/lightless233/superpowers-lite/tree/master
 ```
 
 安装后运行 `/reload` 或 `/new`。`using-lite` 会在 session 开始时加载，其他 Skills 按需加载。
@@ -181,6 +205,21 @@ pi install git:github.com/lightless233/superpowers-lite@master
 ```
 
 安装后启动新的 Pi session，或在交互模式中运行 `/reload` 以发现这些 Skills。
+
+### OpenCode
+
+OpenCode 通过原生 Agent Skills 加载本包。克隆仓库后，在仓库根目录执行以下命令（Linux、macOS 或 WSL）：
+
+```bash
+mkdir -p "$HOME/.config/opencode/skills"
+for skill in "$PWD"/plugins/superpowers-lite/skills/*; do
+  ln -s "$skill" "$HOME/.config/opencode/skills/"
+done
+```
+
+这会为每个完整的 Skill 目录建立链接。也可以将这些目录复制到同一位置；保留各目录之间的相对关系和 `references/`，使共享交接契约能够读取。随后启动新的 OpenCode session。原生搜索目录见 [OpenCode Agent Skills 文档](https://opencode.ai/docs/skills/)。
+
+OpenCode 中的原生名称是 `using-lite`、`lite-elephant`、`lite-goldfish` 等。明确要求通过 `skill` 工具加载对应名称，再提供阶段与输入路径。包内的 `superpowers-lite:<skill-name>` 引用在这种原生安装中按 `<skill-name>` 解析。
 
 ### Qoder
 
@@ -205,18 +244,18 @@ $superpowers-lite:using-lite
 $superpowers-lite:lite-debugging
 ```
 
-Claude Code 使用 `/` 前缀：
+Claude Code 和 CodeBuddy Code 使用 `/` 前缀：
 
 ```text
 /superpowers-lite:using-lite
 /superpowers-lite:lite-debugging
 ```
 
-Kimi Code 通过 Skill 命令调用：
+Kimi Code 通过带插件限定名的 Skill 命令调用：
 
 ```text
-/skill:using-lite
-/skill:lite-debugging
+/skill:superpowers-lite:using-lite
+/skill:superpowers-lite:lite-debugging
 ```
 
 Pi 同样通过 Skill 命令调用：
@@ -602,6 +641,10 @@ Superpowers Lite 本身不强制要求：
 │       └── marketplace.json          # Codex marketplace
 ├── .claude-plugin/
 │   └── marketplace.json              # Claude Code marketplace
+├── .codebuddy-plugin/
+│   └── marketplace.json              # CodeBuddy marketplace
+├── .workbuddy-plugin/
+│   └── marketplace.json              # WorkBuddy marketplace
 ├── agents/                            # 可选的 Codex sub-agent profiles
 │   ├── explorer.toml                  # 快速、有界的只读探索
 │   ├── deep_explorer.toml             # 深度、跨组件的只读探索
@@ -615,6 +658,10 @@ Superpowers Lite 本身不强制要求：
 │       │   └── plugin.json           # Codex manifest
 │       ├── .claude-plugin/
 │       │   └── plugin.json           # Claude Code manifest
+│       ├── .codebuddy-plugin/
+│       │   └── plugin.json           # CodeBuddy manifest
+│       ├── .workbuddy-plugin/
+│       │   └── plugin.json           # WorkBuddy manifest
 │       ├── .qoder-plugin/
 │       │   └── plugin.json           # Qoder manifest
 │       └── skills/
@@ -632,7 +679,7 @@ Superpowers Lite 本身不强制要求：
 └── LICENSE
 ```
 
-每个 Skill 的 `SKILL.md` 由五个平台共用。Skill 不依赖 top-level `agents/`：这些文件只是支持它们的 Codex 环境可选使用的加速配置。各 Skill 内的 `agents/openai.yaml` 提供 Codex 专用的界面元数据，其他平台会忽略这些辅助文件。
+每个 Skill 的 `SKILL.md` 由各宿主共用。Skill 不依赖 top-level `agents/`：这些文件只是支持它们的 Codex 环境可选使用的加速配置。各 Skill 内的 `agents/openai.yaml` 提供 Codex 专用的界面元数据，其他平台会忽略这些辅助文件。
 
 ## 设计原则
 

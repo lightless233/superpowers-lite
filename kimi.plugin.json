@@ -14,7 +14,7 @@
   "sessionStart": {
     "skill": "using-lite"
   },
-  "skillInstructions": "Within this plugin, references written as `superpowers-lite:<skill-name>` refer to the plugin Skill named `<skill-name>`. Load that Skill with Kimi Code's Skill mechanism. Users can invoke it manually with `/skill:<skill-name>`.",
+  "skillInstructions": "Within this plugin, references written as `superpowers-lite:<skill-name>` identify that qualified plugin Skill. Load it with Kimi Code's Skill mechanism, or invoke it explicitly with `/skill:superpowers-lite:<skill-name>`. Keep the plugin id when loading plugin Skills.",
   "interface": {
     "displayName": "Superpowers Lite",
     "shortDescription": "Route engineering work through the lightest reliable workflow.",

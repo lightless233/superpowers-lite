@@ -1,0 +1,14 @@
+{
+  "name": "lightless233-plugins",
+  "owner": {
+    "name": "lightless233"
+  },
+  "description": "CodeBuddy plugins by lightless233.",
+  "plugins": [
+    {
+      "name": "superpowers-lite",
+      "source": "./plugins/superpowers-lite",
+      "category": "productivity"
+    }
+  ]
+}

@@ -9,6 +9,8 @@ Act as a thin task classifier and workflow router. Use the least process that st
 
 Know when a skill is useful and what responsibility it owns; leave how it performs that work to the skill.
 
+References written as `superpowers-lite:<skill-name>` identify this package's Skill with that frontmatter name. Use the exact identifier exposed by the host: keep the plugin namespace where registered, and use `<skill-name>` with native unqualified loaders such as Pi or OpenCode.
+
 ## Workflow Map
 
 ```text

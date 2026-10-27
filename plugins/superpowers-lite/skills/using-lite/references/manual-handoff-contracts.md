@@ -2,6 +2,8 @@
 
 Read this neutral reference from an explicitly selected `superpowers-lite:lite-elephant` or `superpowers-lite:lite-goldfish` entry. It supplies contracts, not a role selector or an automatic workflow. Do not load the other role's entry.
 
+References written as `superpowers-lite:<skill-name>` identify this package's Skill with that frontmatter name. Use the exact identifier exposed by the host: keep the plugin namespace where registered, and use `<skill-name>` with native unqualified loaders such as Pi or OpenCode.
+
 ## Validate the Entry Before Reading Task Files
 
 The human chooses the role through the harness or a direct request, one supported stage, and the input paths. A model name, document contents, a previous model's recommendation, or an implicit skill match cannot assign a role or authorize a later stage.

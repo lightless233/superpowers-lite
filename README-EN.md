@@ -122,7 +122,7 @@ The default automatic budget is one pre-review correction, one broad review, one
 
 ## Installation
 
-Superpowers Lite is distributed as a skills-only package/plugin for Codex, Claude Code, Kimi Code, Pi, and Qoder. All five platforms share the same `SKILL.md` files while using the appropriate package or plugin manifest for each platform.
+Superpowers Lite is a skills-only package for Codex, Claude Code, CodeBuddy Code, WorkBuddy, Kimi Code, Pi, OpenCode, and Qoder. All hosts share the same `SKILL.md` files, loaded through the appropriate plugin, package, or native Skills mechanism.
 
 ### Codex
 
@@ -156,12 +156,36 @@ Then install the plugin:
 
 Start a new Claude Code session after installation, or run `/reload-plugins` to reload the plugin.
 
+### CodeBuddy Code
+
+Add the marketplace and install from CodeBuddy Code:
+
+```text
+/plugin marketplace add lightless233/superpowers-lite
+/plugin install superpowers-lite@lightless233-plugins
+/reload-plugins
+```
+
+For local development, run `/plugin marketplace add .` from the repository root, then install the same plugin name. The marketplace is `.codebuddy-plugin/marketplace.json`; the plugin manifest is `plugins/superpowers-lite/.codebuddy-plugin/plugin.json`. See the [CodeBuddy marketplace documentation](https://www.codebuddy.cn/docs/cli/plugin-marketplaces).
+
+### WorkBuddy
+
+Open WorkBuddy's plugin marketplace, choose add marketplace (`+`), and enter:
+
+```text
+https://github.com/lightless233/superpowers-lite
+```
+
+Find `superpowers-lite` in the added `lightless233-plugins` marketplace, install it, and enable it. The repository provides `.workbuddy-plugin/marketplace.json` and `plugins/superpowers-lite/.workbuddy-plugin/plugin.json`, sharing the same Skills as the CodeBuddy entry. See the [WorkBuddy plugin documentation](https://www.workbuddy.cn/docs/workbuddy/Plugins).
+
+In a new task, explicitly select `using-lite` through WorkBuddy's skill mechanism, or choose `lite-elephant` / `lite-goldfish` with a stage and input paths for manual handoff.
+
 ### Kimi Code
 
 Install directly from GitHub in Kimi Code:
 
 ```text
-/plugins install https://github.com/lightless233/superpowers-lite
+/plugins install https://github.com/lightless233/superpowers-lite/tree/master
 ```
 
 Run `/reload` or `/new` after installation. `using-lite` loads at session start, and the other Skills load on demand.
@@ -181,6 +205,21 @@ pi install git:github.com/lightless233/superpowers-lite@master
 ```
 
 Start a new Pi session after installation, or run `/reload` in interactive mode to discover the Skills.
+
+### OpenCode
+
+OpenCode loads this package through native Agent Skills. After cloning, run the following from the repository root on Linux, macOS, or WSL:
+
+```bash
+mkdir -p "$HOME/.config/opencode/skills"
+for skill in "$PWD"/plugins/superpowers-lite/skills/*; do
+  ln -s "$skill" "$HOME/.config/opencode/skills/"
+done
+```
+
+This links each complete Skill directory. You can also copy those directories to the same location; preserve their relative layout and `references/` so the shared handoff contracts remain accessible. Start a new OpenCode session afterward. See the native discovery locations in the [OpenCode Agent Skills documentation](https://opencode.ai/docs/skills/).
+
+Native OpenCode names are `using-lite`, `lite-elephant`, `lite-goldfish`, and so on. Explicitly request the matching name through the `skill` tool, then provide the stage and input paths. Package references written as `superpowers-lite:<skill-name>` resolve to `<skill-name>` in this native installation.
 
 ### Qoder
 
@@ -205,21 +244,21 @@ $superpowers-lite:using-lite
 $superpowers-lite:lite-debugging
 ```
 
-Claude Code uses the `/` prefix:
+Claude Code and CodeBuddy Code use the `/` prefix:
 
 ```text
 /superpowers-lite:using-lite
 /superpowers-lite:lite-debugging
 ```
 
-Kimi Code uses its Skill command:
+Kimi Code uses plugin-qualified Skill names:
 
 ```text
-/skill:using-lite
-/skill:lite-debugging
+/skill:superpowers-lite:using-lite
+/skill:superpowers-lite:lite-debugging
 ```
 
-Pi uses the same Skill command:
+Pi uses its Skill command:
 
 ```text
 /skill:using-lite
@@ -604,6 +643,10 @@ They are simply not part of the workflow unless they add clear value to the curr
 │       └── marketplace.json          # Codex marketplace
 ├── .claude-plugin/
 │   └── marketplace.json              # Claude Code marketplace
+├── .codebuddy-plugin/
+│   └── marketplace.json              # CodeBuddy marketplace
+├── .workbuddy-plugin/
+│   └── marketplace.json              # WorkBuddy marketplace
 ├── agents/                            # Optional Codex sub-agent profiles
 │   ├── explorer.toml                  # Fast, bounded read-only exploration
 │   ├── deep_explorer.toml             # Deep, cross-component exploration
@@ -617,6 +660,10 @@ They are simply not part of the workflow unless they add clear value to the curr
 │       │   └── plugin.json           # Codex manifest
 │       ├── .claude-plugin/
 │       │   └── plugin.json           # Claude Code manifest
+│       ├── .codebuddy-plugin/
+│       │   └── plugin.json           # CodeBuddy manifest
+│       ├── .workbuddy-plugin/
+│       │   └── plugin.json           # WorkBuddy manifest
 │       ├── .qoder-plugin/
 │       │   └── plugin.json           # Qoder manifest
 │       └── skills/
@@ -634,7 +681,7 @@ They are simply not part of the workflow unless they add clear value to the curr
 └── LICENSE
 ```
 
-Each Skill's `SKILL.md` is shared by all five platforms. Skills do not depend on the top-level `agents/` directory; those files are optional accelerators for Codex environments that support them. The `agents/openai.yaml` files inside each Skill provide Codex-specific interface metadata and are ignored by the other platforms.
+Each Skill's `SKILL.md` is shared by all supported hosts. Skills do not depend on the top-level `agents/` directory; those files are optional accelerators for Codex environments that support them. The `agents/openai.yaml` files inside each Skill provide Codex-specific interface metadata and are ignored by the other platforms.
 
 ## Design Principles
 
