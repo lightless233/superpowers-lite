@@ -13,7 +13,7 @@ Require the user's explicit selection of this role through the harness or a dire
 
 Read [manual-handoff-contracts.md](../using-lite/references/manual-handoff-contracts.md) before task materials. It defines the allowed inputs, startup receipt, approvals, outputs, and manual stopping boundary. Never load Elephant's entry to perform a Goldfish stage.
 
-Supported stages are `spec-clarity`, `spec-alignment`, `plan`, `implement`, and `fix`. Ask for a missing or ambiguous stage and missing required inputs before reading task files. Execute one stage per user instruction, including when an underlying Lite skill returns to the router.
+Supported stages are `spec-clarity`, `spec-alignment`, `plan`, `implement`, and `fix`. Resolve the stage from the user's natural-language task using the shared contract; an explicit stage code is optional. Ask only for a material scope ambiguity or missing required input, not because a stage code or field label is absent. Execute one stage per user instruction, including when an underlying Lite skill returns to the router.
 
 ## `spec-clarity`: Blind Read of the Spec
 

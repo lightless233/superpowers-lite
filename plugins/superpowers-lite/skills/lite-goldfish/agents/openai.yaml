@@ -1,7 +1,7 @@
 interface:
   display_name: "Lite Goldfish"
   short_description: "Review specs, plan and implement as Goldfish"
-  default_prompt: "Use $superpowers-lite:lite-goldfish as Goldfish for the stage and input paths I specify."
+  default_prompt: "Use $superpowers-lite:lite-goldfish as Goldfish for the task I describe in natural language, using the input paths I provide."
 
 policy:
   allow_implicit_invocation: true

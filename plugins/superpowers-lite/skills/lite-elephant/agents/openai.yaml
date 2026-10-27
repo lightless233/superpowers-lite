@@ -1,7 +1,7 @@
 interface:
   display_name: "Lite Elephant"
   short_description: "Write specs and review plans or code as Elephant"
-  default_prompt: "Use $superpowers-lite:lite-elephant as Elephant for the stage and input paths I specify."
+  default_prompt: "Use $superpowers-lite:lite-elephant as Elephant for the task I describe in natural language, using the input paths I provide."
 
 policy:
   allow_implicit_invocation: true

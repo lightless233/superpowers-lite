@@ -178,7 +178,7 @@ https://github.com/lightless233/superpowers-lite
 
 在新增的 `lightless233-plugins` 市场中找到 `superpowers-lite`，安装并启用。仓库提供 `.workbuddy-plugin/marketplace.json` 和 `plugins/superpowers-lite/.workbuddy-plugin/plugin.json`，与 CodeBuddy 入口共用同一套 Skills。参见 [WorkBuddy 插件文档](https://www.workbuddy.cn/docs/workbuddy/Plugins)。
 
-安装后在新任务中通过 WorkBuddy 的技能选择机制明确选择 `using-lite`，或在手动交接时选择 `lite-elephant` / `lite-goldfish` 并提供阶段和路径。
+安装后在新任务中通过 WorkBuddy 的技能选择机制明确选择 `using-lite`，或在手动交接时选择 `lite-elephant` / `lite-goldfish`，用自然语言描述任务并提供所需路径。
 
 ### Kimi Code
 
@@ -219,7 +219,7 @@ done
 
 这会为每个完整的 Skill 目录建立链接。也可以将这些目录复制到同一位置；保留各目录之间的相对关系和 `references/`，使共享交接契约能够读取。随后启动新的 OpenCode session。原生搜索目录见 [OpenCode Agent Skills 文档](https://opencode.ai/docs/skills/)。
 
-OpenCode 中的原生名称是 `using-lite`、`lite-elephant`、`lite-goldfish` 等。明确要求通过 `skill` 工具加载对应名称，再提供阶段与输入路径。包内的 `superpowers-lite:<skill-name>` 引用在这种原生安装中按 `<skill-name>` 解析。
+OpenCode 中的原生名称是 `using-lite`、`lite-elephant`、`lite-goldfish` 等。明确要求通过 `skill` 工具加载对应名称，再用自然语言描述任务并提供输入路径。包内的 `superpowers-lite:<skill-name>` 引用在这种原生安装中按 `<skill-name>` 解析。
 
 ### Qoder
 
@@ -318,7 +318,7 @@ MIXED
 
 ### 手动大象 / 金鱼交接（可选）
 
-需要跨模型独立审查时，通过 Harness 明确选择 `lite-elephant` 或 `lite-goldfish`，并指定本次阶段和输入路径。两者是逻辑角色，不绑定模型；用户负责启动独立会话、交接和决定下一阶段。每次只执行指定阶段。
+需要跨模型独立审查时，通过 Harness 明确选择 `lite-elephant` 或 `lite-goldfish`，再用自然语言描述本次任务并给出所需路径。两者是逻辑角色，不绑定模型；用户负责启动独立会话、交接和决定下一阶段。下列阶段名用于内部匹配，也可通过 `Stage:` 精确指定，但日常使用不必记住这些代号。每次只执行一个阶段。
 
 | 入口 | 支持阶段 |
 |---|---|
@@ -327,15 +327,14 @@ MIXED
 
 常见交接顺序是：Elephant 写 Spec → Goldfish 独立审查 → Goldfish 写 Plan → Elephant 审核 Plan → Goldfish 实现 → Elephant 审查代码 → 按需由 Goldfish 修复。按任务选择有价值的阶段；模型给出的就绪结论不代替用户的决定和交接。
 
-例如，在 Codex 中显式选择金鱼并执行 Spec 清晰性盲读：
+例如，在 Codex 中显式选择金鱼，用自然语言请求审查 Spec：
 
 ```text
 $superpowers-lite:lite-goldfish
-Stage: spec-clarity
-Spec: docs/specs/001-YYYY-MM-DD-feature.md
+审一下这份 Spec：docs/specs/001-YYYY-MM-DD-feature.md
 ```
 
-审核 Plan：
+也可以使用阶段代号，例如审核 Plan：
 
 ```text
 $superpowers-lite:lite-elephant
@@ -345,9 +344,11 @@ Spec: docs/specs/001-YYYY-MM-DD-feature.md
 Plan: docs/plans/001-YYYY-MM-DD-feature.md
 ```
 
-示例路径需替换为项目中的实际路径。其他 Harness 使用各自的 Skill 选择机制；不依赖自动匹配来指定角色。入口会先列出角色、阶段和输入范围，缺少必要信息时先确认。角色阶段由当前会话 INLINE 执行，完成后停下，不自动启动另一个 Agent 或跨阶段继续。
+示例路径需替换为项目中的实际路径。其他 Harness 使用各自的 Skill 选择机制；不依赖自动匹配来指定角色。入口会先用一两句话说明角色、本次任务和读取范围，能够匹配时直接执行，不会仅因缺少阶段代号而追问。缺少必要路径时只问路径；只有范围存在实质歧义或冲突时才确认。角色阶段由当前会话 INLINE 执行，完成后停下，不自动启动另一个 Agent 或跨阶段继续。
 
-`spec-clarity` 只读指定 Spec，检查能否独立理解及其内部一致性；`spec-alignment` 另读原始需求，检查目标是否偏移。盲读需要未接触相关背景的新会话；如果 Harness 已注入任务背景或外部记忆，Skill 无法消除这些信息，也不能提供真正的环境隔离。
+金鱼收到“审一下 Spec”时默认进入 `spec-clarity`，只读指定 Spec，检查能否独立理解及其内部一致性。明确要求对照原始需求检查遗漏或目标偏移时，进入 `spec-alignment` 并读取所需原始需求。多给了其他文件路径本身不会扩大审查范围。盲读需要未接触相关背景的新会话；如果 Harness 已注入任务背景或外部记忆，Skill 无法消除这些信息，也不能提供真正的环境隔离。
+
+“按 Spec 写 Plan”“按批准的 Plan 实现”“修复这批审查问题”会分别匹配相应阶段。已有明确授权时不重复确认；“继续”只能延续尚未完成的当前阶段，阶段已完成则先明确下一任务。模型生成给另一个会话的交接文本仍使用固定阶段代号和路径模板。
 
 Spec、Plan 和必要的 Review 文件保存在实际开发项目中，沿用既有目录约定并按需创建。原始需求不可静默改写；审查只将有依据的需求违背或真实缺陷列为必须修复，可选优化单独列出。
 

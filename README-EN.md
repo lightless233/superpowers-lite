@@ -178,7 +178,7 @@ https://github.com/lightless233/superpowers-lite
 
 Find `superpowers-lite` in the added `lightless233-plugins` marketplace, install it, and enable it. The repository provides `.workbuddy-plugin/marketplace.json` and `plugins/superpowers-lite/.workbuddy-plugin/plugin.json`, sharing the same Skills as the CodeBuddy entry. See the [WorkBuddy plugin documentation](https://www.workbuddy.cn/docs/workbuddy/Plugins).
 
-In a new task, explicitly select `using-lite` through WorkBuddy's skill mechanism, or choose `lite-elephant` / `lite-goldfish` with a stage and input paths for manual handoff.
+In a new task, explicitly select `using-lite` through WorkBuddy's skill mechanism, or choose `lite-elephant` / `lite-goldfish` and describe the task naturally with the necessary input paths for manual handoff.
 
 ### Kimi Code
 
@@ -219,7 +219,7 @@ done
 
 This links each complete Skill directory. You can also copy those directories to the same location; preserve their relative layout and `references/` so the shared handoff contracts remain accessible. Start a new OpenCode session afterward. See the native discovery locations in the [OpenCode Agent Skills documentation](https://opencode.ai/docs/skills/).
 
-Native OpenCode names are `using-lite`, `lite-elephant`, `lite-goldfish`, and so on. Explicitly request the matching name through the `skill` tool, then provide the stage and input paths. Package references written as `superpowers-lite:<skill-name>` resolve to `<skill-name>` in this native installation.
+Native OpenCode names are `using-lite`, `lite-elephant`, `lite-goldfish`, and so on. Explicitly request the matching name through the `skill` tool, then describe the task naturally and provide the input paths. Package references written as `superpowers-lite:<skill-name>` resolve to `<skill-name>` in this native installation.
 
 ### Qoder
 
@@ -318,7 +318,7 @@ When the host exposes specialized exploration roles, Lite can use a fast role fo
 
 ### Manual Elephant / Goldfish Handoffs (Optional)
 
-For independent cross-model work, explicitly select `lite-elephant` or `lite-goldfish` through the harness and provide the current stage and input paths. These are logical roles, not model assignments. The user starts independent sessions, performs handoffs, and chooses the next stage. Each instruction runs one selected stage.
+For independent cross-model work, explicitly select `lite-elephant` or `lite-goldfish` through the harness, then describe the task naturally and provide the necessary input paths. These are logical roles, not model assignments. The user starts independent sessions, performs handoffs, and chooses the next task. The stage names below are internal identifiers and optional precise `Stage:` values; users do not need to memorize them. Each instruction runs one stage.
 
 | Entry | Supported stages |
 |---|---|
@@ -327,15 +327,14 @@ For independent cross-model work, explicitly select `lite-elephant` or `lite-gol
 
 A typical handoff is: Elephant Spec → Goldfish independent review → Goldfish Plan → Elephant Plan review → Goldfish implementation → Elephant code review → Goldfish fixes when needed. Select only useful stages. A model's ready verdict still leaves the next decision and handoff to the user.
 
-For example, explicitly select Goldfish in Codex for a blind clarity review:
+For example, explicitly select Goldfish in Codex and request a Spec review naturally:
 
 ```text
 $superpowers-lite:lite-goldfish
-Stage: spec-clarity
-Spec: docs/specs/001-YYYY-MM-DD-feature.md
+Review this Spec: docs/specs/001-YYYY-MM-DD-feature.md
 ```
 
-To review a Plan:
+Exact stage codes are also supported, for example for a Plan review:
 
 ```text
 $superpowers-lite:lite-elephant
@@ -345,9 +344,11 @@ Spec: docs/specs/001-YYYY-MM-DD-feature.md
 Plan: docs/plans/001-YYYY-MM-DD-feature.md
 ```
 
-Replace example paths with the project's actual paths. Other harnesses use their own Skill selection mechanism; role assignment does not rely on implicit matching. The entry first lists the role, stage, and input scope, and asks for missing required information. Each role stage runs INLINE in the current session and stops without launching another agent or advancing to a later stage.
+Replace example paths with the project's actual paths. Other harnesses use their own Skill selection mechanism; role assignment does not rely on implicit matching. The entry briefly states the role, task interpretation, and input scope, then proceeds when clear; a missing stage code alone never triggers a question. Ask only for a missing necessary path or a material scope ambiguity or conflict. Each role stage runs INLINE in the current session and stops without launching another agent or advancing to a later stage.
 
-`spec-clarity` reads only the supplied Spec to assess independent understanding and internal consistency. `spec-alignment` also reads the original requirements to detect goal drift. Blind review needs a fresh session without the relevant background; a Skill cannot remove task context or external memory already injected by a harness or provide actual environmental isolation.
+An unqualified Goldfish request to review a Spec defaults to `spec-clarity`, reading only the Spec for independent understanding and internal consistency. An explicit request to compare with original requirements for omissions or goal drift selects `spec-alignment` and reads the necessary requirements. Extra paths alone do not broaden the review. Blind review needs a fresh session without the relevant background; a Skill cannot remove task context or external memory already injected by a harness or provide actual environmental isolation.
+
+“Write a Plan from this Spec,” “implement the approved Plan,” and “fix these review findings” select their matching stages. Do not repeat an already clear authorization. A vague “continue” can only resume the current unfinished stage; after completion, clarify the next task. Agent-prepared handoff text still uses fixed stage codes and path templates.
 
 Keep Specs, Plans, and necessary Review files in the development project, following existing conventions and creating them only when useful. Never silently rewrite original requirements. Reviews distinguish evidence-backed requirement violations or concrete defects from optional improvements.
 
