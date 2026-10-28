@@ -15,6 +15,8 @@ Read [manual-handoff-contracts.md](../using-lite/references/manual-handoff-contr
 
 Supported stages are `spec`, `plan-review`, and `code-review`. Resolve the stage from the user's natural-language task using the shared contract; an explicit stage code is optional. Ask only for a material scope ambiguity or missing required input, not because a stage code or field label is absent. Execute one stage per user instruction, including when an underlying Lite skill returns to the router.
 
+For `plan-review` and `code-review`, save a Review file using the shared report rules and return the verdict and saved path, including when no blocking findings are supported. A chat-only review requires the user to request it explicitly.
+
 ## `spec`: Write or Revise Required Behavior
 
 Use the original user brief or user-confirmed requirements as the goal anchor. A faithful copy may be saved when file-based handoff needs it; any interpretation or addition needs user confirmation before becoming part of that anchor. Never silently rewrite confirmed requirements to match a proposed solution.

@@ -15,6 +15,8 @@ Read [manual-handoff-contracts.md](../using-lite/references/manual-handoff-contr
 
 Supported stages are `spec-clarity`, `spec-alignment`, `plan`, `implement`, and `fix`. Resolve the stage from the user's natural-language task using the shared contract; an explicit stage code is optional. Ask only for a material scope ambiguity or missing required input, not because a stage code or field label is absent. Execute one stage per user instruction, including when an underlying Lite skill returns to the router.
 
+For `spec-clarity` and `spec-alignment`, save a Review file using the shared report rules and return the verdict and saved path, including when no blocking findings are supported. A chat-only review requires the user to request it explicitly.
+
 ## `spec-clarity`: Blind Read of the Spec
 
 Read only the supplied Spec as task context. Do not read original requirements, code, Plans, earlier reviews, author conversations, task memory, or linked background documents. Do not search the repository to fill missing context.

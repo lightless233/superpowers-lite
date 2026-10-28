@@ -33,7 +33,7 @@ A vague “continue” can continue the current unfinished stage within its exis
 
 Before reading task materials, briefly state the role, task interpretation, and actual input scope in the user's language, then execute. One or two sentences are enough; no template or stage code is required. For the default clarity review, for example: “金鱼：本次只读这份 Spec，检查清晰性和内部一致性。” This is an announcement, not an approval gate.
 
-State any requested output path or useful established phase default when writing a file. Otherwise keep a short review in the current reply. List only the declared scope; this is not proof of environmental isolation. An optional report output path never grants permission to read an old report at that path.
+State the selected output path when writing a file, including the default Review path described below. Keep only the verdict and a short useful summary in the reply alongside the saved path. List only the declared scope; this is not proof of environmental isolation. An output path never grants permission to read an old report at that path.
 
 ## Stage Input and Output Boundaries
 
@@ -42,10 +42,10 @@ Applicable host instructions, engineering rules, this contract, and the current 
 | Role / stage | Required task inputs | Optional task inputs | Permitted writes |
 |---|---|---|---|
 | Elephant / `spec` | `Requirements`: original user brief or user-confirmed requirements | `Spec` and `Review` for revision; explicitly supplied `Code` scope | Spec; faithful requirements copy when explicitly requested or necessary for file handoff |
-| Elephant / `plan-review` | `Requirements`, `Spec`, `Plan` | `Code` for checking implementation claims | Review output only |
-| Elephant / `code-review` | `Requirements`, `Spec`, `Plan`, `Code`, `Changes`, `Evidence` | `Review` containing original findings for scoped re-review | Review output only |
-| Goldfish / `spec-clarity` | `Spec` only | None | Review output only |
-| Goldfish / `spec-alignment` | `Requirements`, `Spec` | None | Review output only |
+| Elephant / `plan-review` | `Requirements`, `Spec`, `Plan` | `Code` for checking implementation claims | Review file and reply summary only; chat-only on explicit request |
+| Elephant / `code-review` | `Requirements`, `Spec`, `Plan`, `Code`, `Changes`, `Evidence` | `Review` containing original findings for scoped re-review | Review file and reply summary only; chat-only on explicit request |
+| Goldfish / `spec-clarity` | `Spec` only | None | Review file and reply summary only; chat-only on explicit request |
+| Goldfish / `spec-alignment` | `Requirements`, `Spec` | None | Review file and reply summary only; chat-only on explicit request |
 | Goldfish / `plan` | `Spec`, `Code` | `Plan` and `Review` for revision | Candidate Plan only |
 | Goldfish / `implement` | `Spec`, `Plan`, `Code` | None | In-scope implementation and tests; requested result report |
 | Goldfish / `fix` | `Spec`, `Plan`, `Code`, `Review` containing the authorized findings | `Changes` and `Evidence` relevant to that batch | In-scope fixes and tests; requested result report |
@@ -82,7 +82,35 @@ For reviews, batch findings. Each BLOCKING finding needs an artifact and locatio
 
 For Spec clarity, include a brief independent restatement and necessary clarification questions. For Plan or implementation output, preserve meaningful engineering judgment rather than filling a large report template. For fixes, identify the authorized findings addressed and refresh only evidence affected by the change.
 
-Keep short reviews and result reports in the reply unless a file is requested or actually needed for cross-session handoff. Use an explicit output path first, then an established project convention. Persisted Specs and Plans retain the phase skills' existing naming rules; file handoff across independent sessions is a reason to persist them. Do not invent a new execution workspace or create future task files in advance.
+Review stages persist their results as described below. For other stage result reports, keep short results in the reply unless a file is requested or actually needed for cross-session handoff. Persisted Specs and Plans retain the phase skills' existing naming rules; file handoff across independent sessions is a reason to persist them. Do not invent a new execution workspace or create future task files in advance.
+
+## Persist Review Reports for Manual Handoffs
+
+The four review stages (`spec-clarity`, `spec-alignment`, `plan-review`, and `code-review`) save a Review file by default, including a short `READY` report when no blocking findings are supported. The user may explicitly request a chat-only review. This default applies only to the selected manual role workflow; it does not make ordinary Lite reviews create files.
+
+### Location and Name
+
+Use an explicit output file or directory first, then a known project review convention. Otherwise use `docs/review/` inside the actual development project. Resolve that project from the supplied project/repository scope, or otherwise the reviewed artifact's Git working-tree root, using path metadata only. For a non-Git project, use a clearly established project root. Resolve relative output paths against that root. If neither a root nor an output location is known, ask only for the missing location. Do not assume the plugin installation or harness directory is the development project, or inspect excluded documents to discover a convention.
+
+The default filename is:
+
+```text
+docs/review/NNN-YYYY-MM-DD-slug-<stage>-rNN.md
+```
+
+Reuse the complete work-item stem from the supplied Spec for Spec reviews, or from the supplied Plan for Plan and code reviews. Reuse its number, original date, and slug rather than assigning a new work item or using the review date. When the supplied document has a different naming convention, retain its filename stem; for inline materials, use a supplied work-item name or a short task slug derived from the permitted materials. Do not read another artifact, allocate a work-item number, or rename a Spec or Plan solely to name the report.
+
+Use the exact resolved stage code in the filename. Rounds start at `r01` and advance beyond the highest existing round for that work item and stage, such as `r02`. Name allocation may inspect matching output filenames only. It does not permit reading old report contents, other task documents, code, or Git history; `spec-clarity` still has only the supplied Spec as task context.
+
+Preserve earlier reports. If an explicit output filename is already occupied by a report, choose a new unused round in the same directory and state the actual path, unless the user explicitly requested replacing that report. A Spec, Plan, or unrelated existing file is not a report to replace. Recheck availability immediately before writing and create without overwriting an earlier or concurrent report unless that replacement was explicitly authorized. Create the directory only when saving the current report, never as an empty scaffold or together with future reports.
+
+### Contents and Handoff
+
+Keep the report proportional: identify the role and stage, the actual reviewed inputs and scope, the verdict, and the batched findings with the evidence required above. Include known input revisions or Git ranges when available; do not invent them or inspect excluded sources to obtain them. A clean review needs only a short scope statement, its verdict, and an explicit statement that no blocking findings were supported. A scoped re-review retains its existing limits and records the disposition of the supplied original findings.
+
+Finish the reply with the verdict and the saved Review path. If saving fails, report the limitation and findings in the reply; do not claim that a file was saved. A missing required input at startup calls for clarification, not an empty review document.
+
+The human can supply the Review path to Elephant's `spec` stage for Spec revisions, Goldfish's `plan` stage for Plan revisions, or Goldfish's `fix` stage for an authorized code-fix batch. Read it only where the selected stage permits it and the user supplied it. Never select a report to act on merely because its filename has the latest round, treat its verdict as user approval, or advance to the receiving stage automatically.
 
 ## Fixed Minimal Handoff Text
 
@@ -116,6 +144,17 @@ Stage: plan
 Spec: <spec-path>
 Code: <repository-or-code-path>
 Output: <plan-path>
+```
+
+Fixing a user-authorized code-review batch:
+
+```text
+$superpowers-lite:lite-goldfish
+Stage: fix
+Spec: <spec-path>
+Plan: <plan-path>
+Code: <repository-or-code-path>
+Review: <saved-code-review-path>
 ```
 
 For other stages use the same shape with that stage's required input rows. The human sends it; never spawn or message the next agent, launch another model through a shell, generate a free-form replacement prompt, or treat a prepared handoff as permission to send it.
