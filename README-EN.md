@@ -283,6 +283,7 @@ Qoder plugin Skills use plugin-qualified names:
 | `lite-writing-specs` | Define required behavior and contracts |
 | `lite-writing-plans` | Organize decided implementation work |
 | `lite-debugging` | Investigate unclear root causes before choosing a fix |
+| `lite-code-simplifier` | Simplify scoped code while preserving existing behavior and contracts |
 | `lite-testing` | Choose and run meaningful behavioral tests or checks |
 | `lite-verification` | Determine what fresh evidence supports a completion claim |
 | `lite-maintaining-agents-md` | Audit or maintain durable instructions in the project-root AGENTS.md |
@@ -452,6 +453,14 @@ characterize
 If the cause is already clear, debugging is skipped.
 
 > **Do not stack speculative fixes.**
+
+### `lite-code-simplifier`
+
+Simplify specified code or changes already identified for the current task, reducing unnecessary nesting, duplication, and indirection while preserving behavior, interfaces, and failure semantics. Follow the project's conventions without fixing a model or language style. Fewer lines are not the goal.
+
+For example: “Simplify the current task's code changes without changing behavior.” A request for review or suggestions is read-only; a direct simplification request authorizes scoped edits. Run verification relevant to the change and report the actual evidence. Leave already clear code unchanged.
+
+This is an optional task, not an automatic pass after every code edit. Existing Elephant and Goldfish stage permissions still apply: simplification does not turn review into implementation or introduce another stage.
 
 ### `lite-testing`
 
@@ -690,6 +699,7 @@ They are simply not part of the workflow unless they add clear value to the curr
 │           ├── lite-writing-specs/
 │           ├── lite-writing-plans/
 │           ├── lite-debugging/
+│           ├── lite-code-simplifier/
 │           ├── lite-testing/
 │           ├── lite-verification/
 │           └── lite-maintaining-agents-md/

@@ -68,6 +68,7 @@ This is a relationship map, not a mandatory pipeline. `superpowers-lite:using-li
 | `superpowers-lite:lite-writing-specs` | Define required behavior and contracts |
 | `superpowers-lite:lite-writing-plans` | Organize decided implementation work |
 | `superpowers-lite:lite-debugging` | Investigate unclear root causes before choosing a fix |
+| `superpowers-lite:lite-code-simplifier` | Simplify authorized code while preserving supported behavior |
 | `superpowers-lite:lite-testing` | Choose and run meaningful behavioral tests or checks |
 | `superpowers-lite:lite-verification` | Determine what fresh evidence supports the completion claim |
 | `superpowers-lite:lite-maintaining-agents-md` | Audit or maintain durable instructions only in the project-root AGENTS.md |
@@ -83,6 +84,10 @@ The role entries share [manual-handoff-contracts.md](references/manual-handoff-c
 ## Maintain Project Instructions Only on Request
 
 For a user request to audit or update the project-root AGENTS.md, use `superpowers-lite:lite-maintaining-agents-md` as a separate maintenance task. That Skill owns the target, evidence, and write-authorization boundaries. Do not add maintenance to task completion or manual role handoffs automatically. A general recap does not authorize an AGENTS.md edit, and an active manual role retains its permitted inputs and stopping boundary.
+
+## Route Requested Code Simplification
+
+Use `superpowers-lite:lite-code-simplifier` when the current task requests behavior-preserving code simplification or cleanup. It owns the cleanup scope and preservation checks; a request for suggestions remains read-only. Do not append it automatically after writing code or treat optional simplification as a blocking review finding. An active manual role retains its permitted inputs, writes, and stopping boundary.
 
 ## Route the Request
 

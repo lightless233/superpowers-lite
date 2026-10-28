@@ -1,0 +1,7 @@
+interface:
+  display_name: "Lite Code Simplifier"
+  short_description: "Simplify scoped code while preserving its behavior"
+  default_prompt: "Use $superpowers-lite:lite-code-simplifier to simplify the code changes I identify, preserving behavior and following this project's conventions."
+
+policy:
+  allow_implicit_invocation: true

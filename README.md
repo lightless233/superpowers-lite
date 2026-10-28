@@ -283,6 +283,7 @@ Qoder 中的插件 Skill 使用插件限定名：
 | `lite-writing-specs` | 定义必要行为和契约 |
 | `lite-writing-plans` | 组织已经确定的实现工作 |
 | `lite-debugging` | 在选择修复方案前调查不明确的根因 |
+| `lite-code-simplifier` | 在明确范围内简化代码，并保持已有行为和契约 |
 | `lite-testing` | 选择并运行有意义的行为测试或检查 |
 | `lite-verification` | 判断哪些新鲜证据足以支持完成声明 |
 | `lite-maintaining-agents-md` | 检查或维护项目根目录 AGENTS.md 中的长期有效规则 |
@@ -450,6 +451,14 @@ Spec 和 Plan 保存在实际开发项目中，沿用既有命名规则并按需
 如果原因已经清楚，则跳过 Debugging。
 
 > **不要叠加猜测性的修复。**
+
+### `lite-code-simplifier`
+
+按请求对指定代码或当前任务已明确的改动做局部简化，减少不必要的嵌套、重复和间接层，同时保留行为、接口及错误语义。遵循项目自身约定，不固定模型或语言写法，也不以减少行数为目标。
+
+例如：“简化当前任务的代码改动，保持行为不变”。请求审查或建议时只读；明确要求简化时允许范围内修改。完成后运行与影响相关的验证，并报告实际证据；没有值得简化的地方就保持原样。
+
+它是可选任务，不会在每次写代码后自动执行。在大象／金鱼流程中继续遵守原阶段权限，不会把审查变成改代码，也不新增阶段。
 
 ### `lite-testing`
 
@@ -688,6 +697,7 @@ Superpowers Lite 本身不强制要求：
 │           ├── lite-writing-specs/
 │           ├── lite-writing-plans/
 │           ├── lite-debugging/
+│           ├── lite-code-simplifier/
 │           ├── lite-testing/
 │           ├── lite-verification/
 │           └── lite-maintaining-agents-md/
