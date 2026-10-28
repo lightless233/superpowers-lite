@@ -285,6 +285,7 @@ Qoder plugin Skills use plugin-qualified names:
 | `lite-debugging` | Investigate unclear root causes before choosing a fix |
 | `lite-testing` | Choose and run meaningful behavioral tests or checks |
 | `lite-verification` | Determine what fresh evidence supports a completion claim |
+| `lite-maintaining-agents-md` | Audit or maintain durable instructions in the project-root AGENTS.md |
 
 ### `using-lite`
 
@@ -353,6 +354,14 @@ An unqualified Goldfish request to review a Spec defaults to `spec-clarity`, rea
 Keep Specs, Plans, and necessary Review files in the development project, following existing conventions and creating them only when useful. Never silently rewrite original requirements. Reviews distinguish evidence-backed requirement violations or concrete defects from optional improvements.
 
 See the [manual handoff contracts](plugins/superpowers-lite/skills/using-lite/references/manual-handoff-contracts.md) for stage inputs, outputs, and fixed handoff templates.
+
+### `lite-maintaining-agents-md`
+
+Audit project instructions on request, or distill durable, evidence-backed project guidance from the current session into `<project-root>/AGENTS.md`. “Check whether the project's AGENTS.md is stale and suggest changes” is read-only; “add the project conventions we confirmed to the project's AGENTS.md” authorizes a minimal update.
+
+A general recap or task completion does not authorize writing. Global instructions and their known templates or mirrors, parent-directory files, and nested instruction files are outside the write scope; symbolic links cannot redirect the edit. If the file is absent, propose content and create it only on an explicit request to create or initialize it.
+
+Keep stable commands, project conventions, and confirmed constraints. Exclude progress, temporary conclusions, runtime status, and handoff memory. This is a separate optional maintenance task, never an automatic tail to an Elephant or Goldfish stage.
 
 ### `lite-brainstorming`
 
@@ -676,7 +685,8 @@ They are simply not part of the workflow unless they add clear value to the curr
 │           ├── lite-writing-plans/
 │           ├── lite-debugging/
 │           ├── lite-testing/
-│           └── lite-verification/
+│           ├── lite-verification/
+│           └── lite-maintaining-agents-md/
 ├── README.md
 ├── README-EN.md
 └── LICENSE

@@ -70,6 +70,7 @@ This is a relationship map, not a mandatory pipeline. `superpowers-lite:using-li
 | `superpowers-lite:lite-debugging` | Investigate unclear root causes before choosing a fix |
 | `superpowers-lite:lite-testing` | Choose and run meaningful behavioral tests or checks |
 | `superpowers-lite:lite-verification` | Determine what fresh evidence supports the completion claim |
+| `superpowers-lite:lite-maintaining-agents-md` | Audit or maintain durable instructions only in the project-root AGENTS.md |
 
 ## Respect Explicit Manual Roles
 
@@ -78,6 +79,10 @@ When the user explicitly selects `superpowers-lite:lite-elephant` or `superpower
 Each manual role stage executes INLINE in its user-started session. Do not delegate any part of it. When an underlying phase skill returns here, return to the active role's stage boundary instead of proceeding to the next phase, switching roles, dispatching agents, or replacing an external handoff with work in the current session. Capability fallback does not authorize another stage. The user performs the handoff and supplies the next stage instruction.
 
 The role entries share [manual-handoff-contracts.md](references/manual-handoff-contracts.md). Load that reference only for an explicitly selected manual workflow; it is not a general review requirement. Manual handoff adds an opt-in boundary, not a fourth execution mode or a mandatory pipeline. Ordinary Lite routing is unchanged.
+
+## Maintain Project Instructions Only on Request
+
+For a user request to audit or update the project-root AGENTS.md, use `superpowers-lite:lite-maintaining-agents-md` as a separate maintenance task. That Skill owns the target, evidence, and write-authorization boundaries. Do not add maintenance to task completion or manual role handoffs automatically. A general recap does not authorize an AGENTS.md edit, and an active manual role retains its permitted inputs and stopping boundary.
 
 ## Route the Request
 

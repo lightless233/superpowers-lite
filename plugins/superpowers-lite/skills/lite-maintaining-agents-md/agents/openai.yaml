@@ -1,0 +1,7 @@
+interface:
+  display_name: "Lite AGENTS.md Maintenance"
+  short_description: "Maintain durable instructions in project AGENTS.md"
+  default_prompt: "Use $superpowers-lite:lite-maintaining-agents-md to audit the current project's root AGENTS.md and propose concise updates supported by project evidence."
+
+policy:
+  allow_implicit_invocation: true

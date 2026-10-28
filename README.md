@@ -285,6 +285,7 @@ Qoder 中的插件 Skill 使用插件限定名：
 | `lite-debugging` | 在选择修复方案前调查不明确的根因 |
 | `lite-testing` | 选择并运行有意义的行为测试或检查 |
 | `lite-verification` | 判断哪些新鲜证据足以支持完成声明 |
+| `lite-maintaining-agents-md` | 检查或维护项目根目录 AGENTS.md 中的长期有效规则 |
 
 ### `using-lite`
 
@@ -353,6 +354,14 @@ Plan: docs/plans/001-YYYY-MM-DD-feature.md
 Spec、Plan 和必要的 Review 文件保存在实际开发项目中，沿用既有目录约定并按需创建。原始需求不可静默改写；审查只将有依据的需求违背或真实缺陷列为必须修复，可选优化单独列出。
 
 各阶段的输入、输出与固定交接模板见[手动交接契约](plugins/superpowers-lite/skills/using-lite/references/manual-handoff-contracts.md)。
+
+### `lite-maintaining-agents-md`
+
+按用户要求检查项目规则，或把本次会话中有证据支持、长期有效的项目约定提炼到 `<项目根目录>/AGENTS.md`。例如：“检查项目 AGENTS.md 是否过时，先给建议”只读；“把本次确定的项目约定整理到项目 AGENTS.md”允许最小修改。
+
+普通的“总结一下”和任务完成不会触发写入。全局规则及其已知模板或副本、父目录和子目录中的指令文件均不在写入范围内；也不通过符号链接修改其它文件。文件不存在时先提出内容，只有明确要求创建或初始化时才新建。
+
+保留稳定命令、项目约定和已确认约束，不记录任务进度、临时结论、运行状态或交接记忆。这是独立、可选的维护任务，不会自动接在大象／金鱼阶段之后。
 
 ### `lite-brainstorming`
 
@@ -674,7 +683,8 @@ Superpowers Lite 本身不强制要求：
 │           ├── lite-writing-plans/
 │           ├── lite-debugging/
 │           ├── lite-testing/
-│           └── lite-verification/
+│           ├── lite-verification/
+│           └── lite-maintaining-agents-md/
 ├── README.md
 ├── README-EN.md
 └── LICENSE
