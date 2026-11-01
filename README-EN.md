@@ -350,7 +350,9 @@ Replace example paths with the project's actual paths. Other harnesses use their
 
 An unqualified Goldfish request to review a Spec defaults to `spec-clarity`, reading only the Spec for independent understanding and internal consistency. An explicit request to compare with original requirements for omissions or goal drift selects `spec-alignment` and reads the necessary requirements. Extra paths alone do not broaden the review. Blind review needs a fresh session without the relevant background; a Skill cannot remove task context or external memory already injected by a harness or provide actual environmental isolation.
 
-“Write a Plan from this Spec,” “implement the approved Plan,” and “fix these review findings” select their matching stages. Do not repeat an already clear authorization. A vague “continue” can only resume the current unfinished stage; after completion, clarify the next task. Agent-prepared handoff text still uses fixed stage codes and path templates.
+“Write a Plan from this Spec,” “implement the approved Plan,” and “fix these review findings” select their matching stages. Do not repeat an already clear authorization. A vague “continue” can only resume the current unfinished stage; after completion, clarify the next task.
+
+Each stage ends with one copyable next-step handoff by default, filling known paths, relevant Reviews, change ranges, and acceptance evidence, and naming the recipient and whether to use a fresh or suitable existing session. The outcome determines whether to prepare review, revision, implementation, or re-review; a needed human decision is stated directly, and a clean final review closes the flow. Mark missing required inputs without reading beyond the current stage's boundaries. When the destination harness is unknown, name the role skill in natural language rather than assuming its command syntax. Sending the text supplies your next-stage instruction; the model never sends or executes it automatically. When multiple findings need round-trip tracking, retain their IDs and state each fix or re-review disposition, including disagreements.
 
 Keep Specs and Plans in the development project, following their existing naming rules and persisting them when useful. Never silently rewrite original requirements. Reviews distinguish evidence-backed requirement violations or concrete defects from optional improvements.
 
@@ -358,7 +360,7 @@ In the manual role workflow, Goldfish's `spec-clarity` and `spec-alignment` and 
 
 Default filenames reuse the reviewed Spec or Plan's work-item number, original date, and slug, then append the stage and round, for example `docs/review/001-YYYY-MM-DD-feature-plan-review-r01.md`. Re-reviews advance to `r02` and preserve earlier reports. Create the directory only when saving a report. Name allocation uses only necessary path metadata and matching filenames; it does not widen Goldfish's blind-read context.
 
-The review reply gives the verdict and saved path. The human passes that Review path to the other role for Spec or Plan revisions or code fixes. A report neither starts the next stage nor replaces the user's decision.
+The review reply names the specific stage that passed or is blocked, gives the saved path, and includes the next useful handoff when applicable. The human passes that Review to the other role for Spec or Plan revisions or code fixes. A report neither starts the next stage nor replaces the user's decision.
 
 See the [manual handoff contracts](plugins/superpowers-lite/skills/using-lite/references/manual-handoff-contracts.md) for stage inputs, outputs, and fixed handoff templates.
 

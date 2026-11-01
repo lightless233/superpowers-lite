@@ -17,15 +17,17 @@ Supported stages are `spec`, `plan-review`, and `code-review`. Resolve the stage
 
 For `plan-review` and `code-review`, save a Review file using the shared report rules and return the verdict and saved path, including when no blocking findings are supported. A chat-only review requires the user to request it explicitly.
 
+At the stage boundary, name what is ready or blocked and prepare the next useful copyable handoff by default, following the shared contract. State the recipient and whether a fresh or existing session is appropriate. Preparing text is not dispatching work or approving the next stage.
+
 ## `spec`: Write or Revise Required Behavior
 
-Use the original user brief or user-confirmed requirements as the goal anchor. A faithful copy may be saved when file-based handoff needs it; any interpretation or addition needs user confirmation before becoming part of that anchor. Never silently rewrite confirmed requirements to match a proposed solution.
+Use the original user brief or user-confirmed requirements as the goal anchor. Reuse an existing requirements file. If none exists, a faithful copy may be saved when explicitly requested or necessary for cross-session handoff; do not present a model summary or additions as original requirements. Any interpretation or addition needs user confirmation before becoming part of that anchor. Never silently rewrite confirmed requirements to match a proposed solution.
 
 Use `superpowers-lite:lite-writing-specs` to define WHAT: behavior, contracts, boundaries, non-goals, and acceptance criteria. Resolve consequential design uncertainty with the user or `superpowers-lite:lite-brainstorming` when necessary. Keep private implementation decisions for the Plan or implementer.
 
 When revising, read only the supplied Spec and explicitly supplied review feedback in addition to the allowed requirements and project context. Resolve genuine ambiguity without treating every reviewer preference as a new requirement. If feedback would change the user's goal, ask instead of silently adopting it.
 
-Write only the requested Spec and an explicitly requested requirements copy. Stop after reporting unresolved questions or that the Spec is ready for the user's decision. Do not write a Plan, implement, request another model's review, or approve your own Spec for the next stage.
+Write only the requested Spec and a requirements copy allowed above. Report unresolved questions or that the Spec is ready for the user's decision, prepare the applicable handoff, and stop. Do not write a Plan, implement, send a review request, or approve your own Spec for the next stage.
 
 ## `plan-review`: Check the Plan Against the Goal
 

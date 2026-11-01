@@ -17,6 +17,8 @@ Supported stages are `spec-clarity`, `spec-alignment`, `plan`, `implement`, and 
 
 For `spec-clarity` and `spec-alignment`, save a Review file using the shared report rules and return the verdict and saved path, including when no blocking findings are supported. A chat-only review requires the user to request it explicitly.
 
+At the stage boundary, name what is ready or blocked and prepare the next useful copyable handoff by default, following the shared contract. State the recipient and whether a fresh or existing session is appropriate. Preparing the handoff never permits reading inputs excluded from this stage.
+
 ## `spec-clarity`: Blind Read of the Spec
 
 Read only the supplied Spec as task context. Do not read original requirements, code, Plans, earlier reviews, author conversations, task memory, or linked background documents. Do not search the repository to fill missing context.
@@ -55,4 +57,4 @@ Use the Spec, Plan, supplied code scope, and the concrete review batch the user 
 
 Fix the batch and directly affected paths without expanding into deferred work. Refresh evidence invalidated by the fixes, following the same testing and verification rules as implementation. Do not weaken legitimate checks or invent a new acceptance scope.
 
-Report which findings were addressed, what changed, relevant results, and anything unresolved. Stop for the user to arrange re-review; do not review your own fixes as Elephant or begin another repair wave.
+Report which findings were addressed, what changed, relevant results, and anything unresolved. Preserve supplied finding IDs and explain unsupported or disputed findings rather than mechanically implementing them. Prepare a scoped re-review handoff with the original Review, fix range, and refreshed evidence, then stop; do not review your own fixes as Elephant or begin another repair wave.
