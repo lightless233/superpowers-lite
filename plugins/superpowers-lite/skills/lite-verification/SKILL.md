@@ -22,6 +22,8 @@ When the task changes a CLI, API, UI, or another external entry, prefer acceptan
 
 Current file or diff inspection, search, or structural validation may be sufficient for a matching structural or textual claim. Code changes or inspection alone do not prove behavioral claims such as correctness, successful execution, or regression safety.
 
+For whole-task completion, reconcile the requested outcome and all material work units with the implementation and evidence, including required connections between components. A completed migration, supporting tool, or local review does not prove the broader capability. Separate implementation status, correctness evidence, and performance or operational results when they have different completion conditions. Do not infer a speedup from reduced source duplication or from an unrepresentative microbenchmark.
+
 ## Keep Evidence Fresh and Proportional
 
 Fresh evidence must still apply to the code relevant to the claim. Do not rely on results from before relevant changes, from an old run whose applicability is uncertain, or from an unverified report. Re-run verification after changes relevant to the claim or evidence; unrelated edits do not automatically invalidate it.
@@ -30,23 +32,33 @@ Choose scope from the claim's breadth, the change's reach, regression risk, and 
 
 The breadth of the claim must not exceed the breadth of the evidence. If only one focused regression test ran, report that result rather than saying all tests pass.
 
+Inspect the existing build, release, or deployment entry before adding surrounding commands. Reuse checks and builds it already owns instead of repeating them manually; repeat only for changed relevant inputs, a concrete failure, or an established requirement. Put repeated deterministic operations in the established tooling when that change is authorized. Distinguish service-switch time from subsequent observation and reporting time.
+
 ## Freeze Acceptance Scope Before Review
 
-When optional code review is used, the Controller freezes reasonable task-acceptance scope before its first run and gathers that evidence before the one broad review. The reviewer receives the results with the requirements, diff, implementation report, focused evidence, and known concerns; missing planned acceptance evidence means the formal gate is not ready.
+When optional code review is used, the Controller identifies the review's purpose and freezes reasonable acceptance scope before its first run. Gather the evidence required at that point before the one broad review. The reviewer receives the requirements, diff, implementation report, applicable evidence, known concerns, and any agreed later acceptance work.
+
+Honor a user-requested implementation/correctness review before final performance measurement or operational acceptance. Missing later-stage evidence does not block that earlier review, but must remain explicitly pending and prevents whole-task completion. Missing or invalid evidence required for the current review prevents a ready verdict for that scope. Do not add an automatic second broad review merely because later acceptance runs afterward.
 
 Failed planned acceptance returns control to `superpowers-lite:using-lite` for at most one batched pre-review correction. Refresh only failed checks and evidence directly invalidated by the correction. If the acceptance criteria still fail, trigger the breaker for user direction rather than entering another verification-and-repair cycle.
 
 Do not expand the frozen scope merely because more coverage can be imagined. Add a check only when the original acceptance criterion cannot prove the claimed behavior, existing evidence is shown invalid, or the correction directly changes explicitly required behavior that was not covered.
 
+Attribute each blocking requirement to the agreed contract or a concrete correctness failure. An author's proposed environment, threshold, or measurement method is not automatically a user requirement. Preserve agreed batch implementation and aggregate evaluation; do not add per-unit performance gates. If an acceptance change becomes necessary, explain its basis and obtain the required user decision rather than applying a stricter standard retroactively.
+
 ## Refresh Invalidated Evidence Before Scoped Re-review
 
 If the post-review fix wave changes behavior covered by earlier acceptance evidence, refresh the affected black-box, integration, or acceptance checks before scoped re-review and give those results to the reviewer. Do not rerun unrelated checks or the complete acceptance set unless the fix's reach invalidates the complete set. Refresh invalidated evidence before scoped re-review, not after it.
 
-A clean scoped re-review should normally be the final automatic gate. After a clean broad review with no fix, or a clean scoped re-review after refreshed evidence, do not add checks merely because more coverage can be imagined. Reopen only when an explicit acceptance criterion was skipped, evidence used by the gate is shown invalid, or a critical correctness or data-corruption issue appears. Additional hardening and coverage are deferred.
+A clean scoped re-review should normally be the final automatic review gate. Complete any already-agreed later acceptance before claiming whole-task completion; it is not newly invented coverage. After a clean broad review with no fix, or a clean scoped re-review after refreshed evidence, do not add checks merely because more coverage can be imagined. Reopen only when an explicit acceptance criterion was skipped, evidence used by the gate is shown invalid, or a critical correctness or data-corruption issue appears. Additional hardening and coverage are deferred.
 
 ## Report the Actual State
 
-If verification fails, report the failure and do not claim completion. If evidence is incomplete, state what was verified and what remains unverified.
+Lead with the status of the requested scope, then identify material remaining work, why it remains, and the next concrete action or decision. If verification fails, report the failure and do not claim completion. Distinguish unimplemented work, tried-but-unsuccessful candidates, justified non-applicability, failed checks, and missing evidence. Reporting a residual does not remove a requirement; a non-blocking coverage gap does not become a verified success. Use a compact table only when it helps reconcile multiple units, not as a fixed reporting template.
+
+Name the actual evidence level: inspection, focused test, recorded replay, live observation, or another concrete method. Do not call replay a new live run or absence of a sample a successful verification. Check important factual assertions in the report against the underlying results, not only the summary's totals or completion labels.
+
+Disclose evidence limits that change the conclusion or next action, once and beside the affected claim. Do not inventory unrelated unperformed checks or add generic disclaimers to every result. If an earlier completion report was misleading, correct its overall takeaway directly; do not defend it by redefining the earlier claim as a narrower local success. Explain who caused a material gap and what will resolve it, without using evidence terminology to obscure responsibility.
 
 Treat worker or sub-agent reports as useful information, not automatically sufficient evidence for the Controller's claim. Check their revision and applicability; inspect the relevant diff, rerun a focused check, validate an integration path, or check acceptance criteria when claim and risk require it. Do not duplicate a valid full-suite run on the same relevant revision merely for reassurance, and do not turn this into a mandatory reviewer workflow.
 

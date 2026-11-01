@@ -41,6 +41,10 @@ Prefer real behavior over mock behavior when practical. Use mocks, fakes, or stu
 
 Test at the lowest level that reliably proves the behavior, but not below the level where the behavior exists. If a final CLI contract emerges from several components, serializer unit tests alone may not replace command-level or integration coverage.
 
+Derive important expected results from requirements, independently checked examples, or an established reference, not by copying the implementation's assumptions into assertions. When semantic interpretation is the task, verify the values that determine correctness, such as identity, direction, amounts, or state transitions. A success status, record count, or printed diagnostic does not establish those values. Use existing representative positive and contrasting cases when available rather than selecting only a case that fits the proposed rule.
+
+For stateful refactors, cover relevant failure transitions and their caller-visible effects, not just the successful helper result. When reducing repeated work is an explicit task requirement, a focused structural or operation-count check may establish that change; do not demand an isolated latency gain unless the acceptance contract requires one.
+
 ## Keep Scope Proportional
 
 Choose scope from change reach, contract importance, regression risk, reuse, and affected boundaries. Protect the changed behavior and its meaningful blast radius; do not automatically require unit, integration, end-to-end, and full-suite coverage together.
@@ -48,13 +52,15 @@ Choose scope from change reach, contract importance, regression risk, reuse, and
 Match checks to the workflow stage when review is used:
 
 - implementation uses focused tests;
-- the task's planned acceptance, integration, or end-to-end checks run before broad review, with a full suite only when task risk justifies it;
+- checks needed for the declared review scope run before broad review, with a full suite only when task risk justifies it; a user-requested implementation/correctness review may precede final performance or operational acceptance;
 - a batched review fix uses focused regression tests; and
 - scoped re-review reads applicable evidence and runs only the minimum directly relevant checks.
 
 Reserve full suites, race checks, cross-platform checks, and complete end-to-end coverage for task risk or milestone integration that warrants them. Do not automatically run them for every small fix or test-only change, duplicate a valid full-suite result from the same revision, or turn scoped re-review into full integration testing.
 
 Add edge cases when justified by requirements, a known failure, a real boundary, the data model, a dependency contract, or plausible regression risk. Do not generate a generic edge-case matrix or pursue coverage percentage as an end in itself.
+
+Distinguish an unavailable sample from a reproduced defect or an unimplemented requirement. Assess what existing evidence proves and what remains uncertain. Keep external sample searches bounded by the agreed scope; do not keep extending them or create fake evidence to fill the gap. If a required acceptance condition cannot be met, report it and propose a justified adjustment for the user's decision rather than silently weakening the condition or treating every missing sample as equally blocking.
 
 When a test fails, distinguish the intended behavior failure from setup errors, wrong assumptions, unrelated existing failures, and actual regressions.
 

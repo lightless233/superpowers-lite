@@ -19,6 +19,16 @@ Gather only the project context needed to understand existing behavior and contr
 
 Ask the user only when an unknown would materially change behavior, an architecture boundary, scope, a public contract, or acceptance criteria. Do not ask questions merely to fill a template.
 
+## Preserve the Requested Outcome
+
+Keep the original brief or user-confirmed requirements traceable, and distinguish them from proposed solutions and acceptance methods. A requirements section inside the Spec can preserve that source, but an unconfirmed model summary is not an independent requirements baseline. Do not create a separate requirements file when the supplied brief already suffices.
+
+Check each material requirement against the proposed scope. For work split across phases, make clear what the current phase delivers, what remains in later phases, and what establishes the overall outcome. Lower priority does not mean excluded; an exclusion or deferral that changes the requested delivery needs the user's agreement. Do not quietly narrow a report-wide task to a convenient subset.
+
+Define success through the intended user or system flow, including the connections between components. Completing component inventories, migrations, or supporting tools does not establish the capability they were meant to enable. When generalization or extensibility is required, include an acceptance example that distinguishes that capability from support for only the original fixed cases.
+
+Keep implementation completion, correctness checks, and final performance or operational acceptance distinct where the task separates them. Preserve the user's chosen order; proposed validation methods do not become mandatory requirements merely because the author writes them down.
+
 ## Write the Minimum Sufficient Spec
 
 Include only the sections that constrain implementation or determine completion. Use whichever are useful and omit the rest:
@@ -57,7 +67,7 @@ Use the date on which the work item was first documented and a short lowercase k
 
 ## Stop at the Spec
 
-Check that the result is internally consistent, unambiguous where it matters, and free of unsupported implementation decisions. Then stop.
+Before delivery, compare the Spec with the supplied requirements as well as checking internal consistency and unsupported implementation decisions. This author check does not require another reviewer or approval gate. On revision, update the effective clauses and affected acceptance criteria together; remove or clearly supersede obsolete instructions rather than relying on appended corrections. Use Git history for old wording unless preserving it serves a concrete need. Then stop.
 
 Do not write an implementation plan, create tasks, implement code, design tests, perform verification, operate Git, dispatch workers, or request review.
 

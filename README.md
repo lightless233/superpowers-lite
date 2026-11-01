@@ -114,9 +114,11 @@ STILL BLOCKED → BREAKER / USER
 
 验收范围应在第一次运行前根据 acceptance criteria 和风险冻结。外部行为优先验证真实 CLI、API 或 UI 入口；内部改动可使用足够的 focused integration evidence，不为形式制造 E2E。失败时只允许一次 batched correction，并只重跑失败或受 correction 影响的证据；仍失败则触发 breaker。
 
-Broad review 一次检查完整 Task，并把当前可发现的 blockers 成批提出。只有违反要求、破坏受支持用法的正确性、数据安全、承诺兼容性、主要流程、安全性或验证有效性的问题才阻塞；既存问题、推测风险、hardening、可选重构和 Task 外观察应 deferred。
+上图是默认顺序。用户要求先审代码、最后统一测性能或做线上验收时，按该顺序执行，当前审查只要求与其范围对应的证据。后续验收仍须完成才能宣布整个任务完成，不因验收后置自动增加一轮 broad review。
 
-默认自动预算是一次 pre-review correction、一次 broad review、一次 post-review batched fix、一次 scoped re-review。Fix 使 acceptance evidence 失效时，只在 re-review 前刷新受影响的检查。Late reviewer miss 若满足 blocking admission 则触发 breaker，否则 deferred；它不会自动开启第二轮 fix。Clean scoped re-review 通常是最后一个自动 gate。
+Broad review 按本轮声明的范围检查完整实现，并把当前可发现的 blockers 成批提出。只有违反要求、破坏受支持用法的正确性、数据安全、承诺兼容性、主要流程、安全性或验证有效性的问题才阻塞；任务范围外的既存问题、推测风险、hardening、可选重构和 Task 外观察应 deferred。
+
+默认自动预算是一次 pre-review correction、一次 broad review、一次 post-review batched fix、一次 scoped re-review。Fix 使 acceptance evidence 失效时，只在 re-review 前刷新受影响的检查。Late reviewer miss 若满足 blocking admission 则触发 breaker，否则 deferred；它不会自动开启第二轮 fix。Clean scoped re-review 通常是最后一个自动审查 gate，后置验收不会重置修复预算。
 
 > **Review 应该收敛 Task，而不是创建无边界的 repair loop。**
 
@@ -354,7 +356,7 @@ Plan: docs/plans/001-YYYY-MM-DD-feature.md
 
 阶段结束后默认附上一份可复制的下一步交接文本，填写已知的实际路径、相关 Review、改动范围和验收证据，并说明发给哪个角色、使用新会话还是合适的原会话。按当前结果准备审查、修订、实现或复审交接；需要你决策时直接说明问题，最终审查通过则收口。缺少必要材料时只标明具体缺项，不越过当前阶段的读取边界；目标 Harness 未知时用自然语言明确选择角色 skill，不假定其命令语法。你发送交接文本才构成下一阶段指令，模型不会自动发送或执行。多项 findings 需要往返追踪时沿用同一组编号，修复和复审逐项说明处理结果或异议。
 
-Spec 和 Plan 保存在实际开发项目中，沿用既有命名规则并按需创建。原始需求不可静默改写；审查只将有依据的需求违背或真实缺陷列为必须修复，可选优化单独列出。
+Spec 和 Plan 保存在实际开发项目中，沿用既有命名规则并按需创建。原始需求应可追溯，Spec 作者及 Plan 审查者核对整体目标与分阶段覆盖；优先级靠后不等于排除。Plan 明确各重要任务的具体变化及完成依据。审查区分需求违背、代码缺陷、报告失实和新增建议，不把报告中的夸大表述变成追溯适用的新要求。
 
 在手动角色工作流中，金鱼的 `spec-clarity`、`spec-alignment` 和大象的 `plan-review`、`code-review` 默认保存 Review 文件，包括无阻断项时的简短通过结论；只有明确要求仅在对话中回复时才省略文件。优先使用指定路径或已知的项目惯例，否则保存到实际开发项目的 `docs/review/`。
 

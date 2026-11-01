@@ -36,6 +36,7 @@ Compare the original requirements, approved Spec, and candidate Plan. Inspect su
 Check whether the Plan:
 
 - covers the required behavior and acceptance criteria;
+- gives each material unit a concrete intended change and completion basis, including the connections needed for the overall goal;
 - preserves scope, non-goals, contracts, and architecture decisions;
 - follows actual project capabilities and organizes useful implementation units;
 - avoids unsupported defenses, compatibility layers, abstractions, or speculative work; and
@@ -43,16 +44,24 @@ Check whether the Plan:
 
 Do not demand private helper names, function-level instructions, or more detail solely to make the Plan longer. When a gap belongs in the Spec or original requirements, identify that gap rather than inventing a requirement inside the review.
 
+Check scope against the supplied original requirements, not only the Spec's restatement. Distinguish work scheduled later from work excluded, and implementation checkpoints from final acceptance gates. A clear Spec or a well-organized Plan can still omit the intended capability.
+
 Report the complete batch of substantive findings with their source and consequence. Do not rewrite the Plan, implement it, or dispatch a worker. A ready verdict is a recommendation to the user, not permission to begin implementation.
 
 ## `code-review`: Review Concrete Defects
 
-Inspect the actual changes, task-relevant surrounding code, requirements, Spec, Plan, and applicable verification evidence. Identify the change range from the supplied Git base or diff; if it is unclear, ask rather than guessing the review scope. Missing planned acceptance evidence prevents a ready verdict.
+Inspect the actual changes, task-relevant surrounding code, requirements, Spec, Plan, and applicable verification evidence. Identify the change range from the supplied Git base or diff; if it is unclear, ask rather than guessing the review scope. Match required evidence to the current review's purpose under the shared contract: a requested implementation/correctness review may precede final performance or operational acceptance, but cannot approve that later acceptance.
+
+Check whether the actual execution path delivers the requested change, including relevant consumers and failure behavior. Inspect the evidence for critical semantic outputs rather than treating status flags, successful commands, or the implementer's completion table as proof. Where interpretation determines correctness, check the basis for expected results independently of the implementation being reviewed.
 
 Admit a BLOCKING finding only for an explicit requirement or acceptance failure, or a concrete defect in supported behavior, data safety, promised compatibility, security, the main flow, or the validity of verification. State the file and location, violated contract or concrete failure path, and impact. Recommend the smallest necessary correction when useful.
 
-Classify pre-existing or out-of-scope issues, speculative risks, optional hardening, style preferences, and unsupported future needs as DEFERRED. Do not make your preferred fallback or abstraction mandatory without a requirement or concrete failure mode. Do not manufacture findings when none are supported.
+Distinguish a requirement violation, a concrete code defect, an inaccurate report, and a proposed improvement. A report claiming more than the code does needs correction, but does not retroactively strengthen the original requirement. If a contract is materially ambiguous, report the ambiguity and needed decision instead of grading the implementation against a new interpretation. Explain any newly necessary check by the concrete defect or invalid evidence it addresses; do not silently move the acceptance standard.
+
+Classify pre-existing issues outside the requested work, other out-of-scope issues, speculative risks, optional hardening, style preferences, and unsupported future needs as DEFERRED. A defect needed to fulfill the current task is not deferred merely because it predates the changes. Do not make your preferred fallback or abstraction mandatory without a requirement or concrete failure mode. Do not manufacture findings when none are supported.
 
 Batch the reasonably discoverable blockers in one review. For a user-requested re-review after fixes, check the original findings, fix diff, affected paths, and refreshed evidence; do not restart a broad audit unless the user explicitly requests one. Report unresolved blockers or regressions to the user instead of starting another repair wave.
+
+When assessing delivery quality or repeated rework, check the supplied requirements, Plan, and your own review standard before attributing the outcome to the implementer. Separate planning gaps, implementation defects, inaccurate self-checks, and reviewer-added demands, and name your own contribution when supported. Do not soften a design omission into "not explained clearly" or use self-authored constraints to excuse it. Base the judgment on those causes and total delivery cost, then answer the requested comparison directly without disclaimers about broader rankings the user did not ask for.
 
 Do not modify the implementation or its requirements while reviewing. Report the verdict, findings, and evidence limits, then stop for manual handoff.

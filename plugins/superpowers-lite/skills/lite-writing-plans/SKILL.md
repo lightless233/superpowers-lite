@@ -40,9 +40,17 @@ Describe meaningful engineering units that can each be understood, implemented, 
 - relevant integration points
 - verification expectations, including the planned acceptance entry and scope when behavior is externally observable
 
-Leave local engineering decisions to the implementing model. Usually omit private helper names and signatures, local types and variables, exact internal file decomposition, test function names, shell commands, code snippets, and step-by-step implementation instructions. Include such a detail only when it is an established public or cross-component contract or a required architecture constraint.
+For each material unit, make the current problem, intended change, and completion evidence concrete. Describe what must become possible or what specific work must disappear; a list of prohibitions alone is not an implementation objective. Distinguish reducing duplicated source code from reducing repeated runtime work when the latter is the goal.
+
+Identify relevant producers, consumers, and failure transitions when they determine correctness. For stateful changes, explain which existing retry, recovery, consumption, and rejection behavior must survive. Local implementation choices remain open, but consequential behavior must not be left to the implementer's guess.
+
+Leave local engineering decisions to the implementing model. Usually omit new private helper names and signatures, local types and variables, exact internal file decomposition, test function names, shell commands, code snippets, and step-by-step implementation instructions. Existing call sites or state transitions may be named when needed to locate the work or explain a contract; do not prescribe private structure merely to make the Plan look precise.
 
 Do not decompose work into test/implement/run/commit micro-steps or size steps by minutes. A task is an independently understandable, implementable, and verifiable engineering unit, not a mechanical action.
+
+Keep all required work accounted for across units, including their integration into the overall outcome. A scheduling choice does not remove work from scope. On revision, update current tasks, dependencies, and completion criteria together so obsolete instructions cannot remain active elsewhere in the Plan.
+
+Separate implementation units from acceptance gates. If the user chose batch implementation followed by aggregate performance evaluation, use affected correctness checks during implementation and evaluate performance at the agreed point. Do not require every small change to show an isolated speedup before continuing. An unmeasured benefit is not evidence of no benefit, and one unsuccessful candidate does not dispose of other untried work. Concrete correctness concerns or a demonstrated regression still require action.
 
 ## Plan Delegated Work in Layers
 
@@ -58,6 +66,7 @@ Plan globally. Specify delegated tasks just-in-time. Do not define every future 
 Build each current brief from the current repository state, the decided requirements and contracts, any available spec or high-level plan, and prior actual implementation results. Include whichever fields are needed:
 
 - goal and relevant context
+- concrete intended change and how completion can be checked
 - relevant files and dependencies
 - existing contracts and required cross-task contracts
 - constraints, scope boundaries, and caller-visible error semantics

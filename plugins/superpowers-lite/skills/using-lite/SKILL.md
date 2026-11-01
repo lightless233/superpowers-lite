@@ -194,7 +194,7 @@ Use `superpowers-lite:lite-brainstorming` only when consequential design uncerta
 
 Code review is optional. When it adds value, use it as a bounded task-convergence gate, not an open-ended search-and-repair loop. The default automatic budget for one reviewed task is one pre-review acceptance correction wave, one broad review, one post-review batched fix wave, and one scoped re-review. If continuing would exceed any limit, trigger the breaker; never add another automatic attempt merely because it might help.
 
-The bounded path is: implementation → frozen planned acceptance → at most one pre-review correction → one broad review → one batched fix wave → refresh invalidated acceptance evidence → one scoped re-review → complete or breaker.
+The default bounded path is: implementation → frozen planned acceptance → at most one pre-review correction → one broad review → one batched fix wave → refresh invalidated acceptance evidence → one scoped re-review → complete or breaker. If the user requests code review before final performance or operational acceptance, keep that order: scope the review and evidence to implementation/correctness, then complete the already-planned acceptance before claiming the whole task complete. This does not add an automatic second broad review. Later acceptance failures use any remaining applicable correction/re-review budget; they do not reset it.
 
 ### Gather Acceptance Evidence First
 
@@ -204,22 +204,24 @@ Planned acceptance gathers evidence; it is not an open-ended repair loop. If it 
 
 Do not grow acceptance scope through an acceptance → fix → invent-more-acceptance loop. After the first run, add a check only when the original criterion cannot actually prove the claimed behavior, existing evidence is shown invalid, or the correction directly changes explicitly required behavior that was not covered.
 
-Give the reviewer the task requirements and acceptance criteria, implementation diff, implementer or worker report, focused test evidence, planned acceptance results, and known failures or concerns. Do not start the formal gate while planned task-acceptance evidence is missing.
+Give the reviewer the task requirements and acceptance criteria, implementation diff, implementer or worker report, applicable test and acceptance evidence, and known failures or concerns. Identify any agreed later acceptance explicitly. Missing evidence required for the current review prevents a ready verdict for that scope; later-stage evidence does not prevent an earlier review the user requested.
 
 ### Review the Task Broadly Once
 
-The first and only broad review covers the whole task rather than isolated changed files: requirements, acceptance criteria, the implementation diff, cross-file and cross-layer invariants, important failure paths, equivalent entry paths, integration boundaries, acceptance evidence, and regression risk. Stay within task scope; this is not a repository-wide architecture audit.
+The first and only broad review covers the whole implementation within the declared review scope rather than isolated changed files: requirements, applicable acceptance criteria, the implementation diff, cross-file and cross-layer invariants, important failure paths, equivalent entry paths, integration boundaries, evidence, and regression risk. Check the requested outcome as well as local compliance with the Plan; inspect important semantic results rather than accepting completion labels. Stay within task scope; this is not a repository-wide architecture audit.
 
 Report all reasonably discoverable substantive findings together. When one path violates an invariant, inspect the other task-relevant paths that share it now. A reviewer must not intentionally save discoverable blockers for later rounds.
 
 Classify every finding:
 
 - **BLOCKING:** it violates an explicit requirement or acceptance criterion; causes a correctness failure in a currently supported use; risks realistic data loss, corruption, or unrecoverable state; breaks compatibility promised by the task; directly introduces a security issue; breaks the task's main product flow; or invalidates the task's verification conclusion.
-- **DEFERRED:** it is pre-existing, out of scope, speculative, future hardening, an architecture or optional refactor improvement, a style preference, relevant only to an unsupported model or future feature, or otherwise unrelated to the task.
+- **DEFERRED:** it is pre-existing and outside the requested work, otherwise out of scope, speculative, future hardening, an architecture or optional refactor improvement, a style preference, relevant only to an unsupported model or future feature, or otherwise unrelated to the task. A defect needed to fulfill the current task is not deferred merely because it predates the changes.
 
 Only BLOCKING findings enter repair. A real issue is not automatically a blocker for this task.
 
-If the broad review has no BLOCKING findings, the gate is clean; complete the task without an empty fix wave or re-review.
+Distinguish requirement violations, code defects, inaccurate reports, and proposed improvements. A reporting error does not retroactively strengthen the implementation contract. A material requirement ambiguity needs clarification, not a stricter interpretation introduced during review. Do not silently turn a scheduled item into an exclusion or an in-scope defect into optional residual work.
+
+If the broad review has no BLOCKING findings, the review gate is clean; do not create an empty fix wave or re-review. Complete the task only when its remaining agreed acceptance is also satisfied.
 
 ### Fix Once, Then Re-review Once
 
@@ -238,9 +240,9 @@ It is not a second broad review, repository scan, hardening pass, or reason to r
 
 After scoped re-review, stop automatic repair:
 
-- If clean, complete the task without inventing new verification scope. A clean scoped re-review should normally be the final automatic gate.
+- If clean, close the review and complete any already-agreed later acceptance within its authorization before claiming task completion. Do not invent new verification scope. A clean scoped re-review should normally be the final automatic review gate.
 - If an original blocker remains, a fix introduced a blocking regression, or blocking status is disputed, report the unresolved finding, what the worker tried, the cause or impact, which fix introduced a regression when applicable, and whether further repair is recommended. Ask the user whether to continue; do not dispatch a second fix wave automatically.
-- Record unrelated, pre-existing, or hardening observations as DEFERRED without reopening the task.
+- Record unrelated observations, pre-existing issues outside the requested work, and optional hardening as DEFERRED without reopening the task.
 
 A task-scoped issue is a `REVIEWER MISS` when it already existed during broad review, was within that review's scope, was reasonably discoverable then, and is first raised during scoped re-review. A reviewer miss never starts another automatic repair wave. If it satisfies the existing BLOCKING admission rules, trigger the breaker and report the late blocker, why the broad review should have found it, and its impact; the user decides whether to authorize more repair. Otherwise classify it as DEFERRED without reopening the task.
 

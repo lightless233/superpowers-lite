@@ -39,7 +39,7 @@ Do not silently resolve conflicts, modify either document, or use the author's u
 
 Use the approved Spec and supplied code scope. For revisions, also read the explicitly supplied Plan and review findings. Do not import the author's chat, hidden rationale, old review history, or task memory to supply missing requirements.
 
-Use `superpowers-lite:lite-writing-plans`. The current Goldfish performs this stage INLINE; a separate TUI does not imply sub-agent delegation or require detailed worker briefs. Define useful engineering units, dependencies, integration points, constraints, and proportionate verification while preserving local implementation judgment.
+Use `superpowers-lite:lite-writing-plans`. The current Goldfish performs this stage INLINE; a separate TUI does not imply sub-agent delegation or require detailed worker briefs. Define useful engineering units, their concrete intended changes and completion evidence, dependencies, integration points, constraints, and proportionate verification while preserving local implementation judgment. Account for the full approved scope and preserve the agreed order of implementation and acceptance.
 
 If required behavior is unresolved, report the gap for Spec clarification. If consequential architecture is unresolved, return the decision to the user; do not settle it by inventing requirements in the Plan. Do not rewrite the Spec, implement the Plan, or self-approve it. Stop after delivering the candidate Plan.
 
@@ -51,10 +51,14 @@ Use `superpowers-lite:lite-testing` when meaningful behavior needs protection an
 
 If the Plan or existing code conflicts materially with the Spec, or the Spec leaves a consequential requirement unresolved, report the conflict rather than silently changing the contracts. Do not edit requirements, the Spec, or the approved Plan to fit the implementation. Report changes, checks, and remaining blockers, then stop; do not dispatch review or claim user approval.
 
+Before reporting completion, reconcile each material unit with the actual changes and applicable evidence. Distinguish work implemented, tried without the intended result, not applicable for a concrete reason, not yet attempted, and externally blocked. Do not label an in-scope defect or unimplemented requirement as a residual or future task to close the assignment. Continue authorized work within this stage when no material blocker prevents it; disclosure of unfinished work is not a substitute for doing it.
+
+Check that claimed improvements actually occurred: extracting shared code does not by itself eliminate runtime work, and a successful status does not prove the important output values. Follow relevant callers and failure paths. Verify the factual statements in the delivery report against the code and results; do not promote a local change or passing check into whole-task completion.
+
 ## `fix`: Correct an Authorized Finding Batch
 
 Use the Spec, Plan, supplied code scope, and the concrete review batch the user has authorized. Confirm that proposed corrections address the cited requirement or failure mode. If a finding is unsupported, optional, or conflicts with the contracts, explain it to the user before treating it as required work.
 
 Fix the batch and directly affected paths without expanding into deferred work. Refresh evidence invalidated by the fixes, following the same testing and verification rules as implementation. Do not weaken legitimate checks or invent a new acceptance scope.
 
-Report which findings were addressed, what changed, relevant results, and anything unresolved. Preserve supplied finding IDs and explain unsupported or disputed findings rather than mechanically implementing them. Prepare a scoped re-review handoff with the original Review, fix range, and refreshed evidence, then stop; do not review your own fixes as Elephant or begin another repair wave.
+Report which findings were addressed, what changed, relevant results, and anything unresolved. Preserve supplied finding IDs and explain unsupported or disputed findings rather than mechanically implementing them. Verify that each claimed correction addresses the failure or reporting error actually cited; a document update alone does not fix an implementation defect. Prepare a scoped re-review handoff with the original Review, fix range, and refreshed evidence, then stop; do not review your own fixes as Elephant or begin another repair wave.
