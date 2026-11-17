@@ -1,6 +1,6 @@
 ---
 name: using-lite
-description: Use for coding, remote server administration, diagnosis and recovery, or file transfers to select the lightest workflow that preserves confidence. Do not use for ordinary technical explanations or conceptual questions.
+description: Use for coding, remote server administration, remote diagnosis and recovery, or remote or artifact file transfers to select the lightest workflow that preserves confidence. Do not use for ordinary technical explanations or conceptual questions.
 ---
 
 # Using Lite
@@ -102,7 +102,7 @@ The operational skills can be selected directly or through this router; loading 
 
 ## Route the Request
 
-1. Distinguish coding work from remote administration, diagnosis, recovery, and transfers. Route operational requests as above; apply the coding classifications below only to coding work. If the request is only an explanation or conceptual question, answer directly and stop routing.
+1. Distinguish coding work from remote administration, remote diagnosis and recovery, and remote or artifact file transfers. Route operational requests as above; apply the coding classifications below only to coding work. If the request is only an explanation or conceptual question, answer directly and stop routing.
 2. Gather only enough project context to make a correct workflow classification. Do not perform unnecessary exploration for simple tasks.
 3. Classify by uncertainty and design complexity, not by the number of files changed.
 4. Select only the phases that add confidence.

@@ -290,7 +290,7 @@ Qoder plugin Skills use plugin-qualified names:
 | `lite-verification` | Determine what fresh evidence supports a completion claim |
 | `lite-maintaining-agents-md` | Audit or maintain durable instructions in the project-root AGENTS.md |
 | `lite-remote-operations` | Execute remote tasks with exact targets, existing access, and tracked outcomes |
-| `lite-remote-recovery` | Diagnose remote failures and verify authorized updates and reboot recovery |
+| `lite-remote-recovery` | Diagnose remote failures and verify authorized host or service recovery |
 | `lite-file-transfer` | Choose transfer paths, verify integrity, and interpret scan results |
 
 The three remote operations Skills use the host's existing SSH, CLI, or MCP tools and do not depend on a particular remote execution service. Select a Skill directly or route through `using-lite`; they add no mandatory coding phases.

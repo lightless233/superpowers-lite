@@ -290,7 +290,7 @@ Qoder 中的插件 Skill 使用插件限定名：
 | `lite-verification` | 判断哪些新鲜证据足以支持完成声明 |
 | `lite-maintaining-agents-md` | 检查或维护项目根目录 AGENTS.md 中的长期有效规则 |
 | `lite-remote-operations` | 精确选择远程目标，复用已有权限与凭据通道，跟踪执行结果 |
-| `lite-remote-recovery` | 诊断远程连接和服务故障，验证已授权的更新与重启恢复 |
+| `lite-remote-recovery` | 诊断远程连接和服务故障，验证已授权的主机或服务恢复 |
 | `lite-file-transfer` | 选择文件传输路径，校验完整性并准确解释扫描结果 |
 
 三个远程运维 Skills 使用宿主已有的 SSH、CLI 或 MCP 工具，不依赖特定远程执行服务。可以直接选择对应 Skill，也可以通过 `using-lite` 路由；它们按需使用，不增加必经的编码阶段。

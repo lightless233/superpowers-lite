@@ -25,7 +25,7 @@ If authentication is refused, inspect the applicable account or key status befor
 
 Use the smallest check that separates the remaining plausible causes. For an unclear application defect, use `superpowers-lite:lite-debugging` rather than accumulating speculative host changes.
 
-## Update and Reboot Within Scope
+## Verify Authorized Update and Reboot Recovery
 
 Inspect pending updates and restart requirements relevant to the requested maintenance. An authorized package update does not automatically authorize package removal or a reboot. If the actual transaction would exceed the requested scope, surface that concrete difference before proceeding.
 
