@@ -1,0 +1,7 @@
+interface:
+  display_name: "Lite Arena"
+  short_description: "Run multi-candidate contests and graft one result"
+  default_prompt: "Use $superpowers-lite:lite-arena to run several independent candidates on this task, pick a base, graft the strongest parts, and verify the result."
+
+policy:
+  allow_implicit_invocation: false

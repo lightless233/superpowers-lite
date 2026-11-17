@@ -1,0 +1,7 @@
+interface:
+  display_name: "Lite Swarm"
+  short_description: "Fan out parallel workers and return one report"
+  default_prompt: "Use $superpowers-lite:lite-swarm to partition or race this work across parallel workers and return one consolidated report."
+
+policy:
+  allow_implicit_invocation: false

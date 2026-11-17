@@ -80,6 +80,8 @@ This is a relationship map, not a mandatory pipeline. `superpowers-lite:using-li
 | `superpowers-lite:lite-verification` | Determine what fresh evidence supports the completion claim |
 | `superpowers-lite:lite-benchmark` | Vet a measured performance number before reporting it or choosing from it |
 | `superpowers-lite:lite-blast-radius` | Find what a change can break outside the diff and prove the safety fact when cheap |
+| `superpowers-lite:lite-arena` | Run multi-candidate contests for one artifact, pick a base, graft, and verify |
+| `superpowers-lite:lite-swarm` | Partition or race parallel workers and return one consolidated report |
 | `superpowers-lite:lite-maintaining-agents-md` | Audit or maintain durable instructions only in the project-root AGENTS.md |
 | `superpowers-lite:lite-remote-operations` | Execute remote tasks with exact targets, existing access, and tracked outcomes |
 | `superpowers-lite:lite-remote-recovery` | Diagnose remote failures and verify authorized host or service recovery |
@@ -121,9 +123,21 @@ The one broad review may use `lite-blast-radius` when one of its safety judgment
 
 A request that is only one of these checks stops coding-workflow routing. Do not open a spec, plan, or review for it. If the same task also changes code, route that part through the coding workflow as usual. Preserve an active manual role's scope and stopping boundary.
 
+## Route Arena And Swarm
+
+Use `superpowers-lite:lite-arena` when the user asks for an arena, a multi-candidate contest, or several independent attempts at the same non-trivial artifact so one base can absorb the strongest parts of the others.
+
+Use `superpowers-lite:lite-swarm` when the user asks for a swarm, parallel coverage, a race, a gauntlet, or parallel exploration that should return one consolidated report.
+
+Both stay explicit. They are not coding phases and they are not a substitute for ordinary `DELEGATED` or `MIXED` execution. Prefer ordinary delegation when one clear unit of work needs a worker. Prefer Arena when competing artifacts must be compared and grafted. Prefer Swarm when slices or identical race arms must return one evidence report.
+
+Do not assume cloud agents, a fixed model panel, or worktrees. Follow each skill's host-capability rules. If the host cannot run the needed candidates or workers, stop and say so.
+
+A request that is only Arena or Swarm stops coding-workflow routing after that skill finishes, unless the user also asked for implementation, specification, or review. Preserve an active manual role's scope and stopping boundary.
+
 ## Route the Request
 
-1. Distinguish coding work from remote administration, remote diagnosis and recovery, and remote or artifact file transfers. Route operational requests as above; apply the coding classifications below only to coding work. For explanation or writing requests, honor any explicit selection of `superpowers-lite:lite-teach`, `superpowers-lite:lite-how`, `superpowers-lite:lite-why`, `superpowers-lite:lite-unslop`, or `superpowers-lite:lite-technical-writing` and their dependency calls, then stop coding-workflow routing. Otherwise answer ordinary explanation or conceptual questions directly. For a request that only vets a measured performance number or investigates what else a change breaks, honor `superpowers-lite:lite-benchmark` or `superpowers-lite:lite-blast-radius` and stop coding-workflow routing.
+1. Distinguish coding work from remote administration, remote diagnosis and recovery, and remote or artifact file transfers. Route operational requests as above; apply the coding classifications below only to coding work. For explanation or writing requests, honor any explicit selection of `superpowers-lite:lite-teach`, `superpowers-lite:lite-how`, `superpowers-lite:lite-why`, `superpowers-lite:lite-unslop`, or `superpowers-lite:lite-technical-writing` and their dependency calls, then stop coding-workflow routing. Otherwise answer ordinary explanation or conceptual questions directly. For a request that only vets a measured performance number or investigates what else a change breaks, honor `superpowers-lite:lite-benchmark` or `superpowers-lite:lite-blast-radius` and stop coding-workflow routing. For a request that only runs a multi-candidate contest or a parallel swarm report, honor `superpowers-lite:lite-arena` or `superpowers-lite:lite-swarm` and stop coding-workflow routing.
 2. Gather only enough project context to make a correct workflow classification. Do not perform unnecessary exploration for simple tasks.
 3. Classify by uncertainty and design complexity, not by the number of files changed.
 4. Select only the phases that add confidence.

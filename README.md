@@ -297,6 +297,8 @@ Qoder 中的插件 Skill 使用插件限定名：
 | `lite-verification` | 判断哪些新鲜证据足以支持完成声明 |
 | `lite-benchmark` | 在报告或采用一个量出来的性能数字之前检查它 |
 | `lite-blast-radius` | 查找改动在 diff 之外可能破坏的地方，并在便宜时证明其安全事实 |
+| `lite-arena` | 同一任务多候选竞赛，选底稿并手工整合，再验证 |
+| `lite-swarm` | 并行分工或竞速，汇总一份报告 |
 | `lite-maintaining-agents-md` | 检查或维护项目根目录 AGENTS.md 中的长期有效规则 |
 | `lite-remote-operations` | 精确选择远程目标，复用已有权限与凭据通道，跟踪执行结果 |
 | `lite-remote-recovery` | 诊断远程连接和服务故障，验证已授权的主机或服务恢复 |
@@ -405,7 +407,7 @@ Spec 和 Plan 保存在实际开发项目中，沿用既有命名规则并按需
 
 当实验是解决设计问题最便宜、可靠的方式时，它也允许使用小型、可丢弃的 probe。
 
-直接调用 `lite-writing-specs` 或 `lite-writing-plans`、而这些结构选择仍未定时，它们会先回到这里，而不是在规格或计划里选定结构。
+直接调用 `lite-writing-specs` 或 `lite-writing-plans`、而这些结构选择仍未定时，它们会先回到这里，而不是在规格或计划里选定结构。要多份竞赛成果并手工整合时，用 `lite-arena`，不要在这里起竞赛。
 
 ### `lite-writing-specs`
 
@@ -571,6 +573,18 @@ Verification 应足以支持声明，而不是默认追求最大范围。
 它查找 diff 外面可能破坏的地方，并尽量证明「它之所以安全」的那一两个事实。能便宜地跑真实代码就跑，并留下命令和输出；不便宜或跑不了，就停在已到达的证据级别并标成未证明。证明可以用聚焦测试或临时脚本，不改产品代码。
 
 它不解释代码现在怎么运行，那是 `lite-how`。它也不决定测试覆盖到哪。`lite-testing` 在普通检查已经足够时直接定覆盖，只把看不清的部分交给它，再根据结果定覆盖。唯一一次 broad review 可以在同一轮里用它查清一个未证的安全事实，已有适用结果就复用。不另加阶段，不另开一轮 review。也可以通过 `$superpowers-lite:lite-blast-radius` 调用。
+
+### `lite-arena`
+
+当你要同一任务的多份独立候选，再选一个底稿、吸收其他候选的优点时使用。先定产物和 3–6 条可打分标准，再把相同任务分到隔离输出目录；有可用的不同模型时做交叉评分，主 Agent 读完全部候选后选底稿，手工整合，再验证。候选高度一致时不必硬改；分歧过大时重新明确任务再跑，不直接拼接。
+
+不依赖 Cursor cloud Agent、固定模型面板或 `pstack-models` 规则。宿主能提供至少两个隔离候选才运行；否则说明限制并停下。它和 `lite-brainstorming` 不同：后者用草图定设计方向，不产多份竞赛成果。也可以通过 `$superpowers-lite:lite-arena` 调用。
+
+### `lite-swarm`
+
+当你要把检查、探索、验证拆成多片并行，或对同一 brief 竞速，并要一份汇总报告时使用。先定完成条件和形状：切片、竞速，或两者混合；竞速时事先声明 `first pass`、`rank all` 或 `best-of`。每个 worker 拿到独立 brief、范围、验证方法和输出要求；涉及测量时 brief 写明准确 SHA 与方法。worker 用 `PASS` / `ISSUES` / `BLOCKED` 汇报。缺 SHA 或方法的结果丢弃并重派一次，再失败记为缺口。
+
+默认使用宿主已有的委派能力，不默认 cloud Agent。只有工作需要本机资源时才要求在用户机器上跑。它不做选底稿和手工整合，那是 `lite-arena`。普通一个清晰工作单元仍优先走 `DELEGATED` / `MIXED`，不必为此开 swarm。也可以通过 `$superpowers-lite:lite-swarm` 调用。
 
 ### `lite-remote-operations`
 
@@ -793,6 +807,8 @@ Superpowers Lite 本身不强制要求：
 │           ├── lite-verification/
 │           ├── lite-benchmark/
 │           ├── lite-blast-radius/
+│           ├── lite-arena/
+│           ├── lite-swarm/
 │           ├── lite-maintaining-agents-md/
 │           ├── lite-remote-operations/
 │           ├── lite-remote-recovery/

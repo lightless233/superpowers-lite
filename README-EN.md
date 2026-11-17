@@ -297,6 +297,8 @@ Qoder plugin Skills use plugin-qualified names:
 | `lite-verification` | Determine what fresh evidence supports a completion claim |
 | `lite-benchmark` | Vet a measured performance number before reporting it or choosing from it |
 | `lite-blast-radius` | Find what a change can break outside the diff and prove the safety fact when cheap |
+| `lite-arena` | Run multi-candidate contests, pick a base, graft, and verify |
+| `lite-swarm` | Partition or race parallel workers and return one report |
 | `lite-maintaining-agents-md` | Audit or maintain durable instructions in the project-root AGENTS.md |
 | `lite-remote-operations` | Execute remote tasks with exact targets, existing access, and tracked outcomes |
 | `lite-remote-recovery` | Diagnose remote failures and verify authorized host or service recovery |
@@ -405,7 +407,7 @@ It does not force multiple alternatives when an existing project pattern already
 
 It also allows small disposable probes when experimentation is the cheapest reliable way to resolve a design question.
 
-A direct call to `lite-writing-specs` or `lite-writing-plans` still returns here when those structural choices remain unsettled, instead of choosing the structure inside the Spec or Plan.
+A direct call to `lite-writing-specs` or `lite-writing-plans` still returns here when those structural choices remain unsettled, instead of choosing the structure inside the Spec or Plan. Competing artifacts that need a grafted result use `lite-arena`, not this skill.
 
 ### `lite-writing-specs`
 
@@ -573,6 +575,18 @@ Invoke it directly when you ask what else a change could break. The workflow als
 It looks outside the diff and tries to prove the one or two facts the change's safety depends on. Run the real code when that is cheap, and keep the command and output. When a run is not cheap or you cannot run it, stop at the evidence level you reached and mark the fact unproven. The proof may be a focused test or a temporary script. Do not change product code.
 
 It does not explain how the code runs now; that is `lite-how`. It does not decide test scope. `lite-testing` decides coverage directly when ordinary inspection is enough, and uses this skill only for the remaining unknown. The one broad review may use it for one unproven safety fact and include the result in that same review. Reuse an investigation that already covers the change. Do not add a phase or another review. You can also invoke `$superpowers-lite:lite-blast-radius`.
+
+### `lite-arena`
+
+Use it when you want several independent candidates for the same task, then one base that absorbs the strongest parts of the others. Define the artifact and 3–6 gradeable criteria, fan the same task into isolated outputs, cross-judge when a distinct available model can score, read every candidate before picking a base, graft by hand, and verify. Convergence needs no forced graft. Wild divergence means reframe and re-run, not a splice.
+
+It does not depend on Cursor cloud agents, a fixed model panel, or a `pstack-models` rule. Run it only when the host can provide at least two isolated candidates; otherwise state the limit and stop. It is not `lite-brainstorming`, which settles design direction with sketches rather than competing artifacts. You can also invoke `$superpowers-lite:lite-arena`.
+
+### `lite-swarm`
+
+Use it when checks, exploration, or verification should be partitioned, or when identical briefs should race, and you need one consolidated report. Declare the done predicate and shape first: slices, a race, or both. For a race, declare `first pass`, `rank all`, or `best-of` before spawning. Each worker gets a self-contained brief, scope, verification method, and output requirements. Measurement briefs name exact SHAs and the method. Workers report `PASS`, `ISSUES`, or `BLOCKED`. Drop a result missing the required SHA or method, respawn once, then record a gap.
+
+Use the host's existing delegation. Do not default to cloud agents. Require the user's machine only when the work needs something there. It does not pick a base or graft losers; that is `lite-arena`. Ordinary `DELEGATED` / `MIXED` execution remains enough for one clear work unit. You can also invoke `$superpowers-lite:lite-swarm`.
 
 ### `lite-remote-operations`
 
@@ -795,6 +809,8 @@ They are simply not part of the workflow unless they add clear value to the curr
 │           ├── lite-verification/
 │           ├── lite-benchmark/
 │           ├── lite-blast-radius/
+│           ├── lite-arena/
+│           ├── lite-swarm/
 │           ├── lite-maintaining-agents-md/
 │           ├── lite-remote-operations/
 │           ├── lite-remote-recovery/

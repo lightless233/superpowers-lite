@@ -45,7 +45,7 @@ When the unresolved choice is data shape, module boundaries, state ownership, or
 
 When more than one shape is genuinely plausible, compare them by which keeps each piece of state under one owner, gives each task one supported path, and leaves callers knowing the least. Prefer redesign over a repeating workaround when the same structural patch keeps appearing.
 
-Record the chosen shape only as far as later specification or planning needs it. Leave private helpers, local variable names, and exact file decomposition to implementation. Do not run a multi-candidate design contest.
+Record the chosen shape only as far as later specification or planning needs it. Leave private helpers, local variable names, and exact file decomposition to implementation. Do not run a multi-candidate design contest here. When the user asks for competing artifacts and a grafted result, that is `superpowers-lite:lite-arena`, not this skill.
 
 ## Bound the Design
 
