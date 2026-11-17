@@ -1,0 +1,7 @@
+interface:
+  display_name: "Lite Show Me Your Work"
+  short_description: "Keep a reviewable append-only decision trail"
+  default_prompt: "Use $superpowers-lite:lite-show-me-your-work to keep an append-only decision log for this run, audit it against the transcript, and end with an Attention section."
+
+policy:
+  allow_implicit_invocation: false

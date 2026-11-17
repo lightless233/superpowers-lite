@@ -300,6 +300,10 @@ Qoder plugin Skills use plugin-qualified names:
 | `lite-blast-radius` | Find what a change can break outside the diff and prove the safety fact when cheap |
 | `lite-arena` | Run multi-candidate contests, pick a base, graft, and verify |
 | `lite-swarm` | Partition or race parallel workers and return one report |
+| `lite-recall` | Rebuild recent working context from chats, live state, and the shared record |
+| `lite-ketchup` | Catch the user up on this chat's new progress and waiting decisions |
+| `lite-ketchup-video` | Catch up with a short subtitled progress video; keep waiting decisions as text |
+| `lite-show-me-your-work` | Keep a reviewable decision trail for long or unattended runs |
 | `lite-maintaining-agents-md` | Audit or maintain durable instructions in the project-root AGENTS.md |
 | `lite-remote-operations` | Execute remote tasks with exact targets, existing access, and tracked outcomes |
 | `lite-remote-recovery` | Diagnose remote failures and verify authorized host or service recovery |
@@ -597,6 +601,28 @@ Use it when checks, exploration, or verification should be partitioned, or when 
 
 Use the host's existing delegation. Do not default to cloud agents. Require the user's machine only when the work needs something there. It does not pick a base or graft losers; that is `lite-arena`. Ordinary `DELEGATED` / `MIXED` execution remains enough for one clear work unit. You can also invoke `$superpowers-lite:lite-swarm`.
 
+### `lite-recall`
+
+Use it before starting or resuming a topic to rebuild recent working context. Pin the time window, topic, and workspace, then search this project's chat history while skipping the current chat and obvious test noise. When the topic names a feature or subsystem, also sweep the shared record (Git, issues, docs, error tracking) and verify against live Git / PR / ticket state.
+
+The output is a short capsule, status-tagged threads, recurring problems, and the single most useful next move. Prefer host-provided session history; on Cursor, use its transcript path. It does not depend on a fixed model panel. Search directly for one or two chats, and skip mining when the user already gave a full state capsule. You can also invoke `$superpowers-lite:lite-recall`.
+
+### `lite-ketchup`
+
+When the user has stepped away, explain what changed since their last message and every call still waiting on them. Use the same voice as `lite-bro`: plain words, short sentences, little jargon. Keep the turn read-only: no code changes, no jobs, no outbound posts.
+
+Lead with progress (reuse existing screenshots, videos, or small relationship diagrams), then list every user action item. Work the agent can still do is not an action item. Never drop a waiting decision to stay short. You can also invoke `$superpowers-lite:lite-ketchup`.
+
+### `lite-ketchup-video`
+
+Follow `lite-ketchup` for progress and waiting decisions, but tell what happened with a silent landscape video of at most 10 slides and burned-in subtitles. Waiting decisions stay as text. Keep working files under `.runtime/ketchup-video-<slug>/`. Use renderers the host and machine already provide. If render fails, say so and return only the calls; do not invent a finished video. You can also invoke `$superpowers-lite:lite-ketchup-video`.
+
+### `lite-show-me-your-work`
+
+During long, multi-phase, or unattended work, keep one append-only TSV with timestamp, phase, decision, why, evidence pointer, and result. Default paths are `decisions.tsv` or `.audit/<task>.tsv`; commit only when a reviewer needs the trail. The bundled `log.sh` stamps time and keeps cells single-line.
+
+Before handoff, audit the log against this run's transcript. When the host can spawn a different-vendor model, cross-review; otherwise say unavailable. End with an Attention section for weak evidence or risk. Other skills that need an audit trail should reference this one instead of inventing a format. You can also invoke `$superpowers-lite:lite-show-me-your-work`.
+
 ### `lite-remote-operations`
 
 Executes remote administrative tasks with exact targets, existing privilege and secret channels, asynchronous job tracking, and result verification. For example: "Restart this server's specified service and confirm the application recovers." Inspect actual capabilities, prefer a matching typed tool, or reuse authorized SSH or CLI access. Do not repeat a mutation with an unknown outcome because a client wait timed out.
@@ -821,6 +847,10 @@ They are simply not part of the workflow unless they add clear value to the curr
 │           ├── lite-blast-radius/
 │           ├── lite-arena/
 │           ├── lite-swarm/
+│           ├── lite-recall/
+│           ├── lite-ketchup/
+│           ├── lite-ketchup-video/
+│           ├── lite-show-me-your-work/
 │           ├── lite-maintaining-agents-md/
 │           ├── lite-remote-operations/
 │           ├── lite-remote-recovery/

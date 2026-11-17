@@ -300,6 +300,10 @@ Qoder 中的插件 Skill 使用插件限定名：
 | `lite-blast-radius` | 查找改动在 diff 之外可能破坏的地方，并在便宜时证明其安全事实 |
 | `lite-arena` | 同一任务多候选竞赛，选底稿并手工整合，再验证 |
 | `lite-swarm` | 并行分工或竞速，汇总一份报告 |
+| `lite-recall` | 从近期聊天、现场状态和共享记录重建工作上下文 |
+| `lite-ketchup` | 汇报当前聊天的新进展和待用户决策事项 |
+| `lite-ketchup-video` | 用带字幕的短视频汇报进展，待决策事项仍用文字 |
+| `lite-show-me-your-work` | 为长任务或无人值守执行留下可复核的决策记录 |
 | `lite-maintaining-agents-md` | 检查或维护项目根目录 AGENTS.md 中的长期有效规则 |
 | `lite-remote-operations` | 精确选择远程目标，复用已有权限与凭据通道，跟踪执行结果 |
 | `lite-remote-recovery` | 诊断远程连接和服务故障，验证已授权的主机或服务恢复 |
@@ -595,6 +599,28 @@ Verification 应足以支持声明，而不是默认追求最大范围。
 
 默认使用宿主已有的委派能力，不默认 cloud Agent。只有工作需要本机资源时才要求在用户机器上跑。它不做选底稿和手工整合，那是 `lite-arena`。普通一个清晰工作单元仍优先走 `DELEGATED` / `MIXED`，不必为此开 swarm。也可以通过 `$superpowers-lite:lite-swarm` 调用。
 
+### `lite-recall`
+
+开始或恢复一个主题前，重建近期工作上下文。固定时间窗口、主题和 workspace 后，搜索当前项目聊天记录，排除当前聊天和无关测试记录；主题点名功能或子系统时，再扫 Git、issue、文档和错误跟踪等共享记录，并用当前 Git / PR / ticket 状态核实。
+
+产出是短胶囊、带状态标签的工作线程、反复出现的问题，以及最有用的下一步。优先使用宿主提供的会话记录；Cursor 上可用其 transcript 路径。不依赖固定模型面板。只有一两份聊天时可直接搜索；用户已给完整状态说明时可跳过挖掘。也可以通过 `$superpowers-lite:lite-recall` 调用。
+
+### `lite-ketchup`
+
+用户暂时没跟进时，讲清从他上一条消息以来发生了什么，以及现在有哪些事情确实要他决定。语气跟 `lite-bro` 一样：人话、短句、少术语。这轮保持只读，不改代码、不启动任务、不发外部消息。
+
+先给进展（能用已有截图、视频或小关系图就用），再列完整的用户待办；Agent 自己能继续做的事不能伪装成用户待办。不能为控制长度而漏掉待决策项。也可以通过 `$superpowers-lite:lite-ketchup` 调用。
+
+### `lite-ketchup-video`
+
+按 `lite-ketchup` 收集进展和待决策项，但用最多 10 张幻灯片做成带烧录字幕的静音横屏短视频来讲「发生了什么」；待决策事项仍用文字列出。工作文件放在 `.runtime/ketchup-video-<slug>/`。用宿主和本机已有的渲染能力；渲染失败时说明失败并只返回决策事项，不虚构成片。也可以通过 `$superpowers-lite:lite-ketchup-video` 调用。
+
+### `lite-show-me-your-work`
+
+长任务、多阶段或无人值守执行期间，维护一份 append-only TSV，记录时间、阶段、决定、原因、证据指针与结果。默认保存在 `decisions.tsv` 或 `.audit/<task>.tsv`，只有审查确实需要时才提交。附带 `log.sh` 负责时间戳和单行化。
+
+交付前对照当前运行 transcript 检查真实性；宿主能换厂商模型时再交叉审查，否则标明不可用。回复末尾列出需用户注意的薄弱证据或风险。其他 skill 需要审计轨迹时引用它，不要另造格式。也可以通过 `$superpowers-lite:lite-show-me-your-work` 调用。
+
 ### `lite-remote-operations`
 
 执行远程管理任务，负责精确目标、现有权限与 secrets 通道、异步任务跟踪和结果确认。例如：“重启这台服务器的指定服务，并确认应用恢复”。先检查实际能力，优先使用匹配的 typed tool，否则复用已授权的 SSH 或 CLI；不因等待超时重复执行结果未知的变更。
@@ -819,6 +845,10 @@ Superpowers Lite 本身不强制要求：
 │           ├── lite-blast-radius/
 │           ├── lite-arena/
 │           ├── lite-swarm/
+│           ├── lite-recall/
+│           ├── lite-ketchup/
+│           ├── lite-ketchup-video/
+│           ├── lite-show-me-your-work/
 │           ├── lite-maintaining-agents-md/
 │           ├── lite-remote-operations/
 │           ├── lite-remote-recovery/

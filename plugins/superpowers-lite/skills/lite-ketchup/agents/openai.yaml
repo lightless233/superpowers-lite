@@ -1,0 +1,7 @@
+interface:
+  display_name: "Lite Ketchup"
+  short_description: "Catch the user up on this chat's new progress"
+  default_prompt: "Use $superpowers-lite:lite-ketchup to catch me up on what changed in this chat since my last message, with plain words and every decision still waiting on me."
+
+policy:
+  allow_implicit_invocation: false

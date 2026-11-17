@@ -1,0 +1,7 @@
+interface:
+  display_name: "Lite Ketchup Video"
+  short_description: "Catch up with a short subtitled progress video"
+  default_prompt: "Use $superpowers-lite:lite-ketchup-video to catch me up with a short subtitled slide video of what happened, and list every decision still waiting on me as text."
+
+policy:
+  allow_implicit_invocation: false

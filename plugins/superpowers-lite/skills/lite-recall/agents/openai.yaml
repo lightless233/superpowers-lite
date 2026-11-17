@@ -1,0 +1,7 @@
+interface:
+  display_name: "Lite Recall"
+  short_description: "Rebuild recent working context into a tight brief"
+  default_prompt: "Use $superpowers-lite:lite-recall to rebuild recent working context for this topic from chat history, live state, and the shared record, then return a tight current-state brief."
+
+policy:
+  allow_implicit_invocation: false

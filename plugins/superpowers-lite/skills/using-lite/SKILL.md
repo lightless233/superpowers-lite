@@ -83,6 +83,10 @@ This is a relationship map, not a mandatory pipeline. `superpowers-lite:using-li
 | `superpowers-lite:lite-blast-radius` | Find what a change can break outside the diff and prove the safety fact when cheap |
 | `superpowers-lite:lite-arena` | Run multi-candidate contests for one artifact, pick a base, graft, and verify |
 | `superpowers-lite:lite-swarm` | Partition or race parallel workers and return one consolidated report |
+| `superpowers-lite:lite-recall` | Rebuild recent working context from chat history, live state, and the shared record |
+| `superpowers-lite:lite-ketchup` | Catch the user up on this chat's new progress and waiting decisions |
+| `superpowers-lite:lite-ketchup-video` | Catch the user up with a short subtitled progress video and waiting decisions as text |
+| `superpowers-lite:lite-show-me-your-work` | Keep a reviewable append-only decision trail for long or unattended runs |
 | `superpowers-lite:lite-maintaining-agents-md` | Audit or maintain durable instructions only in the project-root AGENTS.md |
 | `superpowers-lite:lite-remote-operations` | Execute remote tasks with exact targets, existing access, and tracked outcomes |
 | `superpowers-lite:lite-remote-recovery` | Diagnose remote failures and verify authorized host or service recovery |
@@ -140,9 +144,23 @@ Do not assume cloud agents, a fixed model panel, or worktrees. Follow each skill
 
 A request that is only Arena or Swarm stops coding-workflow routing after that skill finishes, unless the user also asked for implementation, specification, or review. Preserve an active manual role's scope and stopping boundary.
 
+## Route Context Recovery And Progress
+
+Use `superpowers-lite:lite-recall` when the user asks to recall recent work, catch up on a topic across chats, find where they left off, or rebuild working context before starting or resuming. It is not a catch-up of only this chat's new progress; that is ketchup.
+
+Use `superpowers-lite:lite-ketchup` when the user asks for ketchup, a catch-up on this chat since their last message, or what is waiting on them now. Keep that turn read-only.
+
+Use `superpowers-lite:lite-ketchup-video` when the user asks for ketchup-video or a short subtitled catch-up video. It follows ketchup, replaces the summary and visuals with a rendered video, and keeps waiting calls as text.
+
+Use `superpowers-lite:lite-show-me-your-work` when the user asks to show your work, keep a decision trail, or leave a reviewable log for long-running, multi-phase, or unattended work. Other skills that need an audit trail should reference it rather than invent a format.
+
+These stay explicit. They are not coding phases. Do not start them automatically at task completion or manual-role handoff. A general recap does not authorize an AGENTS.md edit. Preserve an active manual role's scope and stopping boundary.
+
+A request that is only one of these stops coding-workflow routing after that skill finishes, unless the user also asked for implementation, specification, or review.
+
 ## Route the Request
 
-1. Distinguish coding work from remote administration, remote diagnosis and recovery, and remote or artifact file transfers. Route operational requests as above; apply the coding classifications below only to coding work. For explanation or writing requests, honor any explicit selection of `superpowers-lite:lite-teach`, `superpowers-lite:lite-how`, `superpowers-lite:lite-why`, `superpowers-lite:lite-unslop`, or `superpowers-lite:lite-technical-writing` and their dependency calls, then stop coding-workflow routing. Otherwise answer ordinary explanation or conceptual questions directly. For a request that only vets a measured performance number or investigates what else a change breaks, honor `superpowers-lite:lite-benchmark` or `superpowers-lite:lite-blast-radius` and stop coding-workflow routing. For a request that only runs a multi-candidate contest or a parallel swarm report, honor `superpowers-lite:lite-arena` or `superpowers-lite:lite-swarm` and stop coding-workflow routing. For a request that only cleans comments in a named scope, honor `superpowers-lite:lite-no-comments` and stop coding-workflow routing.
+1. Distinguish coding work from remote administration, remote diagnosis and recovery, and remote or artifact file transfers. Route operational requests as above; apply the coding classifications below only to coding work. For explanation or writing requests, honor any explicit selection of `superpowers-lite:lite-teach`, `superpowers-lite:lite-how`, `superpowers-lite:lite-why`, `superpowers-lite:lite-unslop`, or `superpowers-lite:lite-technical-writing` and their dependency calls, then stop coding-workflow routing. Otherwise answer ordinary explanation or conceptual questions directly. For a request that only vets a measured performance number or investigates what else a change breaks, honor `superpowers-lite:lite-benchmark` or `superpowers-lite:lite-blast-radius` and stop coding-workflow routing. For a request that only runs a multi-candidate contest or a parallel swarm report, honor `superpowers-lite:lite-arena` or `superpowers-lite:lite-swarm` and stop coding-workflow routing. For a request that only cleans comments in a named scope, honor `superpowers-lite:lite-no-comments` and stop coding-workflow routing. For a request that only rebuilds recent context, catches up on this chat, renders a catch-up video, or keeps a decision trail, honor `superpowers-lite:lite-recall`, `superpowers-lite:lite-ketchup`, `superpowers-lite:lite-ketchup-video`, or `superpowers-lite:lite-show-me-your-work` and stop coding-workflow routing.
 2. Gather only enough project context to make a correct workflow classification. Do not perform unnecessary exploration for simple tasks.
 3. Classify by uncertainty and design complexity, not by the number of files changed.
 4. Select only the phases that add confidence.
