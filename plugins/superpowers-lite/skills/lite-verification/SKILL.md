@@ -22,7 +22,7 @@ When the task changes a CLI, API, UI, or another external entry, prefer acceptan
 
 Current file or diff inspection, search, or structural validation may be sufficient for a matching structural or textual claim. Code changes or inspection alone do not prove behavioral claims such as correctness, successful execution, or regression safety.
 
-For whole-task completion, reconcile the requested outcome and all material work units with the implementation and evidence, including required connections between components. A completed migration, supporting tool, or local review does not prove the broader capability. Separate implementation status, correctness evidence, and performance or operational results when they have different completion conditions. Do not infer a speedup from reduced source duplication or from an unrepresentative microbenchmark.
+For whole-task completion, reconcile the requested outcome and all material work units with the implementation and evidence, including required connections between components. A completed migration, supporting tool, or local review does not prove the broader capability. Separate implementation status, correctness evidence, and performance or operational results when they have different completion conditions. Do not infer a speedup from reduced source duplication or from an unrepresentative microbenchmark. When the claim itself is a measured speedup, slowdown, throughput, latency, or a choice based on such a number, follow `superpowers-lite:lite-benchmark` before stating the verdict. If the host has no skill-invocation tool, read and follow [lite-benchmark](../lite-benchmark/SKILL.md). Do not invoke it for a completion claim that is not a performance number.
 
 ## Keep Evidence Fresh and Proportional
 

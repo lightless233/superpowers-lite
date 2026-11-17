@@ -47,7 +47,7 @@ For stateful refactors, cover relevant failure transitions and their caller-visi
 
 ## Keep Scope Proportional
 
-Choose scope from change reach, contract importance, regression risk, reuse, and affected boundaries. Protect the changed behavior and its meaningful blast radius; do not automatically require unit, integration, end-to-end, and full-suite coverage together.
+Choose scope from change reach, contract importance, regression risk, reuse, and affected boundaries. Protect the changed behavior and its meaningful blast radius; do not automatically require unit, integration, end-to-end, and full-suite coverage together. Here, blast radius means how far the tests need to reach. When ordinary inspection already shows which consumers and behaviors are affected, decide coverage directly. When it does not, follow `superpowers-lite:lite-blast-radius` for that unknown, then decide coverage from the result. Reuse an investigation that already covers this change. Shared state, a persistence format, an external interface, or an async lifecycle is a place to look, not a reason to run the investigation on its own. If the host has no skill-invocation tool, read and follow [lite-blast-radius](../lite-blast-radius/SKILL.md).
 
 Match checks to the workflow stage when review is used:
 

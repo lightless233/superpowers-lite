@@ -1,0 +1,7 @@
+interface:
+  display_name: "Lite Blast Radius"
+  short_description: "Find what a change can break outside the diff"
+  default_prompt: "Use $superpowers-lite:lite-blast-radius to find what else this change can break outside the diff, and prove the safety fact when that is cheap."
+
+policy:
+  allow_implicit_invocation: false

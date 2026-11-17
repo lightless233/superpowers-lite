@@ -36,7 +36,7 @@ Find where observed behavior first differs from expected behavior. In a multi-co
 
 When bad data or state appears deep in a call chain, trace it backward to the earliest meaningful causal boundary: who supplied it, where it originated, and which assumption first failed. Stop when the location and cause are sufficient to justify a fix; do not trace unrelated history.
 
-For flaky or concurrency failures, investigate relevant ordering, shared state, synchronization, timing, environment, or external latency instead of masking uncertainty with a sleep, retry, or larger timeout. For performance failures, measure and localize before using a focused profile or benchmark to distinguish plausible causes.
+For flaky or concurrency failures, investigate relevant ordering, shared state, synchronization, timing, environment, or external latency instead of masking uncertainty with a sleep, retry, or larger timeout. For performance failures, measure and localize before using a focused profile or benchmark to distinguish plausible causes. When a measured number is ready to be reported or used to choose an option, follow `superpowers-lite:lite-benchmark`. If the host has no skill-invocation tool, read and follow [lite-benchmark](../lite-benchmark/SKILL.md). Debugging still owns the unclear cause.
 
 ## Test Concrete Hypotheses When Needed
 

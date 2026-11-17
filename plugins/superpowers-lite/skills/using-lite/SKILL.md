@@ -78,6 +78,8 @@ This is a relationship map, not a mandatory pipeline. `superpowers-lite:using-li
 | `superpowers-lite:lite-technical-writing` | Write and review technical documents; Diátaxis in any language, English sentence rules and lite-unslop for English |
 | `superpowers-lite:lite-testing` | Choose and run meaningful behavioral tests or checks |
 | `superpowers-lite:lite-verification` | Determine what fresh evidence supports the completion claim |
+| `superpowers-lite:lite-benchmark` | Vet a measured performance number before reporting it or choosing from it |
+| `superpowers-lite:lite-blast-radius` | Find what a change can break outside the diff and prove the safety fact when cheap |
 | `superpowers-lite:lite-maintaining-agents-md` | Audit or maintain durable instructions only in the project-root AGENTS.md |
 | `superpowers-lite:lite-remote-operations` | Execute remote tasks with exact targets, existing access, and tracked outcomes |
 | `superpowers-lite:lite-remote-recovery` | Diagnose remote failures and verify authorized host or service recovery |
@@ -107,9 +109,21 @@ Load only the relevant skills. These are operational workflows, not additional m
 
 The operational skills can be selected directly or through this router; loading `using-lite` first is not required. For an unknown remote failure, use recovery to locate the cause, apply operations discipline to any needed change, then verify recovery. A known routine operation does not require a diagnostic phase.
 
+## Route Benchmark And Blast-Radius Checks
+
+Use `superpowers-lite:lite-benchmark` when the user asks to produce, report, or choose from a measured performance number. A rough magnitude stays one run plus the error and work-happened checks.
+
+Use `superpowers-lite:lite-blast-radius` when the user asks what else a change could break, when an authorized test still cannot tell the affected consumers or behaviors from ordinary inspection, or when a safety judgment depends on a fact not yet checked. The user can also invoke it directly. Both skills stay explicit: they do not load on their own, and they are not coding phases.
+
+`superpowers-lite:lite-verification` invokes `lite-benchmark` only when the completion claim itself is a performance number. `superpowers-lite:lite-debugging` keeps an unclear performance failure until a number is ready to report. `lite-testing` decides coverage directly when ordinary inspection is enough, and invokes `lite-blast-radius` only for the remaining unknown.
+
+The one broad review may use `lite-blast-radius` when one of its safety judgments depends on a fact not yet checked. Put the result in that same review. Reuse an investigation that already covers the change. Do not add a phase or another review.
+
+A request that is only one of these checks stops coding-workflow routing. Do not open a spec, plan, or review for it. If the same task also changes code, route that part through the coding workflow as usual. Preserve an active manual role's scope and stopping boundary.
+
 ## Route the Request
 
-1. Distinguish coding work from remote administration, remote diagnosis and recovery, and remote or artifact file transfers. Route operational requests as above; apply the coding classifications below only to coding work. For explanation or writing requests, honor any explicit selection of `superpowers-lite:lite-teach`, `superpowers-lite:lite-how`, `superpowers-lite:lite-why`, `superpowers-lite:lite-unslop`, or `superpowers-lite:lite-technical-writing` and their dependency calls, then stop coding-workflow routing. Otherwise answer ordinary explanation or conceptual questions directly.
+1. Distinguish coding work from remote administration, remote diagnosis and recovery, and remote or artifact file transfers. Route operational requests as above; apply the coding classifications below only to coding work. For explanation or writing requests, honor any explicit selection of `superpowers-lite:lite-teach`, `superpowers-lite:lite-how`, `superpowers-lite:lite-why`, `superpowers-lite:lite-unslop`, or `superpowers-lite:lite-technical-writing` and their dependency calls, then stop coding-workflow routing. Otherwise answer ordinary explanation or conceptual questions directly. For a request that only vets a measured performance number or investigates what else a change breaks, honor `superpowers-lite:lite-benchmark` or `superpowers-lite:lite-blast-radius` and stop coding-workflow routing.
 2. Gather only enough project context to make a correct workflow classification. Do not perform unnecessary exploration for simple tasks.
 3. Classify by uncertainty and design complexity, not by the number of files changed.
 4. Select only the phases that add confidence.
@@ -226,7 +240,7 @@ Give the reviewer the task requirements and acceptance criteria, implementation 
 
 ### Review the Task Broadly Once
 
-The first and only broad review covers the whole implementation within the declared review scope rather than isolated changed files: requirements, applicable acceptance criteria, the implementation diff, cross-file and cross-layer invariants, important failure paths, equivalent entry paths, integration boundaries, evidence, and regression risk. Check the requested outcome as well as local compliance with the Plan; inspect important semantic results rather than accepting completion labels. Stay within task scope; this is not a repository-wide architecture audit.
+The first and only broad review covers the whole implementation within the declared review scope rather than isolated changed files: requirements, applicable acceptance criteria, the implementation diff, cross-file and cross-layer invariants, important failure paths, equivalent entry paths, integration boundaries, evidence, and regression risk. Check the requested outcome as well as local compliance with the Plan; inspect important semantic results rather than accepting completion labels. Stay within task scope; this is not a repository-wide architecture audit. If a safety judgment in this review depends on a fact not yet checked, use `superpowers-lite:lite-blast-radius` for that fact and include the result in this review. Reuse an existing result for the same change. Do not open a second review.
 
 Report all reasonably discoverable substantive findings together. When one path violates an invariant, inspect the other task-relevant paths that share it now. A reviewer must not intentionally save discoverable blockers for later rounds.
 

@@ -295,6 +295,8 @@ Qoder plugin Skills use plugin-qualified names:
 | `lite-technical-writing` | Write and review technical documents with Diátaxis in any language; English sentence rules and lite-unslop apply to English |
 | `lite-testing` | Choose and run meaningful behavioral tests or checks |
 | `lite-verification` | Determine what fresh evidence supports a completion claim |
+| `lite-benchmark` | Vet a measured performance number before reporting it or choosing from it |
+| `lite-blast-radius` | Find what a change can break outside the diff and prove the safety fact when cheap |
 | `lite-maintaining-agents-md` | Audit or maintain durable instructions in the project-root AGENTS.md |
 | `lite-remote-operations` | Execute remote tasks with exact targets, existing access, and tracked outcomes |
 | `lite-remote-recovery` | Diagnose remote failures and verify authorized host or service recovery |
@@ -468,6 +470,8 @@ characterize
 
 If the cause is already clear, debugging is skipped.
 
+Debugging still owns an unclear performance failure. Once a number is ready to report or to choose from, use `lite-benchmark`.
+
 > **Do not stack speculative fixes.**
 
 ### `lite-code-simplifier`
@@ -547,6 +551,24 @@ Structural claims may be supported by structural evidence such as inspection or 
 Behavioral claims require behavioral evidence such as tests, builds, runtime checks, or reproduction.
 
 Verification should be sufficient for the claim, not maximal by default.
+
+When the claim itself is a speedup, slowdown, throughput, latency, or a choice based on that number, use `lite-benchmark` before stating the verdict. Do not invoke it for a claim that is not a performance number.
+
+### `lite-benchmark`
+
+Use it when you will report or adopt a measured performance number: a speedup, slowdown, throughput, latency, or a choice based on that number. A comparison, or a difference you will act on, checks the limiter, whether each side matches the claim's configuration, physical and accounting limits, errors and output correctness, whether the gap exceeds run-to-run variation, the local result's share of the path a user waits on, and whether the work happened inside the timed region.
+
+A requested rough magnitude is one run plus the error and work-happened checks, and you say that it is one run. Run another check when that run looks wrong. A choice, or a difference you will act on, is never a rough magnitude. A comparison alternates sides and reports the median and range. Judge configuration against the claim: defaults are the right setup when the claim is out-of-the-box behavior, and a side that does not match the claim cannot decide that comparison. A comparison is inconclusive when you cannot name the limiter, a side does not match the claim, or errors and work-happened were not checked. A rough magnitude does not become inconclusive merely because it has no limiter profile.
+
+It is an explicit tool. It is not a coding phase and it is not part of review. You can also invoke `$superpowers-lite:lite-benchmark`.
+
+### `lite-blast-radius`
+
+Invoke it directly when you ask what else a change could break. The workflow also calls it when an authorized test still cannot tell the affected consumers or behaviors from ordinary inspection, or a safety judgment depends on a fact not yet checked. Shared state, persistence formats, external interfaces, and async lifecycles are places to look, not reasons to run it on their own.
+
+It looks outside the diff and tries to prove the one or two facts the change's safety depends on. Run the real code when that is cheap, and keep the command and output. When a run is not cheap or you cannot run it, stop at the evidence level you reached and mark the fact unproven. The proof may be a focused test or a temporary script. Do not change product code.
+
+It does not explain how the code runs now; that is `lite-how`. It does not decide test scope. `lite-testing` decides coverage directly when ordinary inspection is enough, and uses this skill only for the remaining unknown. The one broad review may use it for one unproven safety fact and include the result in that same review. Reuse an investigation that already covers the change. Do not add a phase or another review. You can also invoke `$superpowers-lite:lite-blast-radius`.
 
 ### `lite-remote-operations`
 
@@ -767,6 +789,8 @@ They are simply not part of the workflow unless they add clear value to the curr
 │           ├── lite-technical-writing/
 │           ├── lite-testing/
 │           ├── lite-verification/
+│           ├── lite-benchmark/
+│           ├── lite-blast-radius/
 │           ├── lite-maintaining-agents-md/
 │           ├── lite-remote-operations/
 │           ├── lite-remote-recovery/

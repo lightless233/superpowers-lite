@@ -1,0 +1,7 @@
+interface:
+  display_name: "Lite Benchmark"
+  short_description: "Vet a measured performance number before reporting it"
+  default_prompt: "Use $superpowers-lite:lite-benchmark to vet this measured performance number before reporting it or choosing from it."
+
+policy:
+  allow_implicit_invocation: false
