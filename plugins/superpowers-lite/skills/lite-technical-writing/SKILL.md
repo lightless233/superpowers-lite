@@ -29,6 +29,10 @@ One document, one mode. Don't mix modes. Split and link instead.
 - **Reference: facts for lookup.** Only describe. Be dry, complete, and sure. Mirror the structure of the thing described.
 - **Explanation: understanding and why.** One bounded topic. Give context: design decisions, history, constraints, alternatives. Opinion is allowed here and nowhere else.
 
+## Apply the sentence rules to English
+
+Diátaxis and the rhythm section apply in every language. The three sections below apply to English: Google developer style, STE, and Global English. For another language, keep one mode per document, the real names, and the reader's task, and write sentences in that language.
+
 ## Write sentences to the reader (Google developer style)
 
 - Talk to the reader as "you", in the present tense.
@@ -64,7 +68,7 @@ One document, one mode. Don't mix modes. Split and link instead.
 
 ## Voice and repo specifics
 
-- Apply [lite-unslop](../lite-unslop/SKILL.md) to every doc this skill touches. Invoke it as `superpowers-lite:lite-unslop` in plugin hosts, or `lite-unslop` with native skill loaders. If the host has no skill-invocation tool, read and follow its linked instructions. That skill owns the slop-pattern catalog: AI vocabulary, filler, hedging, formatting tells.
-- PR descriptions and commit messages are writing too. Every layer except Diátaxis applies to them. A PR body is a briefing that a reviewer can read in under a minute. Do not paste swarm logs, SHA lists, or metric tables. Link them.
+- Apply [lite-unslop](../lite-unslop/SKILL.md) to English text this skill touches. Invoke it as `superpowers-lite:lite-unslop` in plugin hosts, or `lite-unslop` with native skill loaders. If the host has no skill-invocation tool, read and follow its linked instructions. That skill owns the English slop-pattern catalog: AI vocabulary, filler, hedging, and formatting tells. Do not run it on other languages.
+- PR descriptions and commit messages are writing too. Diátaxis does not apply to them. English ones use the sentence rules and `lite-unslop`. Other languages keep the real names and that language's own sentences. A PR body is a briefing that a reviewer can read in under a minute. Do not paste delegated-worker logs, SHA lists, or metric tables. Link them.
 - Product UI strings are not documentation. Use your product's copy guidelines for those.
-- Indent code snippets with tabs. Write real paths. Make every count or tree claim true at the commit that lands it, and include the command that regenerates it.
+- Match the repository's existing indentation for code snippets. Write real paths. Make every count or tree claim true at the commit that lands it, and include the command that regenerates it.

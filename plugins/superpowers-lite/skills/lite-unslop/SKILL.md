@@ -1,12 +1,16 @@
 ---
 name: lite-unslop
-description: Cut AI tells from any writing.
+description: Cut AI tells from English writing. Leave other languages unchanged, and keep a project's established terms.
 disable-model-invocation: true
 ---
 
 # Lite Unslop
 
-Edit text to remove AI patterns. Scan for the patterns below, then rewrite. Preserve meaning and match the intended tone.
+Edit English text to remove AI patterns. Scan for the patterns below, then rewrite. Preserve meaning and match the intended tone.
+
+Leave Chinese and other languages unchanged. These rules are English sentence and vocabulary rules.
+
+Keep the established name of a thing. A listed word is banned when it is used as a metaphor. Keep it when the project already uses it for the real concept, including harness, surface, and primitive.
 
 Rule numbers are stable ids that other skills cite. A removed rule leaves a gap.
 
@@ -30,7 +34,7 @@ Rule numbers are stable ids that other skills cite. A removed rule leaves a gap.
 23. Cut filler. "In order to" becomes "to". Delete "it is important to note that".
 24. One hedge at most: "may".
 25. No generic conclusions. State specific plans or facts.
-26. No abstract metaphor nouns: substrate, wedge, vector, nexus, primitive, harness, surface, scaffolding, paradigm, ratchet, north star, flywheel. Use the concrete word.
+26. No abstract metaphor nouns: substrate, wedge, vector, nexus, primitive, harness, surface, scaffolding, paradigm, ratchet, north star, flywheel. Use the concrete word. Keep the word when it is the established name of the thing.
 27. Say what it does, not how it feels. Name the mechanism or the number. Cut a sentence that could appear unchanged in another project's docs.
 28. One idea per sentence. Split a sentence the reader has to reread.
 29. Active voice. Name the actor unless it is unknown or doesn't matter.

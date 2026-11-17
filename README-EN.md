@@ -288,11 +288,11 @@ Qoder plugin Skills use plugin-qualified names:
 | `lite-code-simplifier` | Simplify scoped code while preserving existing behavior and contracts |
 | `lite-bro` | Restate the previous reply in plain, coherent language |
 | `lite-in-your-own-words` | Restate your understanding of the user's goals and problem |
-| `lite-teach` | Explain mechanisms, reasons, and tradeoffs through lite-how, lite-why, and lite-unslop |
+| `lite-teach` | Explain mechanisms, reasons, and tradeoffs through lite-how and lite-why; clean English with lite-unslop |
 | `lite-how` | Explain architecture, runtime flow, and code ownership through read-only exploration |
 | `lite-why` | Trace design reasons and tradeoffs through commits and PR discussions |
-| `lite-unslop` | Remove AI writing patterns while preserving meaning and the intended tone |
-| `lite-technical-writing` | Write and review technical documents using layered writing standards and lite-unslop |
+| `lite-unslop` | Remove AI writing patterns from English while preserving meaning, tone, and established terms |
+| `lite-technical-writing` | Write and review technical documents with Diátaxis in any language; English sentence rules and lite-unslop apply to English |
 | `lite-testing` | Choose and run meaningful behavioral tests or checks |
 | `lite-verification` | Determine what fresh evidence supports a completion claim |
 | `lite-maintaining-agents-md` | Audit or maintain durable instructions in the project-root AGENTS.md |
@@ -492,15 +492,15 @@ When you ask “restate my requirements” or “what do you understand I want?�
 
 These four Skills remain explicitly invoked, either by the user or by another Skill. They are not automatic stages for every coding task or reply. In Codex, use names such as `$superpowers-lite:lite-teach`; other hosts use their own Skill invocation mechanism.
 
-`lite-teach` shapes an explanation around the reader's question and existing knowledge. It actually invokes `lite-how` for mechanisms and `lite-why` for historical reasons, then applies `lite-unslop` to the writing. A subsystem normally uses both how and why in parallel before combining their results; a small question may need only one. Start with the smallest complete answer, add depth as needed, preserve uncertainty in the evidence, and never quiz the reader or ask them to repeat the lesson. Build diagrams step by step for systems with several parts, and use image generation for spatial explanations.
+`lite-teach` shapes an explanation around the reader's question and existing knowledge. It actually invokes `lite-how` for mechanisms and `lite-why` for historical reasons. English explanations then go through `lite-unslop`; other languages do not use its punctuation or article rules. A subsystem normally uses both how and why in parallel before combining their results; a small question may need only one. In a live conversation, lead with the conclusion and stop at the smallest complete answer. A one-shot reply delivers the full explanation the question needs, still leading with the conclusion. Preserve uncertainty in the evidence, and never quiz the reader or ask them to repeat the lesson. Build diagrams step by step for systems with several parts, and use image generation for spatial explanations.
 
-The dependencies also work alone: `lite-how` normally delegates exploration and explanation to one read-only subagent, with only light editing by the parent; `lite-why` cites actual commits and discussions, separating recorded reasons, inferences, and unknowns; `lite-unslop` applies the complete writing rule catalog. When delegation, parallel execution, or image generation is unavailable, state the limitation and use the corresponding alternative without claiming a missing invocation or image happened.
+The dependencies also work alone. For a narrow placement or layering question, `lite-how` explores read-only in the current session and answers directly. It delegates to one read-only subagent when the question covers a subsystem. The parent may rewrite for the user's language and for clarity, while keeping the explored facts. `lite-why` cites actual commits and discussions, separating recorded reasons, inferences, and unknowns. `lite-unslop` cleans English only and keeps terms the project already uses. When delegation, parallel execution, or image generation is unavailable, state the limitation and use the corresponding alternative without claiming a missing invocation or image happened.
 
 ### `lite-technical-writing`
 
-Explicitly invoke `$superpowers-lite:lite-technical-writing` to choose a Diátaxis document mode, then apply Google developer style, STE, and Global English sentence rules. It retains the original writing requirements and invokes `lite-unslop` to clean up the prose.
+Explicitly invoke `$superpowers-lite:lite-technical-writing`. Diátaxis applies in every language and separates tutorial, how-to, reference, and explanation. Google developer style, STE, and Global English sentence rules apply to English, which also uses `lite-unslop`. Code snippet indentation follows the repository's existing convention.
 
-Use it for documents, RFCs, READMEs, PR descriptions, and commit messages. PR descriptions and commit messages use every layer except Diátaxis; product UI strings follow the product's own copy guidelines. Other Skills may also call it. It is not an automatic pass on every reply.
+Use it for documents, RFCs, READMEs, PR descriptions, and commit messages. Diátaxis does not apply to PR descriptions and commit messages. English ones use the sentence rules and `lite-unslop`; other languages keep the real names and that language's own sentences. Product UI strings follow the product's own copy guidelines. Other Skills may also call it. It is not an automatic pass on every reply.
 
 ### `lite-testing`
 

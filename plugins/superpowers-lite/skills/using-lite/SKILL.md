@@ -71,11 +71,11 @@ This is a relationship map, not a mandatory pipeline. `superpowers-lite:using-li
 | `superpowers-lite:lite-code-simplifier` | Simplify authorized code while preserving supported behavior |
 | `superpowers-lite:lite-bro` | Restate the previous reply in plain language without jargon |
 | `superpowers-lite:lite-in-your-own-words` | Restate your understanding of the user's goals and problem |
-| `superpowers-lite:lite-teach` | Explain a change or subsystem through lite-how, lite-why, and lite-unslop |
+| `superpowers-lite:lite-teach` | Explain a change or subsystem through lite-how and lite-why; clean English with lite-unslop |
 | `superpowers-lite:lite-how` | Explain current architecture and runtime behavior through read-only exploration |
 | `superpowers-lite:lite-why` | Trace design decisions and tradeoffs through commits and discussions |
-| `superpowers-lite:lite-unslop` | Remove AI writing patterns while preserving meaning and tone |
-| `superpowers-lite:lite-technical-writing` | Write and review technical documents using layered writing standards and lite-unslop |
+| `superpowers-lite:lite-unslop` | Remove AI writing patterns from English while preserving meaning, tone, and established terms |
+| `superpowers-lite:lite-technical-writing` | Write and review technical documents; Diátaxis in any language, English sentence rules and lite-unslop for English |
 | `superpowers-lite:lite-testing` | Choose and run meaningful behavioral tests or checks |
 | `superpowers-lite:lite-verification` | Determine what fresh evidence supports the completion claim |
 | `superpowers-lite:lite-maintaining-agents-md` | Audit or maintain durable instructions only in the project-root AGENTS.md |
