@@ -1,0 +1,7 @@
+interface:
+  display_name: "Lite Correct"
+  short_description: "Make repeated agent mistakes hard to repeat in-repo"
+  default_prompt: "Use $superpowers-lite:lite-correct to find repeated agent mistake classes in this repo and fix them with architecture, types, lint/CI, or tests before docs."
+
+policy:
+  allow_implicit_invocation: false

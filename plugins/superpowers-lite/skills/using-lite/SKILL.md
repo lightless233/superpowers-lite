@@ -87,6 +87,9 @@ This is a relationship map, not a mandatory pipeline. `superpowers-lite:using-li
 | `superpowers-lite:lite-ketchup` | Catch the user up on this chat's new progress and waiting decisions |
 | `superpowers-lite:lite-ketchup-video` | Catch the user up with a short subtitled progress video and waiting decisions as text |
 | `superpowers-lite:lite-show-me-your-work` | Keep a reviewable append-only decision trail for long or unattended runs |
+| `superpowers-lite:lite-automate-me` | Capture recurring working habits into a project-local -mode skill |
+| `superpowers-lite:lite-reflect` | Mine this session for approved edits to existing in-project skills |
+| `superpowers-lite:lite-correct` | Make repeated agent mistakes hard to repeat with in-repo constraints |
 | `superpowers-lite:lite-maintaining-agents-md` | Audit or maintain durable instructions only in the project-root AGENTS.md |
 | `superpowers-lite:lite-remote-operations` | Execute remote tasks with exact targets, existing access, and tracked outcomes |
 | `superpowers-lite:lite-remote-recovery` | Diagnose remote failures and verify authorized host or service recovery |
@@ -158,9 +161,21 @@ These stay explicit. They are not coding phases. Do not start them automatically
 
 A request that is only one of these stops coding-workflow routing after that skill finishes, unless the user also asked for implementation, specification, or review.
 
+## Route Habit Capture And Mistake Hardening
+
+Use `superpowers-lite:lite-automate-me` when the user asks to automate me, create or refresh a personal `-mode` skill, or capture working preferences into a skill. It writes only a project-local mode skill, defaulting to `.agents/skills/<handle>-mode/`.
+
+Use `superpowers-lite:lite-reflect` when the user asks to reflect, or to turn this conversation into durable edits on existing skills. It reports Accepted / Rejected / Backlog and edits only after approval, only inside the project.
+
+Use `superpowers-lite:lite-correct` when the user asks to correct repeated agent mistakes in this repo, or to make a recurring error hard to repeat. It changes architecture, types, lint/CI, or tests first; judgment-call instruction text goes through `superpowers-lite:lite-maintaining-agents-md`.
+
+Keep `superpowers-lite:lite-maintaining-agents-md` as the only writer of the project-root `AGENTS.md`. Do not merge these three into that skill. All four stay explicit and project-scoped: do not write outside the project tree.
+
+A request that is only one of these stops coding-workflow routing after that skill finishes, unless the user also asked for implementation, specification, or review. Preserve an active manual role's scope and stopping boundary.
+
 ## Route the Request
 
-1. Distinguish coding work from remote administration, remote diagnosis and recovery, and remote or artifact file transfers. Route operational requests as above; apply the coding classifications below only to coding work. For explanation or writing requests, honor any explicit selection of `superpowers-lite:lite-teach`, `superpowers-lite:lite-how`, `superpowers-lite:lite-why`, `superpowers-lite:lite-unslop`, or `superpowers-lite:lite-technical-writing` and their dependency calls, then stop coding-workflow routing. Otherwise answer ordinary explanation or conceptual questions directly. For a request that only vets a measured performance number or investigates what else a change breaks, honor `superpowers-lite:lite-benchmark` or `superpowers-lite:lite-blast-radius` and stop coding-workflow routing. For a request that only runs a multi-candidate contest or a parallel swarm report, honor `superpowers-lite:lite-arena` or `superpowers-lite:lite-swarm` and stop coding-workflow routing. For a request that only cleans comments in a named scope, honor `superpowers-lite:lite-no-comments` and stop coding-workflow routing. For a request that only rebuilds recent context, catches up on this chat, renders a catch-up video, or keeps a decision trail, honor `superpowers-lite:lite-recall`, `superpowers-lite:lite-ketchup`, `superpowers-lite:lite-ketchup-video`, or `superpowers-lite:lite-show-me-your-work` and stop coding-workflow routing.
+1. Distinguish coding work from remote administration, remote diagnosis and recovery, and remote or artifact file transfers. Route operational requests as above; apply the coding classifications below only to coding work. For explanation or writing requests, honor any explicit selection of `superpowers-lite:lite-teach`, `superpowers-lite:lite-how`, `superpowers-lite:lite-why`, `superpowers-lite:lite-unslop`, or `superpowers-lite:lite-technical-writing` and their dependency calls, then stop coding-workflow routing. Otherwise answer ordinary explanation or conceptual questions directly. For a request that only vets a measured performance number or investigates what else a change breaks, honor `superpowers-lite:lite-benchmark` or `superpowers-lite:lite-blast-radius` and stop coding-workflow routing. For a request that only runs a multi-candidate contest or a parallel swarm report, honor `superpowers-lite:lite-arena` or `superpowers-lite:lite-swarm` and stop coding-workflow routing. For a request that only cleans comments in a named scope, honor `superpowers-lite:lite-no-comments` and stop coding-workflow routing. For a request that only rebuilds recent context, catches up on this chat, renders a catch-up video, or keeps a decision trail, honor `superpowers-lite:lite-recall`, `superpowers-lite:lite-ketchup`, `superpowers-lite:lite-ketchup-video`, or `superpowers-lite:lite-show-me-your-work` and stop coding-workflow routing. For a request that only captures a project-local mode skill, reflects into skill edits, hardens repeated mistakes, or maintains AGENTS.md, honor `superpowers-lite:lite-automate-me`, `superpowers-lite:lite-reflect`, `superpowers-lite:lite-correct`, or `superpowers-lite:lite-maintaining-agents-md` and stop coding-workflow routing.
 2. Gather only enough project context to make a correct workflow classification. Do not perform unnecessary exploration for simple tasks.
 3. Classify by uncertainty and design complexity, not by the number of files changed.
 4. Select only the phases that add confidence.

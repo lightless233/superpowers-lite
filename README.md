@@ -304,6 +304,9 @@ Qoder 中的插件 Skill 使用插件限定名：
 | `lite-ketchup` | 汇报当前聊天的新进展和待用户决策事项 |
 | `lite-ketchup-video` | 用带字幕的短视频汇报进展，待决策事项仍用文字 |
 | `lite-show-me-your-work` | 为长任务或无人值守执行留下可复核的决策记录 |
+| `lite-automate-me` | 把反复出现的工作习惯写成项目内的个人 mode skill |
+| `lite-reflect` | 从当前会话提炼对项目内已有 skill 的改进，批准后再改 |
+| `lite-correct` | 用架构、类型、lint/CI 或测试堵住 Agent 反复犯的错 |
 | `lite-maintaining-agents-md` | 检查或维护项目根目录 AGENTS.md 中的长期有效规则 |
 | `lite-remote-operations` | 精确选择远程目标，复用已有权限与凭据通道，跟踪执行结果 |
 | `lite-remote-recovery` | 诊断远程连接和服务故障，验证已授权的主机或服务恢复 |
@@ -621,6 +624,18 @@ Verification 应足以支持声明，而不是默认追求最大范围。
 
 交付前对照当前运行 transcript 检查真实性；宿主能换厂商模型时再交叉审查，否则标明不可用。回复末尾列出需用户注意的薄弱证据或风险。其他 skill 需要审计轨迹时引用它，不要另造格式。也可以通过 `$superpowers-lite:lite-show-me-your-work` 调用。
 
+### `lite-automate-me`
+
+把用户在本项目里反复出现的工作习惯写成项目内的 `<handle>-mode` skill。默认新建到 `.agents/skills/<handle>-mode/SKILL.md`；已有则原地更新。只挖本项目会话里的重复模式，单次纠正不成规则，不写项目根 `AGENTS.md`。也可以通过 `$superpowers-lite:lite-automate-me` 调用。
+
+### `lite-reflect`
+
+任务结束后，从当前会话提炼对项目内已有 skill 的改进。产出 Accepted / Rejected / Backlog；用户批准后才改，且只改项目树内的 skill 源文件，不改 `plugins/cache/` 或项目外副本。该进 `AGENTS.md` 的转交 `lite-maintaining-agents-md`。也可以通过 `$superpowers-lite:lite-reflect` 调用。
+
+### `lite-correct`
+
+找出本仓库里 Agent 至少犯过两次的错误类别，按「架构 → 类型 → lint/CI → 测试 → 最后才是文档」落地修复，并用历史真实错误证明新检查会失败。主产物是仓库改动，不是报告文件。需要写进项目根 `AGENTS.md` 的判断类规则，转交 `lite-maintaining-agents-md`。也可以通过 `$superpowers-lite:lite-correct` 调用。
+
 ### `lite-remote-operations`
 
 执行远程管理任务，负责精确目标、现有权限与 secrets 通道、异步任务跟踪和结果确认。例如：“重启这台服务器的指定服务，并确认应用恢复”。先检查实际能力，优先使用匹配的 typed tool，否则复用已授权的 SSH 或 CLI；不因等待超时重复执行结果未知的变更。
@@ -849,6 +864,9 @@ Superpowers Lite 本身不强制要求：
 │           ├── lite-ketchup/
 │           ├── lite-ketchup-video/
 │           ├── lite-show-me-your-work/
+│           ├── lite-automate-me/
+│           ├── lite-reflect/
+│           ├── lite-correct/
 │           ├── lite-maintaining-agents-md/
 │           ├── lite-remote-operations/
 │           ├── lite-remote-recovery/

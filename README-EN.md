@@ -304,6 +304,9 @@ Qoder plugin Skills use plugin-qualified names:
 | `lite-ketchup` | Catch the user up on this chat's new progress and waiting decisions |
 | `lite-ketchup-video` | Catch up with a short subtitled progress video; keep waiting decisions as text |
 | `lite-show-me-your-work` | Keep a reviewable decision trail for long or unattended runs |
+| `lite-automate-me` | Capture recurring working habits into a project-local mode skill |
+| `lite-reflect` | Mine this session for approved edits to in-project skills |
+| `lite-correct` | Block repeated agent mistakes with architecture, types, lint/CI, or tests |
 | `lite-maintaining-agents-md` | Audit or maintain durable instructions in the project-root AGENTS.md |
 | `lite-remote-operations` | Execute remote tasks with exact targets, existing access, and tracked outcomes |
 | `lite-remote-recovery` | Diagnose remote failures and verify authorized host or service recovery |
@@ -623,6 +626,18 @@ During long, multi-phase, or unattended work, keep one append-only TSV with time
 
 Before handoff, audit the log against this run's transcript. When the host can spawn a different-vendor model, cross-review; otherwise say unavailable. End with an Attention section for weak evidence or risk. Other skills that need an audit trail should reference this one instead of inventing a format. You can also invoke `$superpowers-lite:lite-show-me-your-work`.
 
+### `lite-automate-me`
+
+Turn recurring working habits in this project into a project-local `<handle>-mode` skill. New modes default to `.agents/skills/<handle>-mode/SKILL.md`; existing ones update in place. Mine only this project's sessions, drop one-off corrections, and do not edit the project-root `AGENTS.md`. You can also invoke `$superpowers-lite:lite-automate-me`.
+
+### `lite-reflect`
+
+After a task, mine this conversation for durable improvements to skills that already live in the project. Return Accepted / Rejected / Backlog, edit only after approval, and only edit in-project skill sources—not `plugins/cache/` or copies outside the project. Findings that belong in `AGENTS.md` go to `lite-maintaining-agents-md`. You can also invoke `$superpowers-lite:lite-reflect`.
+
+### `lite-correct`
+
+Find agent mistake classes that happened at least twice in this repo, fix them with architecture first, then types, lint/CI, tests, and docs last, and prove each new check fails on a real past mistake. The main output is in-repo changes, not a report file. Judgment-call rules for the project-root `AGENTS.md` go through `lite-maintaining-agents-md`. You can also invoke `$superpowers-lite:lite-correct`.
+
 ### `lite-remote-operations`
 
 Executes remote administrative tasks with exact targets, existing privilege and secret channels, asynchronous job tracking, and result verification. For example: "Restart this server's specified service and confirm the application recovers." Inspect actual capabilities, prefer a matching typed tool, or reuse authorized SSH or CLI access. Do not repeat a mutation with an unknown outcome because a client wait timed out.
@@ -851,6 +866,9 @@ They are simply not part of the workflow unless they add clear value to the curr
 │           ├── lite-ketchup/
 │           ├── lite-ketchup-video/
 │           ├── lite-show-me-your-work/
+│           ├── lite-automate-me/
+│           ├── lite-reflect/
+│           ├── lite-correct/
 │           ├── lite-maintaining-agents-md/
 │           ├── lite-remote-operations/
 │           ├── lite-remote-recovery/

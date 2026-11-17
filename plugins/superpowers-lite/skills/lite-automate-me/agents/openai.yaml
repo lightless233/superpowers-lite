@@ -1,0 +1,7 @@
+interface:
+  display_name: "Lite Automate Me"
+  short_description: "Capture working habits into a project-local mode skill"
+  default_prompt: "Use $superpowers-lite:lite-automate-me to draft or refresh my project-local -mode skill from recurring working patterns in this project."
+
+policy:
+  allow_implicit_invocation: false

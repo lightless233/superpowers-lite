@@ -1,0 +1,7 @@
+interface:
+  display_name: "Lite Reflect"
+  short_description: "Turn this session into approved edits on project skills"
+  default_prompt: "Use $superpowers-lite:lite-reflect to mine this conversation for durable skill improvements, show Accepted/Rejected/Backlog, and wait for approval before editing."
+
+policy:
+  allow_implicit_invocation: false
