@@ -14,7 +14,7 @@ Do not create a plan when implementation is already one obvious unit of work. If
 Before planning, confirm that required behavior, important boundaries, public and cross-component contracts, and consequential architecture choices are sufficiently clear.
 
 - Return unresolved behavior or contract questions to `superpowers-lite:lite-writing-specs`.
-- Return unresolved architecture choices to `superpowers-lite:lite-brainstorming`.
+- Return unresolved architecture choices to `superpowers-lite:lite-brainstorming`. That includes unsettled data shape, module boundaries, state ownership, or how much callers must know. A direct call to this skill does not skip that return.
 
 Planning organizes decided work; it does not settle these questions itself.
 

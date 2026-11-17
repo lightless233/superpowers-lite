@@ -399,9 +399,13 @@ It resolves material uncertainty such as:
 - meaningful requirement ambiguity;
 - competing approaches with real trade-offs.
 
+When the open question is data shape, module boundaries, state ownership, or how much callers must know, sketch only enough structure to compare, and prefer the shape with one owner per state, one supported path per task, and the least caller knowledge. Follow an existing pattern when it fits. Do not invent a second shape merely for contrast.
+
 It does not force multiple alternatives when an existing project pattern already fits.
 
 It also allows small disposable probes when experimentation is the cheapest reliable way to resolve a design question.
+
+A direct call to `lite-writing-specs` or `lite-writing-plans` still returns here when those structural choices remain unsettled, instead of choosing the structure inside the Spec or Plan.
 
 ### `lite-writing-specs`
 

@@ -39,6 +39,14 @@ Compare alternatives only when more than one approach is genuinely plausible. Us
 
 Recommend an approach when the available context supports one, with a brief explanation tied to current constraints. Do not force two or three options, and do not hand a technical decision back to the user merely because several approaches exist.
 
+## Resolve Structural Shape When That Is the Decision
+
+When the unresolved choice is data shape, module boundaries, state ownership, or how much callers must know, trace the systems the change touches. Sketch only as much structure as the comparison needs: types or data shapes, important signatures, and module boundaries. Prefer an existing project pattern when it fits. Do not invent a second shape merely to have a contrast.
+
+When more than one shape is genuinely plausible, compare them by which keeps each piece of state under one owner, gives each task one supported path, and leaves callers knowing the least. Prefer redesign over a repeating workaround when the same structural patch keeps appearing.
+
+Record the chosen shape only as far as later specification or planning needs it. Leave private helpers, local variable names, and exact file decomposition to implementation. Do not run a multi-candidate design contest.
+
 ## Bound the Design
 
 Design for the current requirement, not hypothetical future needs. Do not add generic frameworks, extension points, services, or abstractions for possibilities the current work does not require.

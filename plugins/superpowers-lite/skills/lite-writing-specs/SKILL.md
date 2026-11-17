@@ -11,7 +11,7 @@ Describe what the system must do. Do not design how the implementation will be o
 
 If the change is already obvious and has no meaningful behavior or contract to define, stop and return control to the router. SIMPLE changes such as typos, direct configuration edits, and narrow bug fixes usually need no spec.
 
-If consequential architecture choices remain unresolved, stop and use `superpowers-lite:lite-brainstorming`. A spec records decided behavior; it does not choose the architecture.
+If consequential architecture choices remain unresolved, stop and use `superpowers-lite:lite-brainstorming`. That includes unsettled data shape, module boundaries, state ownership, or how much callers must know. A direct call to this skill does not skip that return. A spec records decided behavior; it does not choose the architecture.
 
 ## Resolve Only Material Unknowns
 
