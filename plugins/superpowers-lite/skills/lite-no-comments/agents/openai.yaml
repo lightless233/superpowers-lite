@@ -1,0 +1,7 @@
+interface:
+  display_name: "Lite No Comments"
+  short_description: "Delete unjustified comments and fix what they hide"
+  default_prompt: "Use $superpowers-lite:lite-no-comments to review and delete unjustified comments in this scope, then apply the smallest in-scope fixes for accepted findings."
+
+policy:
+  allow_implicit_invocation: false

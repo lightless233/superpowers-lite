@@ -286,6 +286,7 @@ Qoder 中的插件 Skill 使用插件限定名：
 | `lite-writing-plans` | 组织已经确定的实现工作 |
 | `lite-debugging` | 在选择修复方案前调查不明确的根因 |
 | `lite-code-simplifier` | 在明确范围内简化代码，并保持已有行为和契约 |
+| `lite-no-comments` | 删除站不住的注释，并处理注释掩盖的问题 |
 | `lite-bro` | 用简洁、连贯的人话重述上一条回复 |
 | `lite-in-your-own-words` | 用自己的话复述理解到的用户目标和问题 |
 | `lite-teach` | 用 lite-how 与 lite-why 讲清机制、原因和取舍；英文再用 lite-unslop |
@@ -485,6 +486,14 @@ Spec 和 Plan 保存在实际开发项目中，沿用既有命名规则并按需
 例如：“简化当前任务的代码改动，保持行为不变”。请求审查或建议时只读；明确要求简化时允许范围内修改。完成后运行与影响相关的验证，并报告实际证据；没有值得简化的地方就保持原样。
 
 它是可选任务，不会在每次写代码后自动执行。在大象／金鱼流程中继续遵守原阶段权限，不会把审查变成改代码，也不新增阶段。
+
+### `lite-no-comments`
+
+当你要求清理指定文件或 diff 里的注释时使用。它偏删除：只保留法律头、公开 API 契约注释、代码表达不了的外部约束、合格的格式化或 lint 例外，以及带 Issue／RFC 链接且代码本身表达不了的约束。自己的代码里用注释掩盖的意外行为要删注释，并标出需要改名、抽取、类型或结构调整的符号。
+
+审查可以用一个委派 Agent，也可以在当前会话按同一套规则做。主会话审核删除与 `MUST KILL`；不合格报告最多重派一次。简单问题直接修；需要结构方向时先走一次 `lite-brainstorming`，再做范围内最小根因修复。约束类注释在交互批准后可用类型、检查、测试或 CI 编码，再删注释；无人值守需要调用方预先批准编码。
+
+它不是 `lite-code-simplifier`。后者管嵌套和间接层，这个管注释以及注释掩盖的 workaround。不会在每次写代码后自动执行。也可以通过 `$superpowers-lite:lite-no-comments` 调用。
 
 ### `lite-bro`
 
@@ -796,6 +805,7 @@ Superpowers Lite 本身不强制要求：
 │           ├── lite-writing-plans/
 │           ├── lite-debugging/
 │           ├── lite-code-simplifier/
+│           ├── lite-no-comments/
 │           ├── lite-bro/
 │           ├── lite-in-your-own-words/
 │           ├── lite-teach/

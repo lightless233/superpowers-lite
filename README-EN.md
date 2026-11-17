@@ -286,6 +286,7 @@ Qoder plugin Skills use plugin-qualified names:
 | `lite-writing-plans` | Organize decided implementation work |
 | `lite-debugging` | Investigate unclear root causes before choosing a fix |
 | `lite-code-simplifier` | Simplify scoped code while preserving existing behavior and contracts |
+| `lite-no-comments` | Delete unjustified comments and fix the problems those comments hide |
 | `lite-bro` | Restate the previous reply in plain, coherent language |
 | `lite-in-your-own-words` | Restate your understanding of the user's goals and problem |
 | `lite-teach` | Explain mechanisms, reasons, and tradeoffs through lite-how and lite-why; clean English with lite-unslop |
@@ -487,6 +488,14 @@ Simplify specified code or changes already identified for the current task, redu
 For example: “Simplify the current task's code changes without changing behavior.” A request for review or suggestions is read-only; a direct simplification request authorizes scoped edits. Run verification relevant to the change and report the actual evidence. Leave already clear code unchanged.
 
 This is an optional task, not an automatic pass after every code edit. Existing Elephant and Goldfish stage permissions still apply: simplification does not turn review into implementation or introduce another stage.
+
+### `lite-no-comments`
+
+Use it when you ask to clean comments in named files or a diff. It deletes by default. Keep only legal headers, public API contract docs, external constraints code cannot express, valid formatter or lint exceptions, and Issue or RFC links for constraints code cannot carry. Comments that hide surprises in our own code are deleted, and the exact symbols that need rename, extract, typing, or restructure are flagged.
+
+The review may use one delegated agent or follow the same rules inline. The parent audits deletions and `MUST KILL` flags; a rejected report may be rerun once. Fix trivial findings directly. If a structural direction is needed, run `lite-brainstorming` once, then apply the smallest in-scope root-cause fix. Constraint comments may be encoded as a type, check, test, or CI rule after interactive approval, then deleted; unattended runs need caller pre-approval for encoding.
+
+It is not `lite-code-simplifier`. That skill reduces nesting and indirection; this one targets comments and the workarounds they hide. It is not an automatic pass after every edit. You can also invoke `$superpowers-lite:lite-no-comments`.
 
 ### `lite-bro`
 
@@ -798,6 +807,7 @@ They are simply not part of the workflow unless they add clear value to the curr
 │           ├── lite-writing-plans/
 │           ├── lite-debugging/
 │           ├── lite-code-simplifier/
+│           ├── lite-no-comments/
 │           ├── lite-bro/
 │           ├── lite-in-your-own-words/
 │           ├── lite-teach/

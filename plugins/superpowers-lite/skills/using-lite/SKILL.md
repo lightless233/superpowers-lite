@@ -69,6 +69,7 @@ This is a relationship map, not a mandatory pipeline. `superpowers-lite:using-li
 | `superpowers-lite:lite-writing-plans` | Organize decided implementation work |
 | `superpowers-lite:lite-debugging` | Investigate unclear root causes before choosing a fix |
 | `superpowers-lite:lite-code-simplifier` | Simplify authorized code while preserving supported behavior |
+| `superpowers-lite:lite-no-comments` | Delete unjustified comments and fix the problems those comments hide |
 | `superpowers-lite:lite-bro` | Restate the previous reply in plain language without jargon |
 | `superpowers-lite:lite-in-your-own-words` | Restate your understanding of the user's goals and problem |
 | `superpowers-lite:lite-teach` | Explain a change or subsystem through lite-how and lite-why; clean English with lite-unslop |
@@ -102,6 +103,10 @@ For a user request to audit or update the project-root AGENTS.md, use `superpowe
 ## Route Requested Code Simplification
 
 Use `superpowers-lite:lite-code-simplifier` when the current task requests behavior-preserving code simplification or cleanup. It owns the cleanup scope and preservation checks; a request for suggestions remains read-only. Do not append it automatically after writing code or treat optional simplification as a blocking review finding. An active manual role retains its permitted inputs, writes, and stopping boundary.
+
+## Route Requested Comment Cleanup
+
+Use `superpowers-lite:lite-no-comments` when the user asks to remove comments, run no-comments, or clean comments in named files or a diff. It owns comment deletion, keep-exception audit, and the smallest in-scope fixes for accepted findings. It is not a substitute for `lite-code-simplifier`. Do not append it automatically after writing code or treat optional comment cleanup as a blocking review finding. An active manual role retains its permitted inputs, writes, and stopping boundary.
 
 ## Route Remote Administration and Transfers
 
@@ -137,7 +142,7 @@ A request that is only Arena or Swarm stops coding-workflow routing after that s
 
 ## Route the Request
 
-1. Distinguish coding work from remote administration, remote diagnosis and recovery, and remote or artifact file transfers. Route operational requests as above; apply the coding classifications below only to coding work. For explanation or writing requests, honor any explicit selection of `superpowers-lite:lite-teach`, `superpowers-lite:lite-how`, `superpowers-lite:lite-why`, `superpowers-lite:lite-unslop`, or `superpowers-lite:lite-technical-writing` and their dependency calls, then stop coding-workflow routing. Otherwise answer ordinary explanation or conceptual questions directly. For a request that only vets a measured performance number or investigates what else a change breaks, honor `superpowers-lite:lite-benchmark` or `superpowers-lite:lite-blast-radius` and stop coding-workflow routing. For a request that only runs a multi-candidate contest or a parallel swarm report, honor `superpowers-lite:lite-arena` or `superpowers-lite:lite-swarm` and stop coding-workflow routing.
+1. Distinguish coding work from remote administration, remote diagnosis and recovery, and remote or artifact file transfers. Route operational requests as above; apply the coding classifications below only to coding work. For explanation or writing requests, honor any explicit selection of `superpowers-lite:lite-teach`, `superpowers-lite:lite-how`, `superpowers-lite:lite-why`, `superpowers-lite:lite-unslop`, or `superpowers-lite:lite-technical-writing` and their dependency calls, then stop coding-workflow routing. Otherwise answer ordinary explanation or conceptual questions directly. For a request that only vets a measured performance number or investigates what else a change breaks, honor `superpowers-lite:lite-benchmark` or `superpowers-lite:lite-blast-radius` and stop coding-workflow routing. For a request that only runs a multi-candidate contest or a parallel swarm report, honor `superpowers-lite:lite-arena` or `superpowers-lite:lite-swarm` and stop coding-workflow routing. For a request that only cleans comments in a named scope, honor `superpowers-lite:lite-no-comments` and stop coding-workflow routing.
 2. Gather only enough project context to make a correct workflow classification. Do not perform unnecessary exploration for simple tasks.
 3. Classify by uncertainty and design complexity, not by the number of files changed.
 4. Select only the phases that add confidence.
