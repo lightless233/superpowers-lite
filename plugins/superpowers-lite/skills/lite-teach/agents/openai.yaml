@@ -1,0 +1,7 @@
+interface:
+  display_name: "Lite Teach"
+  short_description: "Explain code mechanisms and design reasons"
+  default_prompt: "Use $superpowers-lite:lite-teach to explain this change or subsystem so I understand how it works and why it is built this way."
+
+policy:
+  allow_implicit_invocation: false

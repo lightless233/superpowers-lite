@@ -69,6 +69,13 @@ This is a relationship map, not a mandatory pipeline. `superpowers-lite:using-li
 | `superpowers-lite:lite-writing-plans` | Organize decided implementation work |
 | `superpowers-lite:lite-debugging` | Investigate unclear root causes before choosing a fix |
 | `superpowers-lite:lite-code-simplifier` | Simplify authorized code while preserving supported behavior |
+| `superpowers-lite:lite-bro` | Restate the previous reply in plain language without jargon |
+| `superpowers-lite:lite-in-your-own-words` | Restate your understanding of the user's goals and problem |
+| `superpowers-lite:lite-teach` | Explain a change or subsystem through lite-how, lite-why, and lite-unslop |
+| `superpowers-lite:lite-how` | Explain current architecture and runtime behavior through read-only exploration |
+| `superpowers-lite:lite-why` | Trace design decisions and tradeoffs through commits and discussions |
+| `superpowers-lite:lite-unslop` | Remove AI writing patterns while preserving meaning and tone |
+| `superpowers-lite:lite-technical-writing` | Write and review technical documents using layered writing standards and lite-unslop |
 | `superpowers-lite:lite-testing` | Choose and run meaningful behavioral tests or checks |
 | `superpowers-lite:lite-verification` | Determine what fresh evidence supports the completion claim |
 | `superpowers-lite:lite-maintaining-agents-md` | Audit or maintain durable instructions only in the project-root AGENTS.md |
@@ -102,7 +109,7 @@ The operational skills can be selected directly or through this router; loading 
 
 ## Route the Request
 
-1. Distinguish coding work from remote administration, remote diagnosis and recovery, and remote or artifact file transfers. Route operational requests as above; apply the coding classifications below only to coding work. If the request is only an explanation or conceptual question, answer directly and stop routing.
+1. Distinguish coding work from remote administration, remote diagnosis and recovery, and remote or artifact file transfers. Route operational requests as above; apply the coding classifications below only to coding work. For explanation or writing requests, honor any explicit selection of `superpowers-lite:lite-teach`, `superpowers-lite:lite-how`, `superpowers-lite:lite-why`, `superpowers-lite:lite-unslop`, or `superpowers-lite:lite-technical-writing` and their dependency calls, then stop coding-workflow routing. Otherwise answer ordinary explanation or conceptual questions directly.
 2. Gather only enough project context to make a correct workflow classification. Do not perform unnecessary exploration for simple tasks.
 3. Classify by uncertainty and design complexity, not by the number of files changed.
 4. Select only the phases that add confidence.

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Lite In Your Own Words"
+  short_description: "Restate the goals and problem you understand"
+  default_prompt: "Use $superpowers-lite:lite-in-your-own-words to restate your understanding of my goals and the problem I want to solve."

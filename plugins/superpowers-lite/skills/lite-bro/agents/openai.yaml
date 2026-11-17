@@ -1,0 +1,4 @@
+interface:
+  display_name: "Lite Bro"
+  short_description: "Restate your last reply in plain language"
+  default_prompt: "Use $superpowers-lite:lite-bro to restate your previous reply in plain language without jargon."

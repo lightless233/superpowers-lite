@@ -1,0 +1,7 @@
+interface:
+  display_name: "Lite Why"
+  short_description: "Trace design reasons through project history"
+  default_prompt: "Use $superpowers-lite:lite-why to explain the reasons and tradeoffs behind this design using project history."
+
+policy:
+  allow_implicit_invocation: false

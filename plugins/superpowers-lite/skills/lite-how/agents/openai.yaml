@@ -1,0 +1,7 @@
+interface:
+  display_name: "Lite How"
+  short_description: "Explain architecture and runtime behavior"
+  default_prompt: "Use $superpowers-lite:lite-how to explain how this subsystem works through read-only code exploration."
+
+policy:
+  allow_implicit_invocation: false

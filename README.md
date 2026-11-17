@@ -286,6 +286,13 @@ Qoder 中的插件 Skill 使用插件限定名：
 | `lite-writing-plans` | 组织已经确定的实现工作 |
 | `lite-debugging` | 在选择修复方案前调查不明确的根因 |
 | `lite-code-simplifier` | 在明确范围内简化代码，并保持已有行为和契约 |
+| `lite-bro` | 用简洁、连贯的人话重述上一条回复 |
+| `lite-in-your-own-words` | 用自己的话复述理解到的用户目标和问题 |
+| `lite-teach` | 组合 lite-how、lite-why、lite-unslop，讲清机制、原因和取舍 |
+| `lite-how` | 通过只读探索解释架构、运行流程和代码归属 |
+| `lite-why` | 从 commit、PR 讨论等记录追溯设计原因与取舍 |
+| `lite-unslop` | 清理 AI 写作模式，保留原意和目标语气 |
+| `lite-technical-writing` | 按分层写作规范编写和审阅技术文档，并调用 lite-unslop |
 | `lite-testing` | 选择并运行有意义的行为测试或检查 |
 | `lite-verification` | 判断哪些新鲜证据足以支持完成声明 |
 | `lite-maintaining-agents-md` | 检查或维护项目根目录 AGENTS.md 中的长期有效规则 |
@@ -468,6 +475,30 @@ Spec 和 Plan 保存在实际开发项目中，沿用既有命名规则并按需
 例如：“简化当前任务的代码改动，保持行为不变”。请求审查或建议时只读；明确要求简化时允许范围内修改。完成后运行与影响相关的验证，并报告实际证据；没有值得简化的地方就保持原样。
 
 它是可选任务，不会在每次写代码后自动执行。在大象／金鱼流程中继续遵守原阶段权限，不会把审查变成改代码，也不新增阶段。
+
+### `lite-bro`
+
+当你说“说人话”“讲简单点”时，用更简单、连贯的表达重述上一条回复，保留原意、关键事实和不确定性，直接给出改写结果。也可以通过 `$superpowers-lite:lite-bro` 显式调用。
+
+这是独立的表达工具，不需要进入编码工作流，也不依赖特定模型或工具。
+
+### `lite-in-your-own-words`
+
+当你说“先复述一下我的需求”“你理解我要什么吗”时，用自己的话说明理解到的目标和要解决的问题，直接返回复述内容。也可以通过 `$superpowers-lite:lite-in-your-own-words` 显式调用。
+
+### `lite-teach`、`lite-how`、`lite-why`、`lite-unslop`
+
+这四个 Skill 保持显式调用，也允许由其他 Skill 调用；不会自动加入每次编码或回复的流程。Codex 中可用 `$superpowers-lite:lite-teach` 等名称，其他宿主使用自己的 Skill 调用方式。
+
+`lite-teach` 按用户当前问题和已有知识组织讲解，实际调用 `lite-how` 获取机制、`lite-why` 查明历史理由，再通过 `lite-unslop` 整理文字。完整子系统通常同时调用 how 和 why，并行执行后综合；小问题允许只调用其中一个。讲解先给最小完整答案，再按需要展开，保留证据中的不确定性，不测验用户，也不要求用户复述。多部分系统逐步画图，空间问题使用图片生成能力。
+
+三个依赖也可单独使用：`lite-how` 默认派一个只读子 Agent 调查并解释，主 Agent 仅做轻量整理；`lite-why` 引用 commit、PR 等实际记录，区分作者理由、推断和未知；`lite-unslop` 按完整写作规则清理文字。宿主缺少委派、并行或图片生成能力时，明确说明限制并使用对应替代方式，不虚报调用或图片结果。
+
+### `lite-technical-writing`
+
+显式调用 `$superpowers-lite:lite-technical-writing`，按 Diátaxis 区分教程、操作指南、参考和解释，再应用 Google developer style、STE 和 Global English 的句子规则。保留原版的具体写作要求，并调用 `lite-unslop` 清理文字。
+
+适用于文档、RFC、README、PR 描述和 commit message；PR 描述和 commit message 不套用 Diátaxis 文档分类，产品 UI 文案遵循产品自身规范。也允许其他 Skill 调用，不自动加入每次回复。
 
 ### `lite-testing`
 
@@ -725,6 +756,13 @@ Superpowers Lite 本身不强制要求：
 │           ├── lite-writing-plans/
 │           ├── lite-debugging/
 │           ├── lite-code-simplifier/
+│           ├── lite-bro/
+│           ├── lite-in-your-own-words/
+│           ├── lite-teach/
+│           ├── lite-how/
+│           ├── lite-why/
+│           ├── lite-unslop/
+│           ├── lite-technical-writing/
 │           ├── lite-testing/
 │           ├── lite-verification/
 │           ├── lite-maintaining-agents-md/

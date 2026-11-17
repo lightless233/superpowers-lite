@@ -286,6 +286,13 @@ Qoder plugin Skills use plugin-qualified names:
 | `lite-writing-plans` | Organize decided implementation work |
 | `lite-debugging` | Investigate unclear root causes before choosing a fix |
 | `lite-code-simplifier` | Simplify scoped code while preserving existing behavior and contracts |
+| `lite-bro` | Restate the previous reply in plain, coherent language |
+| `lite-in-your-own-words` | Restate your understanding of the user's goals and problem |
+| `lite-teach` | Explain mechanisms, reasons, and tradeoffs through lite-how, lite-why, and lite-unslop |
+| `lite-how` | Explain architecture, runtime flow, and code ownership through read-only exploration |
+| `lite-why` | Trace design reasons and tradeoffs through commits and PR discussions |
+| `lite-unslop` | Remove AI writing patterns while preserving meaning and the intended tone |
+| `lite-technical-writing` | Write and review technical documents using layered writing standards and lite-unslop |
 | `lite-testing` | Choose and run meaningful behavioral tests or checks |
 | `lite-verification` | Determine what fresh evidence supports a completion claim |
 | `lite-maintaining-agents-md` | Audit or maintain durable instructions in the project-root AGENTS.md |
@@ -470,6 +477,30 @@ Simplify specified code or changes already identified for the current task, redu
 For example: “Simplify the current task's code changes without changing behavior.” A request for review or suggestions is read-only; a direct simplification request authorizes scoped edits. Run verification relevant to the change and report the actual evidence. Leave already clear code unchanged.
 
 This is an optional task, not an automatic pass after every code edit. Existing Elephant and Goldfish stage permissions still apply: simplification does not turn review into implementation or introduce another stage.
+
+### `lite-bro`
+
+When you ask “say it plainly” or “make it simpler,” restate the previous reply with less jargon while preserving its meaning, essential facts, and uncertainty. Return the rewritten reply directly. You can also invoke `$superpowers-lite:lite-bro` explicitly.
+
+This is a standalone communication tool. It needs no coding workflow, particular model, or tools.
+
+### `lite-in-your-own-words`
+
+When you ask “restate my requirements” or “what do you understand I want?”, explain the user's goals and problem in your own words and return the restatement directly. You can also invoke `$superpowers-lite:lite-in-your-own-words` explicitly.
+
+### `lite-teach`, `lite-how`, `lite-why`, and `lite-unslop`
+
+These four Skills remain explicitly invoked, either by the user or by another Skill. They are not automatic stages for every coding task or reply. In Codex, use names such as `$superpowers-lite:lite-teach`; other hosts use their own Skill invocation mechanism.
+
+`lite-teach` shapes an explanation around the reader's question and existing knowledge. It actually invokes `lite-how` for mechanisms and `lite-why` for historical reasons, then applies `lite-unslop` to the writing. A subsystem normally uses both how and why in parallel before combining their results; a small question may need only one. Start with the smallest complete answer, add depth as needed, preserve uncertainty in the evidence, and never quiz the reader or ask them to repeat the lesson. Build diagrams step by step for systems with several parts, and use image generation for spatial explanations.
+
+The dependencies also work alone: `lite-how` normally delegates exploration and explanation to one read-only subagent, with only light editing by the parent; `lite-why` cites actual commits and discussions, separating recorded reasons, inferences, and unknowns; `lite-unslop` applies the complete writing rule catalog. When delegation, parallel execution, or image generation is unavailable, state the limitation and use the corresponding alternative without claiming a missing invocation or image happened.
+
+### `lite-technical-writing`
+
+Explicitly invoke `$superpowers-lite:lite-technical-writing` to choose a Diátaxis document mode, then apply Google developer style, STE, and Global English sentence rules. It retains the original writing requirements and invokes `lite-unslop` to clean up the prose.
+
+Use it for documents, RFCs, READMEs, PR descriptions, and commit messages. PR descriptions and commit messages use every layer except Diátaxis; product UI strings follow the product's own copy guidelines. Other Skills may also call it. It is not an automatic pass on every reply.
 
 ### `lite-testing`
 
@@ -727,6 +758,13 @@ They are simply not part of the workflow unless they add clear value to the curr
 │           ├── lite-writing-plans/
 │           ├── lite-debugging/
 │           ├── lite-code-simplifier/
+│           ├── lite-bro/
+│           ├── lite-in-your-own-words/
+│           ├── lite-teach/
+│           ├── lite-how/
+│           ├── lite-why/
+│           ├── lite-unslop/
+│           ├── lite-technical-writing/
 │           ├── lite-testing/
 │           ├── lite-verification/
 │           ├── lite-maintaining-agents-md/

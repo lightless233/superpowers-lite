@@ -1,0 +1,7 @@
+interface:
+  display_name: "Lite Unslop"
+  short_description: "Remove AI writing patterns from any text"
+  default_prompt: "Use $superpowers-lite:lite-unslop to remove AI writing patterns from this text while preserving its meaning and intended tone."
+
+policy:
+  allow_implicit_invocation: false

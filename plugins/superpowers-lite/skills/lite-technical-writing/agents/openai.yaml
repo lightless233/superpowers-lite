@@ -1,0 +1,7 @@
+interface:
+  display_name: "Lite Technical Writing"
+  short_description: "Write and review clear technical documents"
+  default_prompt: "Use $superpowers-lite:lite-technical-writing to write or review this technical document and apply lite-unslop."
+
+policy:
+  allow_implicit_invocation: false
