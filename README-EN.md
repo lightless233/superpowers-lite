@@ -289,6 +289,11 @@ Qoder plugin Skills use plugin-qualified names:
 | `lite-testing` | Choose and run meaningful behavioral tests or checks |
 | `lite-verification` | Determine what fresh evidence supports a completion claim |
 | `lite-maintaining-agents-md` | Audit or maintain durable instructions in the project-root AGENTS.md |
+| `lite-remote-operations` | Execute remote tasks with exact targets, existing access, and tracked outcomes |
+| `lite-remote-recovery` | Diagnose remote failures and verify authorized updates and reboot recovery |
+| `lite-file-transfer` | Choose transfer paths, verify integrity, and interpret scan results |
+
+The three remote operations Skills use the host's existing SSH, CLI, or MCP tools and do not depend on a particular remote execution service. Select a Skill directly or route through `using-lite`; they add no mandatory coding phases.
 
 ### `using-lite`
 
@@ -512,6 +517,24 @@ Behavioral claims require behavioral evidence such as tests, builds, runtime che
 
 Verification should be sufficient for the claim, not maximal by default.
 
+### `lite-remote-operations`
+
+Executes remote administrative tasks with exact targets, existing privilege and secret channels, asynchronous job tracking, and result verification. For example: "Restart this server's specified service and confirm the application recovers." Inspect actual capabilities, prefer a matching typed tool, or reuse authorized SSH or CLI access. Do not repeat a mutation with an unknown outcome because a client wait timed out.
+
+It owns execution discipline for remote changes. For an unknown failure, use `lite-remote-recovery` to locate the cause, then verify recovery after the change. A known routine operation does not need a full diagnostic phase.
+
+### `lite-remote-recovery`
+
+Diagnoses connectivity and service failures by separating DNS, TCP, SSH, authentication, privilege, and application health, and identifying whether a probe originated from the agent's execution environment or the target host. For example: "SSH works, but application requests fail; first locate the cause." Use bounded read-only checks; a diagnostic request does not authorize a restart.
+
+It owns diagnosis and recovery verification; follow `lite-remote-operations` when changes are needed. For an authorized update or reboot, verify the actual job result and relevant service state; after a reboot, also verify reconnection and boot identity. An open port or restored SSH access alone does not establish application recovery.
+
+### `lite-file-transfer`
+
+Handles files moving between local machines, remote servers, and artifact storage with explicit paths, directory scope, overwrite behavior, and data transit. For example: "Copy this archive to another server and verify its integrity." Choose a path supported by the actual tool and verify the exact file or archive bytes.
+
+When the service or policy requires reputation checks, follow digest calculation, reputation lookup, transfer, and receiver verification in that order. Do not interpret no malicious match or no detection as proof of safety, or impose a scanning service on an ordinary file copy.
+
 ## Workflow Examples
 
 ### Tiny Change
@@ -706,7 +729,10 @@ They are simply not part of the workflow unless they add clear value to the curr
 │           ├── lite-code-simplifier/
 │           ├── lite-testing/
 │           ├── lite-verification/
-│           └── lite-maintaining-agents-md/
+│           ├── lite-maintaining-agents-md/
+│           ├── lite-remote-operations/
+│           ├── lite-remote-recovery/
+│           └── lite-file-transfer/
 ├── README.md
 ├── README-EN.md
 └── LICENSE

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Lite File Transfer"
+  short_description: "Transfer artifacts with explicit paths and integrity checks"
+  default_prompt: "Use $superpowers-lite:lite-file-transfer to move these files through an authorized transport and verify the delivered artifacts."

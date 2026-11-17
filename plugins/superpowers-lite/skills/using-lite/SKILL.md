@@ -1,6 +1,6 @@
 ---
 name: using-lite
-description: Use for coding or engineering work—feature implementation, bug fixes, refactors, architecture changes, and repository modifications—to select the lightest workflow that preserves confidence. Do not use for ordinary technical explanations or conceptual questions.
+description: Use for coding, remote server administration, diagnosis and recovery, or file transfers to select the lightest workflow that preserves confidence. Do not use for ordinary technical explanations or conceptual questions.
 ---
 
 # Using Lite
@@ -72,6 +72,9 @@ This is a relationship map, not a mandatory pipeline. `superpowers-lite:using-li
 | `superpowers-lite:lite-testing` | Choose and run meaningful behavioral tests or checks |
 | `superpowers-lite:lite-verification` | Determine what fresh evidence supports the completion claim |
 | `superpowers-lite:lite-maintaining-agents-md` | Audit or maintain durable instructions only in the project-root AGENTS.md |
+| `superpowers-lite:lite-remote-operations` | Execute remote tasks with exact targets, existing access, and tracked outcomes |
+| `superpowers-lite:lite-remote-recovery` | Diagnose remote failures and verify authorized host or service recovery |
+| `superpowers-lite:lite-file-transfer` | Choose a transfer path and verify delivered artifacts |
 
 ## Respect Explicit Manual Roles
 
@@ -89,9 +92,17 @@ For a user request to audit or update the project-root AGENTS.md, use `superpowe
 
 Use `superpowers-lite:lite-code-simplifier` when the current task requests behavior-preserving code simplification or cleanup. It owns the cleanup scope and preservation checks; a request for suggestions remains read-only. Do not append it automatically after writing code or treat optional simplification as a blocking review finding. An active manual role retains its permitted inputs, writes, and stopping boundary.
 
+## Route Remote Administration and Transfers
+
+Use `superpowers-lite:lite-remote-operations` for remote administrative execution, `superpowers-lite:lite-remote-recovery` for host or connectivity diagnosis and recovery, and `superpowers-lite:lite-file-transfer` for moving artifacts. They use the connection tools already available; no specific MCP provider is required.
+
+Load only the relevant skills. These are operational workflows, not additional mandatory coding phases. A routine host inspection or file copy does not need a Spec, Plan, or code review. If the task also requires code changes, route that part through the coding workflow as usual. Preserve an active manual role's scope and stopping boundary.
+
+The operational skills can be selected directly or through this router; loading `using-lite` first is not required. For an unknown remote failure, use recovery to locate the cause, apply operations discipline to any needed change, then verify recovery. A known routine operation does not require a diagnostic phase.
+
 ## Route the Request
 
-1. Decide whether the request is coding or engineering work. If it is only an explanation or conceptual question, answer directly and stop routing.
+1. Distinguish coding work from remote administration, diagnosis, recovery, and transfers. Route operational requests as above; apply the coding classifications below only to coding work. If the request is only an explanation or conceptual question, answer directly and stop routing.
 2. Gather only enough project context to make a correct workflow classification. Do not perform unnecessary exploration for simple tasks.
 3. Classify by uncertainty and design complexity, not by the number of files changed.
 4. Select only the phases that add confidence.

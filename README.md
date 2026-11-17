@@ -289,6 +289,11 @@ Qoder 中的插件 Skill 使用插件限定名：
 | `lite-testing` | 选择并运行有意义的行为测试或检查 |
 | `lite-verification` | 判断哪些新鲜证据足以支持完成声明 |
 | `lite-maintaining-agents-md` | 检查或维护项目根目录 AGENTS.md 中的长期有效规则 |
+| `lite-remote-operations` | 精确选择远程目标，复用已有权限与凭据通道，跟踪执行结果 |
+| `lite-remote-recovery` | 诊断远程连接和服务故障，验证已授权的更新与重启恢复 |
+| `lite-file-transfer` | 选择文件传输路径，校验完整性并准确解释扫描结果 |
+
+三个远程运维 Skills 使用宿主已有的 SSH、CLI 或 MCP 工具，不依赖特定远程执行服务。可以直接选择对应 Skill，也可以通过 `using-lite` 路由；它们按需使用，不增加必经的编码阶段。
 
 ### `using-lite`
 
@@ -510,6 +515,24 @@ Glue / 配置 / 集成接线
 
 Verification 应足以支持声明，而不是默认追求最大范围。
 
+### `lite-remote-operations`
+
+执行远程管理任务，负责精确目标、现有权限与 secrets 通道、异步任务跟踪和结果确认。例如：“重启这台服务器的指定服务，并确认应用恢复”。先检查实际能力，优先使用匹配的 typed tool，否则复用已授权的 SSH 或 CLI；不因等待超时重复执行结果未知的变更。
+
+它负责远程变更的执行纪律；故障原因不明时先由 `lite-remote-recovery` 定位，变更后再验证恢复。明确的常规操作无需先做完整诊断。
+
+### `lite-remote-recovery`
+
+诊断远程连接和服务故障，区分 DNS、TCP、SSH、认证、权限与应用健康等失败阶段，并明确探测来自 Agent 执行环境还是目标主机。例如：“服务器能登录，但应用请求失败，先定位原因”。使用有界的只读检查，不把诊断请求当成重启授权。
+
+它负责定位原因和验证恢复；需要变更时遵循 `lite-remote-operations`。对已授权的更新或重启，确认实际任务结果及相关服务状态；重启后还要确认重连和启动身份，不仅以端口开放或 SSH 恢复作为业务恢复的依据。
+
+### `lite-file-transfer`
+
+处理本地、远程服务器和 artifact storage 之间的文件传输，明确路径、目录范围、覆盖策略及实际数据经过的系统。例如：“把服务器上的归档传到另一台主机，并核对完整性”。按所选工具的能力选择路径，校验传输文件或归档的确切字节。
+
+服务或策略要求信誉检查时，按 digest、信誉检查、传输和接收端校验的顺序处理。不把未命中恶意记录或扫描未检出解释成安全，也不为普通文件复制额外强制引入扫描服务。
+
 ## 工作流示例
 
 ### 微小修改
@@ -704,7 +727,10 @@ Superpowers Lite 本身不强制要求：
 │           ├── lite-code-simplifier/
 │           ├── lite-testing/
 │           ├── lite-verification/
-│           └── lite-maintaining-agents-md/
+│           ├── lite-maintaining-agents-md/
+│           ├── lite-remote-operations/
+│           ├── lite-remote-recovery/
+│           └── lite-file-transfer/
 ├── README.md
 ├── README-EN.md
 └── LICENSE

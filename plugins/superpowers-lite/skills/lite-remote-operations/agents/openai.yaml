@@ -1,0 +1,4 @@
+interface:
+  display_name: "Lite Remote Operations"
+  short_description: "Execute remote changes with clear targets and outcomes"
+  default_prompt: "Use $superpowers-lite:lite-remote-operations to perform this remote server task through the available authorized connection."

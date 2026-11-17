@@ -1,7 +1,7 @@
 interface:
   display_name: "Using Lite"
-  short_description: "Route coding work through the lightest reliable flow"
-  default_prompt: "Use $superpowers-lite:using-lite to select the lightest reliable workflow for this coding task."
+  short_description: "Route coding and remote tasks through a lightweight flow"
+  default_prompt: "Use $superpowers-lite:using-lite to select the lightest reliable workflow for this coding or remote operations task."
 
 policy:
   allow_implicit_invocation: true

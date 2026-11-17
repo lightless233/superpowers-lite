@@ -1,0 +1,4 @@
+interface:
+  display_name: "Lite Remote Recovery"
+  short_description: "Diagnose host failures and verify service recovery"
+  default_prompt: "Use $superpowers-lite:lite-remote-recovery to investigate this remote server failure and verify any authorized recovery."
