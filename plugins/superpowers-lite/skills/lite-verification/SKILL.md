@@ -20,6 +20,8 @@ State the exact claim, gather evidence against the current code state, inspect t
 
 When the task changes a CLI, API, UI, or another external entry, prefer acceptance evidence through that real entry rather than relying only on internal package tests. Focused integration evidence may support a library or internal-only task. Do not create artificial end-to-end work where no meaningful external behavior exists.
 
+When the agreed acceptance criteria require matching a visual reference, compare the rendered result with that reference for layout, imagery, and typographic hierarchy during the existing acceptance pass.
+
 Current file or diff inspection, search, or structural validation may be sufficient for a matching structural or textual claim. Code changes or inspection alone do not prove behavioral claims such as correctness, successful execution, or regression safety.
 
 For whole-task completion, reconcile the requested outcome and all material work units with the implementation and evidence, including required connections between components. A completed migration, supporting tool, or local review does not prove the broader capability. Separate implementation status, correctness evidence, and performance or operational results when they have different completion conditions. Do not infer a speedup from reduced source duplication or from an unrepresentative microbenchmark. When the claim itself is a measured speedup, slowdown, throughput, latency, or a choice based on such a number, follow `superpowers-lite:lite-benchmark` before stating the verdict. If the host has no skill-invocation tool, read and follow [lite-benchmark](../lite-benchmark/SKILL.md). Do not invoke it for a completion claim that is not a performance number.

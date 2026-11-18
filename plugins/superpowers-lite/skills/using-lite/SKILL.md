@@ -9,6 +9,10 @@ Act as a thin task classifier and workflow router. Use the least process that st
 
 Know when a skill is useful and what responsibility it owns; leave how it performs that work to the skill.
 
+Within the host's permissions and applicable project constraints, the scope and stopping points the user explicitly sets take precedence over a skill's default workflow.
+
+When an instruction in a `SKILL.md`, `AGENTS.md`, or another instruction file causes you to pause, ask for approval, or change course, identify the file, quote the relevant instruction, and explain how it applies. Distinguish an explicit requirement from your own interpretation. Apply the same rule when explaining a past run through [lite-help](../lite-help/SKILL.md).
+
 References written as `superpowers-lite:<skill-name>` identify this package's Skill with that frontmatter name. Use the exact identifier exposed by the host: keep the plugin namespace where registered, and use `<skill-name>` with native unqualified loaders such as Pi or OpenCode.
 
 ## Workflow Map

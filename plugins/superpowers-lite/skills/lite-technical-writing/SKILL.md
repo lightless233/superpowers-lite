@@ -14,6 +14,8 @@ Write so a tired engineer understands on the first read.
 - Write the real symbol, file, flag, or command name, not a synonym or a description of it.
 - Don't invent jargon. Use the words a developer would say out loud. Say what a named pattern means the first time.
 
+For PR descriptions, RFCs, and technical explanations written for an external audience, include the background those readers need to make an informed judgment. When editing existing text, preserve the author's intent and tone, and limit edits to the scope the user requested. Apply this guidance in every language.
+
 ## Vary the rhythm
 
 - Mix sentence lengths. Split the sentence that carries two thoughts. Keep the long sentence that carries one.
@@ -29,7 +31,7 @@ One document, one mode. Don't mix modes. Split and link instead.
 - **Reference: facts for lookup.** Only describe. Be dry, complete, and sure. Mirror the structure of the thing described.
 - **Explanation: understanding and why.** One bounded topic. Give context: design decisions, history, constraints, alternatives. Opinion is allowed here and nowhere else.
 
-Before polishing a revision, remove placeholder sections and references that provide no useful information. Consolidate repeated rules at their authoritative source and keep the links readers need.
+Within the requested edit scope, remove placeholder sections and references that provide no useful information before polishing a revision. Consolidate repeated rules at their authoritative source and keep the links readers need.
 
 ## Apply the sentence rules to English
 
