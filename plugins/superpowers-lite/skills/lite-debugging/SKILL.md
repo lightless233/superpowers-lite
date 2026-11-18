@@ -50,6 +50,8 @@ A small code change may test a hypothesis, but keep clear whether it is diagnost
 
 Repeated failed hypotheses or patches are a signal to revisit assumptions, causal boundaries, or architecture, not a fixed-count escalation rule.
 
+When two or more fixes based on the same premise fail the same check, state the premise in one sentence and test it directly before writing another fix that depends on it. Look for an observation that would differ if the premise were false.
+
 ## Bound Diagnostic Work
 
 Treat a root cause as a sufficiently supported causal explanation of where and why behavior becomes wrong and where a fix is justified. Do not pursue a unique philosophical cause beyond what the current failure requires.

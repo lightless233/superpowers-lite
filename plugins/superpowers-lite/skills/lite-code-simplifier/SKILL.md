@@ -28,7 +28,8 @@ A discovered bug or desired behavior change is separate from a behavior-preservi
 ## Prefer Useful Local Changes
 
 - Make control flow easier to follow while preserving meaningful execution order and conditions.
-- Remove demonstrated duplication, dead work, and indirection that does not serve an actual contract.
+- Remove confirmed dead work, redundant checks, and pass-through layers before adding structure. Consolidate repeated decisions in their existing owner.
+- Trace where each relevant value comes from and what can change it.
 - Use clear domain names and cohesive responsibilities; extract or retain a helper when it earns its place through clarity or real reuse.
 - Favor understandable expressions over dense chains or nested conditional expressions. Preserve concise code that is already clear.
 

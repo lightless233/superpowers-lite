@@ -30,6 +30,8 @@ Aim for a run when that is cheap. If you cannot run it, mark the fact unproven.
 4. Separate confirmed risks from risks you checked and cleared. Give a confirmed risk a real chance of happening and a real cost. Cite a real `file:line`. A search that finds nothing is still an answer. Do not invent a caller or an API.
 5. When a run is cheap, prove the safety fact with a focused test or a temporary script. Run it and keep the command and output. Do not change product code. Do not keep the probe as a feature unless the user asks to keep it. When a run is not cheap or you cannot run it, stop at the ladder step you reached and mark the fact unproven.
 
+Match the investigation to the change. For a removed entry point, trace configuration, registrations, and indirect callers that could still reach it. For concurrent writes, check whether different paths reach the same underlying resource. For a retry change, check whether partial completion leaves any effect that a retry could duplicate. Exercise a retry from that state when it is cheap and safe to do so.
+
 ## Reply
 
 Answer in the user's language. Include what the change does, including the part that is not obvious. State the safety fact, the ladder step you reached, and the proof, or mark the fact unproven. List confirmed risks with how each breaks, the `file:line`, the likelihood, the cost, and the proof when you have it. List what you checked and cleared. Name the cheapest check that would catch the real bug before merge.

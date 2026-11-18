@@ -14,6 +14,8 @@ A rough magnitude the user asked for needs one run. Check errors and whether the
 
 Write the claim in the words you would report, such as "export is 30% faster at p50 on the 60k-row dataset." Read the measurement script and note what it times, counts, and ignores. Check whether the machine is busy. `uptime` and `nproc` are examples. If you cannot stop the other work, interleave the sides so both see the same noise, and say so.
 
+If the measurement will guide a choice, state that choice and what result would change it before running the comparison. Use any agreed threshold and apply the repeatability check below.
+
 ## Check the number
 
 A rough magnitude checks only items 4 and 7. Run another item when that one run looks wrong. A comparison, or a number you will act on, uses every applicable item.

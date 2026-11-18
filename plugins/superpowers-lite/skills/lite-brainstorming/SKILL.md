@@ -45,6 +45,10 @@ When the unresolved choice is data shape, module boundaries, state ownership, or
 
 When more than one shape is genuinely plausible, compare them by which keeps each piece of state under one owner, gives each task one supported path, and leaves callers knowing the least. Prefer redesign over a repeating workaround when the same structural patch keeps appearing.
 
+Give repeated decisions one owner and let callers use the result.
+
+For concurrent writers, first ask whether each actor can publish independently owned state. Two writers updating different fields in the same file still share one write target. Separate independent writes when possible and combine the results where they are needed. Choose a synchronization mechanism for state that must be updated together.
+
 Record the chosen shape only as far as later specification or planning needs it. Leave private helpers, local variable names, and exact file decomposition to implementation. Do not run a multi-candidate design contest here. When the user asks for competing artifacts and a grafted result, that is `superpowers-lite:lite-arena`, not this skill.
 
 ## Bound the Design

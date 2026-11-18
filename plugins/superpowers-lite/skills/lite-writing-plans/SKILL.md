@@ -30,6 +30,12 @@ Task complexity determines workflow depth. Execution context determines planning
 
 Planning does not decide whether delegation must be used. It adapts to the execution mode chosen for the task and environment.
 
+Plan the smallest coherent change that delivers the agreed outcome. Remove confirmed dead paths, redundant checks, or obsolete instructions in scope before adding the behavior that replaces them when removal is safe. When replacing an internal entry point with supported callers, identify those callers and plan their migration before deletion. If a compatibility layer is needed, state the constraint it serves and what must be true before it can be removed.
+
+For a planned rewrite or migration, skip a temporary compatibility layer when the agreed constraints permit an isolated, reversible period of incompatibility. State which part of the system can be incompatible and during which phase, how to recover if the cutover fails, and at which checkpoint to verify the intended end state.
+
+Where a later unit depends on the result of an earlier one, name the evidence needed before it can start. When repetitive work warrants a rerunnable tool, verify it on a representative unit before applying it to the remaining work.
+
 ## Plan Inline Work Briefly
 
 Describe meaningful engineering units that can each be understood, implemented, and verified. Include only what helps execution:

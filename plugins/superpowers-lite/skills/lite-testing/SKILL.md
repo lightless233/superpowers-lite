@@ -43,7 +43,11 @@ Test at the lowest level that reliably proves the behavior, but not below the le
 
 Derive important expected results from requirements, independently checked examples, or an established reference, not by copying the implementation's assumptions into assertions. When semantic interpretation is the task, verify the values that determine correctness, such as identity, direction, amounts, or state transitions. A success status, record count, or printed diagnostic does not establish those values. Use existing representative positive and contrasting cases when available rather than selecting only a case that fits the proposed rule.
 
+For a critical assertion that an event never happens, use a contrasting case where it does happen to verify that the test can observe it. Reuse existing coverage that proves this.
+
 For stateful refactors, cover relevant failure transitions and their caller-visible effects, not just the successful helper result. When reducing repeated work is an explicit task requirement, a focused structural or operation-count check may establish that change; do not demand an isolated latency gain unless the acceptance contract requires one.
+
+When testing a retry contract, choose cases that cover the relevant interruption, partial success, or unknown outcome. Repeat the operation and check the final state and the number of actual side effects against the contract.
 
 ## Keep Scope Proportional
 

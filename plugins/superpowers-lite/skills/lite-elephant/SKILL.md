@@ -39,6 +39,7 @@ Check whether the Plan:
 - gives each material unit a concrete intended change and completion basis, including the connections needed for the overall goal;
 - preserves scope, non-goals, contracts, and architecture decisions;
 - follows actual project capabilities and organizes useful implementation units;
+- sequences removal and migration around supported callers and compatibility commitments, and identifies the evidence that unlocks dependent work;
 - avoids unsupported defenses, compatibility layers, abstractions, or speculative work; and
 - includes proportionate verification for the required behavior.
 

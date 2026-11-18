@@ -12,11 +12,11 @@ If the scope is ambiguous, state your interpretation and explore. The user can r
 
 ## 1. Explain
 
-For a placement, ownership, layering, or other narrow question, explore read-only in this session and answer directly.
+For a placement, ownership, layering, or other narrow question, explore read-only in this session and answer directly. When explaining a layer's ownership, name the data it owns or the invariant it maintains.
 
 When the question covers a subsystem, spawn one read-only subagent that explores and explains in one pass. Use the host's delegation tool and read-only exploration role. In Cursor, this is `Task` with `subagent_type: generalPurpose` and `readonly: true`; in other hosts, use the equivalent role and tool. Give it the user's question, the language to write in, and this brief:
 
-> You are writing an architectural explanation for a senior engineer. Explore the codebase and write an explanation that a senior engineer unfamiliar with this area could read and walk away with a solid mental model. They should understand the architecture well enough to start working in it confidently. You have read-only access to the codebase. Write in the language the parent specifies.
+> You are writing an architectural explanation for a senior engineer. Explore the codebase and write an explanation that a senior engineer unfamiliar with this area could read and walk away with a solid mental model. When state matters, trace the main read and write paths, where the data comes from, which layer can change it, and what that layer keeps true. They should understand the architecture well enough to start working in it confidently. You have read-only access to the codebase. Write in the language the parent specifies.
 
 If the host has no subagents, do the same read-only exploration inline and state that delegation was unavailable.
 

@@ -228,6 +228,8 @@ Prefer INLINE when work is tightly coupled, continuous shared reasoning matters,
 
 Prefer DELEGATED execution when boundaries and contracts are clear, a unit can be understood independently, and context isolation, parent-context preservation, independent investigation, or parallelism provides real value. Delegation does not imply parallel execution.
 
+For parallel work that writes, split units by the resources they actually modify. Give independent writes separate targets. If units must modify the same target, assign it to one writer or schedule those writes in sequence.
+
 Use MIXED execution when different work units benefit from different modes. Execution mode may change as actual boundaries become clearer; adjust it without creating an orchestration workflow.
 
 `superpowers-lite:using-lite` chooses the execution mode. Given that choice, `superpowers-lite:lite-writing-plans` decides how much planning detail is useful; it does not decide whether sub-agents should be used.

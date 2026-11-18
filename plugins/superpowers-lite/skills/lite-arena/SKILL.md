@@ -16,6 +16,7 @@ Use the host's delegation tool and spawn candidates in parallel when the host al
 
 - When the artifact is a document or other file that can be written wholly into its own directory, give each candidate a separate directory under `.runtime/arena-<slug>/candidate-<n>/`.
 - When a candidate must modify the shared repository and run tests or builds against that tree, isolate it with a worktree or an equivalent separate checkout. A separate output directory does not isolate that work. If the host cannot provide that isolation, stop.
+- Isolate writable resources outside the checkout when candidates use them, such as databases, caches, and output files. Assign distinct ports to services that run concurrently. If a resource must be reused, run the affected checks in sequence with equivalent starting state.
 
 Do not assume Cursor cloud agents, a model rule file, or a fixed model panel. Prefer distinct available models when the host exposes them and the task is judgment-sensitive. Otherwise run candidates on the parent model or the host default, and say so. Launch at least two candidates. If a requested model is rejected, use the nearest valid option of the same family or drop that seat, keep at least two, and say so.
 
@@ -32,6 +33,8 @@ Track Frame, Fan out, Cross-judge, Pick, Graft, and Verify. Do not launch candid
 3. Choose the runners and each candidate's output path.
 4. Give every candidate the same task prompt, shared grounding paths, its own output path, and instructions to produce the artifact plus a short rationale of alternatives considered and rejected.
 
+When usability affects the choice, have each candidate run the same realistic end-user or API caller scenarios with equivalent inputs. Collect evidence of task completion and of feedback and recovery where relevant.
+
 ### Fan out
 
 Spawn all candidates together when the host supports parallel spawn. If a candidate produces no output, note the dropout. Before Cross-judge or Pick, count candidates that actually produced the artifact. If fewer than two valid artifacts remain, stop or spawn replacements until two exist. Do not score, graft, or deliver a single survivor as an arena result.
@@ -45,6 +48,8 @@ If no suitable distinct judge is available, skip this phase and say so. Do not i
 ### Pick a base
 
 Read every candidate end to end. Score each criterion against the rubric, not by overall feel. Compare with the cross-judge when one ran. Agreement supports the pick. Disagreement means bias or an ambiguous rubric; read both rationales before deciding.
+
+Score usability from what happened when the candidates ran the shared scenarios before choosing a base.
 
 Pick the base a future maintainer can extend most easily without breaking invariants. When two are tied, prefer the cleaner boundary or smaller API.
 

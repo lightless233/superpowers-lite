@@ -29,6 +29,8 @@ One document, one mode. Don't mix modes. Split and link instead.
 - **Reference: facts for lookup.** Only describe. Be dry, complete, and sure. Mirror the structure of the thing described.
 - **Explanation: understanding and why.** One bounded topic. Give context: design decisions, history, constraints, alternatives. Opinion is allowed here and nowhere else.
 
+Before polishing a revision, remove placeholder sections and references that provide no useful information. Consolidate repeated rules at their authoritative source and keep the links readers need.
+
 ## Apply the sentence rules to English
 
 Diátaxis and the rhythm section apply in every language. The three sections below apply to English: Google developer style, STE, and Global English. For another language, keep one mode per document, the real names, and the reader's task, and write sentences in that language.

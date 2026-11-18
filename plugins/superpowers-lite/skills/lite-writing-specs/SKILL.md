@@ -25,7 +25,7 @@ Keep the original brief or user-confirmed requirements traceable, and distinguis
 
 Check each material requirement against the proposed scope. For work split across phases, make clear what the current phase delivers, what remains in later phases, and what establishes the overall outcome. Lower priority does not mean excluded; an exclusion or deferral that changes the requested delivery needs the user's agreement. Do not quietly narrow a report-wide task to a convenient subset.
 
-Define success through the intended user or system flow, including the connections between components. Completing component inventories, migrations, or supporting tools does not establish the capability they were meant to enable. When generalization or extensibility is required, include an acceptance example that distinguishes that capability from support for only the original fixed cases.
+Define success through the intended user or system flow, including the connections between components. State how users or callers know the core flow succeeded and how they can continue after a failure when that affects the outcome. Completing component inventories, migrations, or supporting tools does not establish the capability they were meant to enable. When generalization or extensibility is required, include an acceptance example that distinguishes that capability from support for only the original fixed cases.
 
 Keep implementation completion, correctness checks, and final performance or operational acceptance distinct where the task separates them. Preserve the user's chosen order; proposed validation methods do not become mandatory requirements merely because the author writes them down.
 
@@ -46,6 +46,8 @@ Do not add enterprise template sections such as stakeholders, personas, risk mat
 ## Keep Contracts Separate from Implementation
 
 Include externally visible behavior, public APIs, cross-component contracts, user-required interfaces, and error semantics that matter to callers.
+
+For a state-changing operation that promises retries or recovery, specify the end state after retrying from partial success, interruption, or an outcome the caller could not determine. State which effects may repeat.
 
 Leave out private helper names, local variables and types, private function signatures, internal file organization, task decomposition, and algorithm details unless one is itself an explicit public or cross-component contract.
 

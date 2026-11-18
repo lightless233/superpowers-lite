@@ -28,6 +28,8 @@ Read the whole transcript. Look for:
 
 Keep a finding only if it will still hold later and would change what a future agent does. It may route to a skill this session used, or to a skill that should have fired and did not. A skill that should have fired is in scope: read it and tune its description. Read the target skill first and drop what it already says clearly. Drop one-offs and drifting details such as SHAs, versions, and counts. What a lint, script, or check could enforce goes to the backlog, not into prose. The target must still be a skill source inside this project.
 
+If a finding supersedes existing guidance, identify the passage to replace or remove in the same proposal.
+
 ## Report, then wait
 
 Present three lists and stop for approval before editing any skill:
