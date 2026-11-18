@@ -77,11 +77,11 @@ This is a relationship map, not a mandatory pipeline. `superpowers-lite:using-li
 | `superpowers-lite:lite-no-comments` | Delete unjustified comments; fix the problems they hide only when asked |
 | `superpowers-lite:lite-bro` | Restate the previous reply in plain language without jargon |
 | `superpowers-lite:lite-in-your-own-words` | Restate your understanding of the user's goals and problem |
-| `superpowers-lite:lite-teach` | Explain a change or subsystem through lite-how and lite-why; clean English with lite-unslop |
+| `superpowers-lite:lite-teach` | Explain a change or subsystem through lite-how and lite-why. Use lite-unslop for Chinese and English |
 | `superpowers-lite:lite-how` | Explain current architecture and runtime behavior through read-only exploration |
 | `superpowers-lite:lite-why` | Trace design decisions and tradeoffs through commits and discussions |
-| `superpowers-lite:lite-unslop` | Remove AI writing patterns from English while preserving meaning, tone, and established terms |
-| `superpowers-lite:lite-technical-writing` | Write and review technical documents; Diátaxis in any language, English sentence rules and lite-unslop for English |
+| `superpowers-lite:lite-unslop` | Remove AI writing patterns from Chinese and English while preserving meaning, tone, and established terms |
+| `superpowers-lite:lite-technical-writing` | Write and review technical documents. Use Diátaxis in any language and lite-unslop for Chinese and English |
 | `superpowers-lite:lite-testing` | Choose and run meaningful behavioral tests or checks |
 | `superpowers-lite:lite-verification` | Determine what fresh evidence supports the completion claim |
 | `superpowers-lite:lite-benchmark` | Vet a measured performance number before reporting it or choosing from it |

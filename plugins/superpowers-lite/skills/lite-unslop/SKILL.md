@@ -1,18 +1,36 @@
 ---
 name: lite-unslop
-description: Cut AI tells from English writing. Leave other languages unchanged, and keep a project's established terms.
+description: Remove AI writing patterns from Chinese and English prose while preserving facts, tone, and established terms.
 disable-model-invocation: true
 ---
 
 # Lite Unslop
 
-Edit English text to remove AI patterns. Scan for the patterns below, then rewrite. Preserve meaning and match the intended tone.
+Edit Chinese and English prose where the patterns below make it harder to read. Preserve meaning, evidence, uncertainty, and the intended tone. Keep edits within the requested scope and leave code, identifiers, and verbatim quotes intact.
 
-Leave Chinese and other languages unchanged. These rules are English sentence and vocabulary rules.
+Choose rules by the language of each passage. A Chinese sentence with terms such as API or fixture still follows the Chinese rules. Preserve the original language and script, and leave passages in other languages unchanged.
 
-Keep the established name of a thing. A listed word is banned when it is used as a metaphor. Keep it when the project already uses it for the real concept, including harness, surface, and primitive.
+Keep the project's established terms.
 
-Rule numbers are stable ids that other skills cite. A removed rule leaves a gap.
+## 中文
+
+- 直接写结论、事实或动作。删去「值得注意的是」「需要指出的是」一类只预告下文的引导语，保留它们引出的条件、风险或例外。已经说清楚的事，结尾无需再总结一遍。
+- 把空泛的评价和套话写成具体动作或结果。原文有对象、条件或数字就用上。没有依据时，删掉「显著提升」「赋能」「形成闭环」这类空话，保留有依据的判断。
+- 保留有实际意义的对比和并列。删掉为制造转折而加的铺垫，也别为凑三项重复同一个意思。
+- 长句按意思拆开。主语明确时可以省略，责任或动作归属容易混淆时就写出来。标点和句式按中文习惯处理。
+- 保留英文技术名词和有用的细节。只改影响阅读的地方，保留原文的肯定程度和作者有意保留的表达。
+
+| 原文 | 改写 |
+| --- | --- |
+| 值得注意的是，当连续三次请求超时后，客户端将切换至备用 RPC。 | 连续三次请求超时后，客户端会切换到备用 RPC。 |
+| 此次改造有效提升了整体运行效率。合并重复请求后，每轮调用从 12 次减到 4 次。 | 合并重复请求后，每轮调用从 12 次减到 4 次。 |
+| 需要指出的是，根据现有日志，超时可能和连接池耗尽有关，仍需看连接数确认。 | 从现有日志看，超时可能和连接池耗尽有关。还得看连接数才能确认。 |
+
+## English
+
+Keep terms like harness, surface, and primitive when the project already uses them for the real concept.
+
+English rule numbers are stable ids that other skills cite. A removed rule leaves a gap.
 
 3. No trailing "-ing" phrases that add no fact ("highlighting...", "ensuring...").
 5. No vague attributions ("experts believe"). Name the source or delete.

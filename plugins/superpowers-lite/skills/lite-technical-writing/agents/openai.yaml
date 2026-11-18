@@ -1,7 +1,7 @@
 interface:
   display_name: "Lite Technical Writing"
   short_description: "Write and review clear technical documents"
-  default_prompt: "Use $superpowers-lite:lite-technical-writing to write or review this technical document. Use Diátaxis in any language, and apply the English sentence rules and lite-unslop only to English."
+  default_prompt: "Use $superpowers-lite:lite-technical-writing to write or review this technical document. Use Diátaxis in any language, English sentence rules for English, and lite-unslop for Chinese and English."
 
 policy:
   allow_implicit_invocation: false

@@ -292,11 +292,11 @@ Qoder 中的插件 Skill 使用插件限定名：
 | `lite-no-comments` | 删除站不住的注释；只有明确要求时才修注释掩盖的问题 |
 | `lite-bro` | 用简洁、连贯的人话重述上一条回复 |
 | `lite-in-your-own-words` | 用自己的话复述理解到的用户目标和问题 |
-| `lite-teach` | 用 lite-how 与 lite-why 讲清机制、原因和取舍；英文再用 lite-unslop |
+| `lite-teach` | 用 lite-how 与 lite-why 讲清机制、原因和取舍，中英文再用 lite-unslop |
 | `lite-how` | 通过只读探索解释架构、运行流程和代码归属 |
 | `lite-why` | 从 commit、PR 讨论等记录追溯设计原因与取舍 |
-| `lite-unslop` | 清理英文中的 AI 写作模式，保留原意、语气和已有术语 |
-| `lite-technical-writing` | 按 Diátaxis 编写和审阅技术文档；英文再套用句子规则和 lite-unslop |
+| `lite-unslop` | 清理中英文中的 AI 套话，保留原意、语气和已有术语 |
+| `lite-technical-writing` | 按 Diátaxis 编写和审阅技术文档，用 lite-unslop 整理中英文 |
 | `lite-testing` | 选择并运行有意义的行为测试或检查 |
 | `lite-verification` | 判断哪些新鲜证据足以支持完成声明 |
 | `lite-benchmark` | 在报告或采用一个量出来的性能数字之前检查它 |
@@ -519,13 +519,13 @@ Spec 和 Plan 保存在实际开发项目中，沿用既有命名规则并按需
 
 这四个 Skill 保持显式调用，也允许由其他 Skill 调用；不会自动加入每次编码或回复的流程。Codex 中可用 `$superpowers-lite:lite-teach` 等名称，其他宿主使用自己的 Skill 调用方式。
 
-`lite-teach` 按用户当前问题和已有知识组织讲解，实际调用 `lite-how` 获取机制、`lite-why` 查明历史理由。英文讲解再通过 `lite-unslop` 整理；其他语言不套用它的标点和冠词规则。完整子系统通常同时调用 how 和 why，并行执行后综合；小问题允许只调用其中一个。有人在对话里时，先给结论并停在最小完整答案。一次性回复按问题给完整讲解，仍然先给结论。保留证据中的不确定性，不测验用户，也不要求用户复述。多部分系统逐步画图，空间问题使用图片生成能力。
+`lite-teach` 按用户当前问题和已有知识组织讲解，实际调用 `lite-how` 获取机制、`lite-why` 查明历史理由。中英文讲解再通过 `lite-unslop` 按各自语言的规则整理。完整子系统通常同时调用 how 和 why，并行执行后综合；小问题允许只调用其中一个。有人在对话里时，先给结论并停在最小完整答案。一次性回复按问题给完整讲解，仍然先给结论。保留证据中的不确定性，不测验用户，也不要求用户复述。多部分系统逐步画图，空间问题使用图片生成能力。
 
-三个依赖也可单独使用。`lite-how` 对归属、分层这类窄问题在当前会话只读查完并直接回答；范围是一个子系统时才派一个只读子 Agent。父会话可以按用户语言和清晰度改写，事实保持调查结果。`lite-why` 引用 commit、PR 等实际记录，区分作者理由、推断和未知。`lite-unslop` 只清理英文，并保留项目里已经在用的真实术语。宿主缺少委派、并行或图片生成能力时，明确说明限制并使用对应替代方式，不虚报调用或图片结果。
+三个依赖也可单独使用。`lite-how` 对归属、分层这类窄问题在当前会话只读查完并直接回答；范围是一个子系统时才派一个只读子 Agent。父会话可以按用户语言和清晰度改写，事实保持调查结果。`lite-why` 引用 commit、PR 等实际记录，区分作者理由、推断和未知。`lite-unslop` 清理中文和英文，保留项目已有术语。宿主缺少委派、并行或图片生成能力时，明确说明限制并使用对应替代方式，不虚报调用或图片结果。
 
 ### `lite-technical-writing`
 
-显式调用 `$superpowers-lite:lite-technical-writing`。Diátaxis 用于各种语言，区分教程、操作指南、参考和解释。Google developer style、STE 和 Global English 的句子规则只用于英文，并调用 `lite-unslop` 清理英文。代码片段的缩进跟随仓库现有写法。
+显式调用 `$superpowers-lite:lite-technical-writing`。Diátaxis 用于各种语言，区分教程、操作指南、参考和解释。Google developer style、STE 和 Global English 的句子规则只用于英文。`lite-unslop` 用于中文和英文。代码片段的缩进跟随仓库现有写法。
 
 适用于文档、RFC、README、PR 描述和 commit message；PR 描述和 commit message 不套用 Diátaxis 文档分类，产品 UI 文案遵循产品自身规范。也允许其他 Skill 调用，不自动加入每次回复。
 

@@ -1,7 +1,7 @@
 interface:
   display_name: "Lite Unslop"
-  short_description: "Remove AI writing patterns from English"
-  default_prompt: "Use $superpowers-lite:lite-unslop to remove AI writing patterns from this English text while preserving its meaning, intended tone, and established terms."
+  short_description: "Remove AI writing patterns from Chinese and English"
+  default_prompt: "Use $superpowers-lite:lite-unslop to remove AI writing patterns from the Chinese and English passages in this text. Preserve the meaning, tone, and established terms."
 
 policy:
   allow_implicit_invocation: false

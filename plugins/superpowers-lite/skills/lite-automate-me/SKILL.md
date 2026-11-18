@@ -54,7 +54,7 @@ Mining misses intent that has not come up. Ask one or two structured multi-choic
 
 Group combined signals into only the sections that apply. Common ones: response style, autonomy, understand-first habits, subagents, prose/code discipline, review and verify, process, skills. Skip empty sections.
 
-Draft a short operational mode skill. Reference other skills by name or in-repo path; do not paste their contents. For English prose, run wording through `superpowers-lite:lite-unslop`. Show the draft and iterate with the user. Cut ruthlessly. A mode skill is not a manual.
+Draft a short operational mode skill. Reference other skills by name or in-repo path; do not paste their contents. For Chinese or English prose, run wording through `superpowers-lite:lite-unslop`. Show the draft and iterate with the user. Cut ruthlessly. A mode skill is not a manual.
 
 ### 4. Land it
 

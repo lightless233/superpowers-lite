@@ -36,6 +36,6 @@ Match the investigation to the change. For a removed entry point, trace configur
 
 Answer in the user's language. Include what the change does, including the part that is not obvious. State the safety fact, the ladder step you reached, and the proof, or mark the fact unproven. List confirmed risks with how each breaks, the `file:line`, the likelihood, the cost, and the proof when you have it. List what you checked and cleared. Name the cheapest check that would catch the real bug before merge.
 
-For an English reply, run `superpowers-lite:lite-unslop`, or `lite-unslop` with native skill loaders. If the host has no skill-invocation tool, read and follow [lite-unslop](../lite-unslop/SKILL.md). Do not run it on other languages. Remove private material before the reply goes anywhere public.
+For a Chinese or English reply, run `superpowers-lite:lite-unslop`, or `lite-unslop` with native skill loaders. If the host has no skill-invocation tool, read and follow [lite-unslop](../lite-unslop/SKILL.md). Remove private material before the reply goes anywhere public.
 
 Do not open a spec, plan, or review from this skill. Do not fix the product unless the user asks for a fix.

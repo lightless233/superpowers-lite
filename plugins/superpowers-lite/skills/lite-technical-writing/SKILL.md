@@ -72,7 +72,7 @@ Diátaxis and the rhythm section apply in every language. The three sections bel
 
 ## Voice and repo specifics
 
-- Apply [lite-unslop](../lite-unslop/SKILL.md) to English text this skill touches. Invoke it as `superpowers-lite:lite-unslop` in plugin hosts, or `lite-unslop` with native skill loaders. If the host has no skill-invocation tool, read and follow its linked instructions. That skill owns the English slop-pattern catalog: AI vocabulary, filler, hedging, and formatting tells. Do not run it on other languages.
-- PR descriptions and commit messages are writing too. Diátaxis does not apply to them. English ones use the sentence rules and `lite-unslop`. Other languages keep the real names and that language's own sentences. A PR body is a briefing that a reviewer can read in under a minute. Do not paste delegated-worker logs, SHA lists, or metric tables. Link them.
+- Apply [lite-unslop](../lite-unslop/SKILL.md) to Chinese and English prose this skill touches. Invoke it as `superpowers-lite:lite-unslop` in plugin hosts, or `lite-unslop` with native skill loaders. If the host has no skill-invocation tool, read and follow its linked instructions.
+- PR descriptions and commit messages use the same language rules. Diátaxis does not apply to them. A PR body is a briefing that a reviewer can read in under a minute. Do not paste delegated-worker logs, SHA lists, or metric tables. Link them.
 - Product UI strings are not documentation. Use your product's copy guidelines for those.
 - Match the repository's existing indentation for code snippets. Write real paths. Make every count or tree claim true at the commit that lands it, and include the command that regenerates it.
