@@ -276,9 +276,12 @@ Qoder plugin Skills use plugin-qualified names:
 
 ## Skills
 
+Ask `lite-help` how to install Lite, pick a skill, or steer a workflow in progress. For example, in Codex, send `$superpowers-lite:lite-help How do I ask for a Spec and stop there?`
+
 | Skill | Responsibility |
 |---|---|
 | `using-lite` | Select useful workflow phases and execution mode |
+| `lite-help` | Answer questions about Lite setup, usage, and skill selection, with an example prompt when useful |
 | `lite-elephant` | Author Specs and review Plans or code in a manual role workflow |
 | `lite-goldfish` | Independently review Specs, plan, implement, and fix in a manual role workflow |
 | `lite-brainstorming` | Resolve consequential design uncertainty |
@@ -841,6 +844,7 @@ They are simply not part of the workflow unless they add clear value to the curr
 │       │   └── plugin.json           # Qoder manifest
 │       └── skills/
 │           ├── using-lite/
+│           ├── lite-help/
 │           ├── lite-elephant/
 │           ├── lite-goldfish/
 │           ├── lite-brainstorming/

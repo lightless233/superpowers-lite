@@ -276,9 +276,12 @@ Qoder 中的插件 Skill 使用插件限定名：
 
 ## Skills
 
+想知道怎么安装、该选哪个 Skill，或怎么调整正在跑的工作流，可以问 `lite-help`。例如在 Codex 中发送 `$superpowers-lite:lite-help 我只想先写 Spec，应该怎么跟 Agent 说？`
+
 | Skill | 职责 |
 |---|---|
 | `using-lite` | 选择有价值的工作流阶段和执行模式 |
+| `lite-help` | 回答 Lite 的安装、使用和 Skill 选择问题，按需给出示例 prompt |
 | `lite-elephant` | 在手动角色工作流中编写 Spec、审核 Plan 和审查代码 |
 | `lite-goldfish` | 在手动角色工作流中独立审查 Spec、规划、实现和修复 |
 | `lite-brainstorming` | 解决影响重大的设计不确定性 |
@@ -839,6 +842,7 @@ Superpowers Lite 本身不强制要求：
 │       │   └── plugin.json           # Qoder manifest
 │       └── skills/
 │           ├── using-lite/
+│           ├── lite-help/
 │           ├── lite-elephant/
 │           ├── lite-goldfish/
 │           ├── lite-brainstorming/

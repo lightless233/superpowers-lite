@@ -1,0 +1,7 @@
+interface:
+  display_name: "Lite Help"
+  short_description: "Get help using Superpowers Lite and choosing skills"
+  default_prompt: "Use $superpowers-lite:lite-help to help me choose a skill for my task."
+
+policy:
+  allow_implicit_invocation: false
