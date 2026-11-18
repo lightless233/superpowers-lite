@@ -38,7 +38,7 @@ Take the PRs, branches, and tickets that mining and the sweep surfaced and check
 Lead with the capsule, then the thread status, then the problems, then the next move. Deeper detail goes below or gets cut. Answer in the user's language. For an English brief, run the wording through `superpowers-lite:lite-unslop`.
 
 - **Capsule.** At most 5 bullets. What this work is and where it stands overall.
-- **Threads.** One line each, prefixed with exactly one status tag: `[merged #N]`, `[open PR #N]`, `[in flight <branch>]`, `[verified, uncommitted]`, `[reverted #N]`, or `[planned, not started]`. A thread with no tag is not done yet, so tag it.
+- **Threads.** One line each, prefixed with one status tag. Use `[merged #N]`, `[open PR #N]`, `[in flight <branch>]`, `[committed, no PR]`, `[verified, uncommitted]`, `[verification blocked]`, `[reverted #N]`, or `[planned, not started]` when that tag matches. If none matches, including when the current state cannot be checked, put the actual state in brackets, such as `[committed locally on feature/search, no PR]` or `[verification blocked: CI credential missing]`. Do not force a tag that misstates the state.
 - **Problems.** At most 5, the recurring ones. Include the symptoms users keep reporting and any fix that shipped and was reverted, so the next attempt starts where the last one failed.
 - **Next move.** The single most useful next action, concrete.
 

@@ -69,7 +69,7 @@ This is a relationship map, not a mandatory pipeline. `superpowers-lite:using-li
 | `superpowers-lite:lite-writing-plans` | Organize decided implementation work |
 | `superpowers-lite:lite-debugging` | Investigate unclear root causes before choosing a fix |
 | `superpowers-lite:lite-code-simplifier` | Simplify authorized code while preserving supported behavior |
-| `superpowers-lite:lite-no-comments` | Delete unjustified comments and fix the problems those comments hide |
+| `superpowers-lite:lite-no-comments` | Delete unjustified comments; fix the problems they hide only when asked |
 | `superpowers-lite:lite-bro` | Restate the previous reply in plain language without jargon |
 | `superpowers-lite:lite-in-your-own-words` | Restate your understanding of the user's goals and problem |
 | `superpowers-lite:lite-teach` | Explain a change or subsystem through lite-how and lite-why; clean English with lite-unslop |
@@ -113,7 +113,7 @@ Use `superpowers-lite:lite-code-simplifier` when the current task requests behav
 
 ## Route Requested Comment Cleanup
 
-Use `superpowers-lite:lite-no-comments` when the user asks to remove comments, run no-comments, or clean comments in named files or a diff. It owns comment deletion, keep-exception audit, and the smallest in-scope fixes for accepted findings. It is not a substitute for `lite-code-simplifier`. Do not append it automatically after writing code or treat optional comment cleanup as a blocking review finding. An active manual role retains its permitted inputs, writes, and stopping boundary.
+Use `superpowers-lite:lite-no-comments` when the user asks to remove comments, run no-comments, or clean comments in named files or a diff. It owns comment deletion and the keep-exception audit. Application-code fixes run only when the user asks to fix what the comments hide or approves a specific fix. It is not a substitute for `lite-code-simplifier`. Do not append it automatically after writing code or treat optional comment cleanup as a blocking review finding. An active manual role retains its permitted inputs, writes, and stopping boundary.
 
 ## Route Remote Administration and Transfers
 

@@ -1,18 +1,18 @@
 ---
 name: lite-no-comments
-description: "Use when the user asks to remove comments, run no-comments, or clean comments in named files or a diff, including workarounds the comments hide. Reviews comments aggressively, restores only proven keep exceptions, then applies the smallest in-scope root-cause fixes for accepted findings."
+description: "Use when the user asks to remove comments, run no-comments, or clean comments in named files or a diff. Reviews comments aggressively and restores only proven keep exceptions. Application-code fixes run only when the user asks to fix what the comments hide or approves a specific fix."
 disable-model-invocation: true
 ---
 
 # Lite No Comments
 
-Review comments in the given scope, delete the ones that do not earn a keep exception, and act on accepted findings. Prefer deleting a comment over polishing it into a shorter alibi.
+Review comments in the given scope and delete the ones that do not earn a keep exception. Prefer deleting a comment over polishing it into a shorter alibi. List workaround, naming, type, or structure problems the comments hide. Edit application code only when the user asks for those fixes or approves a specific one.
 
-This is not `superpowers-lite:lite-code-simplifier`. Simplifier reduces nesting and indirection while preserving behavior. This skill targets comments and the workaround, naming, type, or structure problems those comments hide.
+This is not `superpowers-lite:lite-code-simplifier`. Simplifier reduces nesting and indirection while preserving behavior.
 
 ## Scope
 
-Use the caller's files or diff. Otherwise use the current diff against the base branch, default `main`, including the working tree. Do not widen the fence.
+Use the caller's files or diff. Otherwise use the current diff against this repository's actual base branch, including the working tree. Resolve that base from the remote default branch, such as `origin/HEAD`, or from the merge-base of the current branch with that default. Do not assume the base is named `main`. If no base can be resolved, ask for the files or the diff instead of guessing a branch name. Do not widen the fence.
 
 ## Comment review brief
 
@@ -38,10 +38,12 @@ Report touched files, deletion count, each `MUST KILL` with one line, and skips.
 
 ## Act on the report
 
-1. Inspect the report and comment diff. Reject application-code edits, scope escapes, exception-protected deletions, misstated `MUST KILL` reasons, and flags that treat kept intentional code as guilty. Reshape flags on our-code surprises stay actionable; do not restore those comments. A keep survives only with proof it is about something the project cannot change. Audit missed scoped lint and TypeScript suppressions. Correctness or safety suppressions stay actionable `MUST KILL`s. Restore deletions only with an exact keep exception and scoped proof. Before accepting thin `IMPORTANT` or `do not remove` kills or keeps, trace their claim or run `superpowers-lite:lite-why`. If a kill is ambiguous, do not restore. If a keep is refuted or still ambiguous, delete it. Revert and rerun one rejected report with the failure named. Reject a second failed report, leave it open, and fail this skill.
-2. Fix trivial accepted flags directly: delete a dead path, drop a useless parameter, or call the real API. If any fix needs a structural shape, run `superpowers-lite:lite-brainstorming` once for the accepted set and surrounding code. Stop at the direction or sketch. Brainstorming shapes. The next step implements.
-3. Implement the smallest root-cause fix in scope. Remove every named workaround. If the root cause is out of scope, land the smallest in-scope fix and report the rest open. Do not widen the fence. Do not bolt on symptom guards.
-4. Constraint comments that say `do not remove`, `do not change wording`, or `talk to X before changing` about something the project cannot change may stay. Offer the cheapest in-scope type, runtime check, test, or CI lint that encodes the constraint. Wait for interactive approval. Unattended and eval runs require the caller to pre-approve encoding. If approved, encode then delete the comment. Otherwise delete the comment, report the constraint open, and sketch out-of-scope work.
+Comment cleanup and application-code edits are separate. Cleaning comments does not authorize code changes.
+
+1. Inspect the report and comment diff. Reject application-code edits, scope escapes, exception-protected deletions, misstated `MUST KILL` reasons, and flags that treat kept intentional code as guilty. Reshape flags on our-code surprises stay on the `MUST KILL` list; do not restore those comments. A keep survives only with proof it is about something the project cannot change. Audit missed scoped lint and TypeScript suppressions. Correctness or safety suppressions stay actionable `MUST KILL`s. Restore deletions only with an exact keep exception and scoped proof. Before accepting thin `IMPORTANT` or `do not remove` kills or keeps, trace their claim or run `superpowers-lite:lite-why`. If a kill is ambiguous, do not restore. If a keep is refuted or still ambiguous, delete it. Revert and rerun one rejected report with the failure named. Reject a second failed report, leave it open, and fail this skill.
+2. When the request is only to remove or clean comments, stop after that audit. Report the deletion count, restorations, and each `MUST KILL`. Do not edit application code.
+3. Edit application code only when the user asked to fix what the comments hide, or approves a specific finding. Limit the edit to that approved set. Fix trivial accepted flags directly: delete a dead path, drop a useless parameter, or call the real API. If any approved fix needs a structural shape, run `superpowers-lite:lite-brainstorming` once for that set and the surrounding code. Stop at the direction or sketch. Brainstorming shapes. The next step implements. Then implement the smallest root-cause fix in scope. Remove every named workaround in the approved set. If the root cause is out of scope, land the smallest in-scope fix and report the rest open. Do not widen the fence. Do not bolt on symptom guards.
+4. For a constraint comment that says `do not remove`, `do not change wording`, or `talk to X before changing` about something the project cannot change, offer the cheapest in-scope type, runtime check, test, or CI lint that encodes the constraint. Wait for interactive approval. Unattended and eval runs encode only when the caller pre-approved encoding. If encoding is approved and lands, delete the comment. If the user declines, or encoding was not pre-approved, keep the comment, report the constraint unenforced, and sketch the out-of-scope work. Do not delete the comment that is the only written record of the constraint.
 
 ## Reply
 

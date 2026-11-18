@@ -26,7 +26,7 @@ Read the whole transcript. Look for:
 - checks that were skipped or never run on the real artifact;
 - skills that should have fired.
 
-Keep a finding only if it will still hold later, would change what a future agent does, and routes to a skill this session used. Read that skill first and drop what it already says clearly. Drop one-offs and drifting details such as SHAs, versions, and counts. A skill that should have fired gets its description tuned. What a lint, script, or check could enforce goes to the backlog, not into prose.
+Keep a finding only if it will still hold later and would change what a future agent does. It may route to a skill this session used, or to a skill that should have fired and did not. A skill that should have fired is in scope: read it and tune its description. Read the target skill first and drop what it already says clearly. Drop one-offs and drifting details such as SHAs, versions, and counts. What a lint, script, or check could enforce goes to the backlog, not into prose. The target must still be a skill source inside this project.
 
 ## Report, then wait
 

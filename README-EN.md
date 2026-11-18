@@ -286,7 +286,7 @@ Qoder plugin Skills use plugin-qualified names:
 | `lite-writing-plans` | Organize decided implementation work |
 | `lite-debugging` | Investigate unclear root causes before choosing a fix |
 | `lite-code-simplifier` | Simplify scoped code while preserving existing behavior and contracts |
-| `lite-no-comments` | Delete unjustified comments and fix the problems those comments hide |
+| `lite-no-comments` | Delete unjustified comments; fix hidden problems only when asked |
 | `lite-bro` | Restate the previous reply in plain, coherent language |
 | `lite-in-your-own-words` | Restate your understanding of the user's goals and problem |
 | `lite-teach` | Explain mechanisms, reasons, and tradeoffs through lite-how and lite-why; clean English with lite-unslop |
@@ -500,9 +500,9 @@ This is an optional task, not an automatic pass after every code edit. Existing 
 
 Use it when you ask to clean comments in named files or a diff. It deletes by default. Keep only legal headers, public API contract docs, external constraints code cannot express, valid formatter or lint exceptions, and Issue or RFC links for constraints code cannot carry. Comments that hide surprises in our own code are deleted, and the exact symbols that need rename, extract, typing, or restructure are flagged.
 
-The review may use one delegated agent or follow the same rules inline. The parent audits deletions and `MUST KILL` flags; a rejected report may be rerun once. Fix trivial findings directly. If a structural direction is needed, run `lite-brainstorming` once, then apply the smallest in-scope root-cause fix. Constraint comments may be encoded as a type, check, test, or CI rule after interactive approval, then deleted; unattended runs need caller pre-approval for encoding.
+The review may use one delegated agent or follow the same rules inline. When no scope is named, diff against the repository's actual base branch; do not assume it is named `main`. The parent audits deletions and `MUST KILL` flags; a rejected report may be rerun once. A comment-only request stops at deletions and the list and does not edit application code. Apply the smallest in-scope root-cause fix only when the user asks to fix what the comments hide or approves a specific finding; run `lite-brainstorming` once first when that fix needs a structural direction. Delete a constraint comment only after its encoding lands. If the user declines encoding, or an unattended run was not pre-approved to encode, keep the comment and mark the constraint unenforced.
 
-It is not `lite-code-simplifier`. That skill reduces nesting and indirection; this one targets comments and the workarounds they hide. It is not an automatic pass after every edit. You can also invoke `$superpowers-lite:lite-no-comments`.
+It is not `lite-code-simplifier`. That skill reduces nesting and indirection. This one edits comments by default; application-code fixes need an explicit request. It is not an automatic pass after every edit. You can also invoke `$superpowers-lite:lite-no-comments`.
 
 ### `lite-bro`
 
@@ -596,7 +596,7 @@ It does not explain how the code runs now; that is `lite-how`. It does not decid
 
 Use it when you want several independent candidates for the same task, then one base that absorbs the strongest parts of the others. Define the artifact and 3–6 gradeable criteria, fan the same task into isolated outputs, cross-judge when a distinct available model can score, read every candidate before picking a base, graft by hand, and verify. Convergence needs no forced graft. Wild divergence means reframe and re-run, not a splice.
 
-It does not depend on Cursor cloud agents, a fixed model panel, or a `pstack-models` rule. Run it only when the host can provide at least two isolated candidates; otherwise state the limit and stop. It is not `lite-brainstorming`, which settles design direction with sketches rather than competing artifacts. You can also invoke `$superpowers-lite:lite-arena`.
+It does not depend on Cursor cloud agents, a fixed model panel, or a `pstack-models` rule. Run it only when the host can provide at least two isolated candidates; otherwise state the limit and stop. Before scoring, still require two artifacts that were actually produced. Stop or replace dropouts rather than delivering a single survivor as an arena result. A separate output directory is enough for a document. A candidate that must edit the shared repository and run tests needs a worktree or an equivalent separate checkout; if that isolation is unavailable, stop. It is not `lite-brainstorming`, which settles design direction with sketches rather than competing artifacts. You can also invoke `$superpowers-lite:lite-arena`.
 
 ### `lite-swarm`
 

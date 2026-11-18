@@ -12,9 +12,12 @@ This is not `superpowers-lite:lite-brainstorming`. Brainstorming settles design 
 
 ## Host requirements
 
-Use the host's delegation tool and spawn candidates in parallel when the host allows it. Give each candidate its own writable output: a worktree when the host or environment supports one, otherwise a separate directory under `.runtime/arena-<slug>/candidate-<n>/`.
+Use the host's delegation tool and spawn candidates in parallel when the host allows it. Isolate writes by what the candidate must change:
 
-Do not assume Cursor cloud agents, a model rule file, or a fixed model panel. Prefer distinct available models when the host exposes them and the task is judgment-sensitive. Otherwise run candidates on the parent model or the host default, and say so. Keep at least two candidates. If a requested model is rejected, use the nearest valid option of the same family or drop that seat, keep at least two, and say so.
+- When the artifact is a document or other file that can be written wholly into its own directory, give each candidate a separate directory under `.runtime/arena-<slug>/candidate-<n>/`.
+- When a candidate must modify the shared repository and run tests or builds against that tree, isolate it with a worktree or an equivalent separate checkout. A separate output directory does not isolate that work. If the host cannot provide that isolation, stop.
+
+Do not assume Cursor cloud agents, a model rule file, or a fixed model panel. Prefer distinct available models when the host exposes them and the task is judgment-sensitive. Otherwise run candidates on the parent model or the host default, and say so. Launch at least two candidates. If a requested model is rejected, use the nearest valid option of the same family or drop that seat, keep at least two, and say so.
 
 If the host cannot run at least two isolated candidates, stop. State that Arena needs multi-candidate delegation or isolation, and do not pretend a single inline attempt was an arena.
 
@@ -31,7 +34,7 @@ Track Frame, Fan out, Cross-judge, Pick, Graft, and Verify. Do not launch candid
 
 ### Fan out
 
-Spawn all candidates together when the host supports parallel spawn. If a candidate produces no output, continue with the rest and note the dropout.
+Spawn all candidates together when the host supports parallel spawn. If a candidate produces no output, note the dropout. Before Cross-judge or Pick, count candidates that actually produced the artifact. If fewer than two valid artifacts remain, stop or spawn replacements until two exist. Do not score, graft, or deliver a single survivor as an arena result.
 
 ### Cross-judge
 

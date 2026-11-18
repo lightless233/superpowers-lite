@@ -13,8 +13,8 @@ This skill owns mining, drafting, and landing that mode skill inside the current
 ## Project scope
 
 1. Identify the development project from the user's path or the current Git working tree root. Ask only when the project is ambiguous.
-2. Keep every read and write inside that project tree. Do not use home-directory skills, harness global skill folders, installed plugin caches, or another repository.
-3. Prefer this project's session or transcript history for the active workspace. Do not mine another project's chats.
+2. Write the mode skill only inside that project tree. Do not write home-directory skills, harness global skill folders, installed plugin caches, or another repository.
+3. Mining may read host session or transcript records bound to this project, even when the host stores them outside the project tree. Do not mine another project's chats, and do not read unrelated personal skill directories.
 
 ## Placement
 
