@@ -88,11 +88,15 @@ State the relevant boundary once; do not surround a simple verdict with repeated
 
 For reviews, batch findings. Each BLOCKING finding needs an artifact and location, a violated requirement or concrete unresolved decision or failure path, and its consequence. Separate DEFERRED preferences, speculative risks, optional hardening, and out-of-scope observations; these do not enter a fix batch automatically. State explicitly when no blocking findings are supported.
 
+For Elephant code reviews, include the trigger, evidence for likelihood, impact, and estimated cost of the smallest effective fix for each substantive finding. Apply the [code review criteria](../SKILL.md#review-the-task-broadly-once) when proposing the repair batch.
+
 Distinguish requirement violations, concrete implementation defects, inaccurate evidence or reports, and new suggestions. An overstated report can require correction without making its overstated claim a retroactive implementation requirement. Do not resolve ambiguous contracts by quietly imposing a stricter standard. Likewise, describing an in-scope defect as a residual does not make it optional. Explain a proposed change of scope or acceptance before asking the user to decide it.
 
 When several findings need round-trip tracking, give them stable report-local IDs such as `B1`, `B2`, and `D1`. Revisions, fixes, and scoped re-reviews retain the supplied IDs and state each disposition with evidence or the reason for disagreement. Qualify IDs by their source Review when using several reports. Do not renumber old findings, silently drop unresolved ones, or turn a disputed suggestion into required work. A single simple finding does not require an ID table.
 
 For Spec clarity, include a brief independent restatement and necessary clarification questions. For Plan or implementation output, preserve meaningful engineering judgment rather than filling a large report template. For fixes, identify the authorized findings addressed and refresh only evidence affected by the change.
+
+For Goldfish fixes, apply the [fix judgment rules](../SKILL.md#fix-once-then-re-review-once) to the authorized batch. Bring disputed findings or proposed deferrals to the user with the evidence and repair trade-off, and continue the other authorized fixes.
 
 Review stages persist their results as described below. For other stage result reports, keep short results in the reply unless a file is requested or actually needed for cross-session handoff. Persisted Specs and Plans retain the phase skills' existing naming rules; file handoff across independent sessions is a reason to persist them. Do not invent a new execution workspace or create future task files in advance.
 

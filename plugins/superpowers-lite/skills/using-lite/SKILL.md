@@ -305,6 +305,8 @@ The first and only broad review covers the whole implementation within the decla
 
 Report all reasonably discoverable substantive findings together. When one path violates an invariant, inspect the other task-relevant paths that share it now. A reviewer must not intentionally save discoverable blockers for later rounds.
 
+For each substantive code finding, report the trigger, consequence, and evidence for its likelihood in supported use. Distinguish whether failure is inevitable once triggered from how often the trigger occurs in practice. Describe it as inevitable, intermittent, rare, conditional, or unknown as the evidence supports. Give numeric probabilities only when backed by relevant measurements. Estimate the smallest effective fix by its scope, added complexity, and verification effort. State any uncertainty that affects the repair decision.
+
 Classify every finding:
 
 - **BLOCKING:** it violates an explicit requirement or acceptance criterion; causes a correctness failure in a currently supported use; risks realistic data loss, corruption, or unrecoverable state; breaks compatibility promised by the task; directly introduces a security issue; breaks the task's main product flow; or invalidates the task's verification conclusion.
@@ -312,11 +314,15 @@ Classify every finding:
 
 Only BLOCKING findings enter repair. A real issue is not automatically a blocker for this task.
 
+Recommend deferring optional fixes when evidence supports a rare trigger, limited impact, and disproportionate repair cost. Preserve explicit requirements, acceptance criteria, and obligations for supported behavior. Explain the trade-off and surface any consequential decision about accepting an unresolved blocker.
+
 Distinguish requirement violations, code defects, inaccurate reports, and proposed improvements. A reporting error does not retroactively strengthen the implementation contract. A material requirement ambiguity needs clarification, not a stricter interpretation introduced during review. Do not silently turn a scheduled item into an exclusion or an in-scope defect into optional residual work.
 
 If the broad review has no BLOCKING findings, the review gate is clean; do not create an empty fix wave or re-review. Complete the task only when its remaining agreed acceptance is also satisfied.
 
 ### Fix Once, Then Re-review Once
+
+Before changing code, the implementer checks the cited trigger, impact, and cost against the actual paths and looks for a smaller effective fix. If the evidence is insufficient, the item is optional, or the repair appears disproportionate, report the reason and proposed disposition to the decision-maker while continuing the other authorized fixes. Surface unresolved required findings explicitly for a decision.
 
 Send the complete blocking batch to the same implementer or delegated worker in one fix wave. Fix the shared invariants rather than only the cited lines, check directly affected adjacent paths, and return one result with focused regression evidence for the whole batch without expanding into unrelated work or future tasks. Do not repair and review findings one at a time.
 
