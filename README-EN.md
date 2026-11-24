@@ -501,7 +501,7 @@ This is an optional task, not an automatic pass after every code edit. Existing 
 
 ### `lite-no-comments`
 
-Use it when you ask to clean comments in named files or a diff. It deletes by default. Keep only legal headers, public API contract docs, external constraints code cannot express, valid formatter or lint exceptions, and Issue or RFC links for constraints code cannot carry. Comments that hide surprises in our own code are deleted, and the exact symbols that need rename, extract, typing, or restructure are flagged.
+Use it when you ask to clean comments in named files or a diff. It deletes by default. Keep only legal headers, public API contract docs, external constraints code cannot express, valid formatter or lint exceptions, and Issue or RFC links for constraints code cannot carry. Surprises in our own code are flagged on the exact symbols that need rename, extract, typing, or restructure; unbacked alibis are deleted immediately, while proven live-path trap warnings stay reduced to the minimal fact until an approved reshape lands.
 
 The review may use one delegated agent or follow the same rules inline. When no scope is named, diff against the repository's actual base branch; do not assume it is named `main`. The parent audits deletions and `MUST KILL` flags; a rejected report may be rerun once. A comment-only request stops at deletions and the list and does not edit application code. Apply the smallest in-scope root-cause fix only when the user asks to fix what the comments hide or approves a specific finding; run `lite-brainstorming` once first when that fix needs a structural direction. Delete a constraint comment only after its encoding lands. If the user declines encoding, or an unattended run was not pre-approved to encode, keep the comment and mark the constraint unenforced.
 
@@ -519,7 +519,7 @@ When you ask “restate my requirements” or “what do you understand I want?�
 
 ### `lite-teach`, `lite-how`, `lite-why`, and `lite-unslop`
 
-These four Skills remain explicitly invoked, either by the user or by another Skill. They are not automatic stages for every coding task or reply. In Codex, use names such as `$superpowers-lite:lite-teach`; other hosts use their own Skill invocation mechanism.
+`lite-teach`, `lite-how`, and `lite-why` trigger on matching explanation, mechanism, or design-history questions and can also be invoked explicitly or by another Skill; `lite-unslop` stays explicitly invoked or called by another Skill. None of the four are automatic stages for ordinary coding tasks. In Codex, use names such as `$superpowers-lite:lite-teach`; other hosts use their own Skill invocation mechanism.
 
 `lite-teach` shapes an explanation around the reader's question and existing knowledge. It actually invokes `lite-how` for mechanisms and `lite-why` for historical reasons. Chinese and English explanations then go through `lite-unslop` using the rules for each language. A subsystem normally uses both how and why in parallel before combining their results; a small question may need only one. In a live conversation, lead with the conclusion and stop at the smallest complete answer. A one-shot reply delivers the full explanation the question needs, still leading with the conclusion. Preserve uncertainty in the evidence, and never quiz the reader or ask them to repeat the lesson. Build diagrams step by step for systems with several parts, and use image generation for spatial explanations.
 
@@ -585,7 +585,7 @@ Use it when you will report or adopt a measured performance number: a speedup, s
 
 A requested rough magnitude is one run plus the error and work-happened checks, and you say that it is one run. Run another check when that run looks wrong. A choice, or a difference you will act on, is never a rough magnitude. A comparison alternates sides and reports the median and range. Judge configuration against the claim: defaults are the right setup when the claim is out-of-the-box behavior, and a side that does not match the claim cannot decide that comparison. A comparison is inconclusive when you cannot name the limiter, a side does not match the claim, or errors and work-happened were not checked. A rough magnitude does not become inconclusive merely because it has no limiter profile.
 
-It is an explicit tool. It is not a coding phase and it is not part of review. You can also invoke `$superpowers-lite:lite-benchmark`.
+It is a standalone check triggered when producing, reporting, or comparing measured performance numbers; it is not an ordinary coding phase and is not part of review. You can also invoke `$superpowers-lite:lite-benchmark` explicitly.
 
 ### `lite-blast-radius`
 
@@ -625,7 +625,7 @@ Follow `lite-ketchup` for progress and waiting decisions, but tell what happened
 
 ### `lite-show-me-your-work`
 
-During long, multi-phase, or unattended work, keep one append-only TSV with timestamp, phase, decision, why, evidence pointer, and result. Default paths are `decisions.tsv` or `.audit/<task>.tsv`; commit only when a reviewer needs the trail. The bundled `log.sh` stamps time and keeps cells single-line.
+During long, multi-phase, or unattended work, keep one append-only TSV with timestamp, phase, decision, why, evidence pointer, and result. Default paths are `.runtime/decisions.tsv` or `.runtime/audit/<task>.tsv`; commit only when a reviewer needs the trail. The bundled `log.sh` stamps time and keeps cells single-line.
 
 Before handoff, audit the log against this run's transcript. When the host can spawn a different-vendor model, cross-review; otherwise say unavailable. End with an Attention section for weak evidence or risk. Other skills that need an audit trail should reference this one instead of inventing a format. You can also invoke `$superpowers-lite:lite-show-me-your-work`.
 
@@ -813,7 +813,8 @@ They are simply not part of the workflow unless they add clear value to the curr
 
 ```text
 .
-├── AGENTS.md                          # Version-controlled engineering instructions
+├── AGENTS.base.md                     # Global engineering instructions template (general models)
+├── AGENTS.GPT.md                      # Global engineering instructions template (GPT / Codex)
 ├── .agents/
 │   └── plugins/
 │       └── marketplace.json          # Codex marketplace
@@ -883,6 +884,8 @@ They are simply not part of the workflow unless they add clear value to the curr
 ```
 
 Each Skill's `SKILL.md` is shared by all supported hosts. Skills do not depend on the top-level `agents/` directory; those files are optional accelerators for Codex environments that support them. The `agents/openai.yaml` files inside each Skill provide Codex-specific interface metadata and are ignored by the other platforms.
+
+`AGENTS.base.md` and `AGENTS.GPT.md` are standalone global instruction templates for host-level installation rather than project-local rules for this repository: install `AGENTS.base.md` for general hosts such as Claude Code, Gemini / Antigravity, Kimi, OpenCode, or Pi (for example `~/.claude/CLAUDE.md`, `~/.gemini/GEMINI.md`, or `~/.config/opencode/AGENTS.md`), and install `AGENTS.GPT.md` for GPT / Codex hosts (for example `~/.codex/AGENTS.md`).
 
 ## Design Principles
 

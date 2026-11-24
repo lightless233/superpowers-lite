@@ -1,7 +1,6 @@
 ---
 name: lite-teach
-description: "Explain a body of work plainly so a person actually understands it. Runs the `lite-how` and `lite-why` skills and weaves what they find into one clear explanation. Use for 'teach me this', 'help me really understand X', 'explain this change or subsystem to me'."
-disable-model-invocation: true
+description: "Load when the user wants a plain-language explanation to genuinely understand a subsystem or change ('teach me this', 'help me really understand X', '给我讲明白这块')."
 ---
 
 # Lite Teach
@@ -10,7 +9,7 @@ disable-model-invocation: true
 
 Lite Teach sits on top of `lite-how` and `lite-why`. Get your bearings on what the work is and what it touches, then run `lite-how` for how it works and `lite-why` for why it's that way. Those are real skill invocations that do their own digging. Blend what they find into one plain explanation, lead with what matters to the person, and go deeper when they ask. Reword freely for teaching, with one exception. Keep `lite-why`'s confidence language intact (its hedges are findings, not style).
 
-Use the host's registered identifiers for these dependencies: `superpowers-lite:lite-how`, `superpowers-lite:lite-why`, and `superpowers-lite:lite-unslop`, or the unqualified names with native skill loaders. If the host has no skill-invocation tool, read and follow [lite-how](../lite-how/SKILL.md), [lite-why](../lite-why/SKILL.md), and [lite-unslop](../lite-unslop/SKILL.md) when each is called. These remain separate skill executions.
+Use the host's registered identifiers for these dependencies: `superpowers-lite:lite-how`, `superpowers-lite:lite-why`, and `superpowers-lite:lite-unslop`, or the unqualified names with native skill loaders. If the host has no skill-invocation tool or blocks model invocation for these skills, read and follow [lite-how](../lite-how/SKILL.md), [lite-why](../lite-why/SKILL.md), and [lite-unslop](../lite-unslop/SKILL.md) when each is called. These remain separate skill executions.
 
 1. Decide the few things they should walk away understanding. Choose them from why they're asking (about to change it, reviewing it, debugging it, new to it) and what they already know, both read from the conversation, not quizzed out of them. Skip what they plainly already know. Put the depth where their question is.
 2. Let `lite-how` and `lite-why` do the work, don't redo it. Read the code yourself to get oriented, then run `lite-how` for how it works and `lite-why` for why. Run them in parallel and combine the results. If the host cannot run them in parallel, run them sequentially and combine the same results. Match the size to the question. Run both for a subsystem, maybe one is enough for a small change.

@@ -1,7 +1,6 @@
 ---
 name: lite-blast-radius
-description: "Use when the user asks what else a change could break outside the diff, or when an authorized test or review still cannot tell which consumers or behaviors are affected, or a safety judgment depends on a fact not yet checked. Prove the safety facts by running code when that is cheap. Shared state, persistence formats, external interfaces, and async lifecycles are places to look, not triggers. This does not choose test scope and does not explain how the code currently runs."
-disable-model-invocation: true
+description: "Load when the user asks what else a change could break outside the diff ('还会影响哪', '会影响别的模块吗'), or when testing or review cannot tell affected consumers or safety facts from ordinary inspection. Does not choose test scope or explain current architecture."
 ---
 
 # Lite Blast Radius
@@ -36,6 +35,6 @@ Match the investigation to the change. For a removed entry point, trace configur
 
 Answer in the user's language. Include what the change does, including the part that is not obvious. State the safety fact, the ladder step you reached, and the proof, or mark the fact unproven. List confirmed risks with how each breaks, the `file:line`, the likelihood, the cost, and the proof when you have it. List what you checked and cleared. Name the cheapest check that would catch the real bug before merge.
 
-For a Chinese or English reply, run `superpowers-lite:lite-unslop`, or `lite-unslop` with native skill loaders. If the host has no skill-invocation tool, read and follow [lite-unslop](../lite-unslop/SKILL.md). Remove private material before the reply goes anywhere public.
+For a Chinese or English reply, run `superpowers-lite:lite-unslop`, or `lite-unslop` with native skill loaders. If the host has no skill-invocation tool or blocks model invocation for it, read and follow [lite-unslop](../lite-unslop/SKILL.md). Remove private material before the reply goes anywhere public.
 
 Do not open a spec, plan, or review from this skill. Do not fix the product unless the user asks for a fix.

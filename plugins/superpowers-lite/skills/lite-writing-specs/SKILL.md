@@ -9,7 +9,7 @@ Describe what the system must do. Do not design how the implementation will be o
 
 ## Confirm a Spec Adds Value
 
-If the change is already obvious and has no meaningful behavior or contract to define, stop and return control to the router. SIMPLE changes such as typos, direct configuration edits, and narrow bug fixes usually need no spec.
+Skip this skill only when externally observable behavior, cross-component contracts, caller-visible error semantics, and acceptance criteria are already unambiguous—such as typos, direct configuration edits, or local bug fixes under an existing contract. Defining contracts in a few inline lines has low cost; skipping needed contracts causes rework.
 
 If consequential architecture choices remain unresolved, stop and use `superpowers-lite:lite-brainstorming`. That includes unsettled data shape, module boundaries, state ownership, or how much callers must know. A direct call to this skill does not skip that return. A spec records decided behavior; it does not choose the architecture.
 

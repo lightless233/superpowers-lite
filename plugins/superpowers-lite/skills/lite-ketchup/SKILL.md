@@ -1,7 +1,6 @@
 ---
 name: lite-ketchup
-description: "Use when the user asks for ketchup, a catch-up, or what changed since their last message. Report new progress in this chat in plain words and small visuals, and list every item waiting on them so they can decide from the reply alone."
-disable-model-invocation: true
+description: "Load when the user asks for ketchup, a catch-up, or what changed in this chat since their last message and what decisions are waiting on them ('同步下进展', '刚改了啥', '有什么等我拍板')."
 ---
 
 # Lite Ketchup

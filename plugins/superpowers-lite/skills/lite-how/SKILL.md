@@ -1,7 +1,6 @@
 ---
 name: lite-how
-description: "Use for \"how does X work\", code walkthroughs before changing something, and placement / ownership / layering questions (\"where should this live\", \"which package owns this\", \"is this the right layer\"). Explains subsystem architecture, runtime flow, onboarding mental models. Use lite-why for motivation."
-disable-model-invocation: true
+description: "Load for 'how does X work' ('这怎么跑的', '走读一下流程'), code walkthroughs before editing, and placement, ownership, or layering questions ('该放哪一层', '哪个模块负责'). Use lite-why for historical design reasons."
 ---
 
 # Lite How

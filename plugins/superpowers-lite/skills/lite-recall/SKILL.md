@@ -1,7 +1,6 @@
 ---
 name: lite-recall
-description: "Use when the user asks to recall recent work, catch up on a topic, find where they left off, or rebuild working context before starting or resuming. Reconstructs recent context from chat history, live state, and the shared record, then returns a tight current-state brief."
-disable-model-invocation: true
+description: "Load when the user asks to recall recent work, rebuild working context across recent chats and Git/PR state, or find where they left off ('恢复上下文', '上次做到哪了')."
 ---
 
 # Lite Recall
@@ -35,7 +34,7 @@ Take the PRs, branches, and tickets that mining and the sweep surfaced and check
 
 ## Output contract
 
-Lead with the capsule, then the thread status, then the problems, then the next move. Deeper detail goes below or gets cut. Answer in the user's language. For a Chinese or English brief, run the wording through `superpowers-lite:lite-unslop`.
+Lead with the capsule, then the thread status, then the problems, then the next move. Deeper detail goes below or gets cut. Answer in the user's language. For a Chinese or English brief, run the wording through `superpowers-lite:lite-unslop` (or read and follow [lite-unslop](../lite-unslop/SKILL.md) when model invocation is unavailable).
 
 - **Capsule.** At most 5 bullets. What this work is and where it stands overall.
 - **Threads.** One line each, prefixed with one status tag. Use `[merged #N]`, `[open PR #N]`, `[in flight <branch>]`, `[committed, no PR]`, `[verified, uncommitted]`, `[verification blocked]`, `[reverted #N]`, or `[planned, not started]` when that tag matches. If none matches, including when the current state cannot be checked, put the actual state in brackets, such as `[committed locally on feature/search, no PR]` or `[verification blocked: CI credential missing]`. Do not force a tag that misstates the state.

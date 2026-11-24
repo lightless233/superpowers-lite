@@ -499,7 +499,7 @@ Spec 和 Plan 保存在实际开发项目中，沿用既有命名规则并按需
 
 ### `lite-no-comments`
 
-当你要求清理指定文件或 diff 里的注释时使用。它偏删除：只保留法律头、公开 API 契约注释、代码表达不了的外部约束、合格的格式化或 lint 例外，以及带 Issue／RFC 链接且代码本身表达不了的约束。自己的代码里用注释掩盖的意外行为要删注释，并标出需要改名、抽取、类型或结构调整的符号。
+当你要求清理指定文件或 diff 里的注释时使用。它偏删除：只保留法律头、公开 API 契约注释、代码表达不了的外部约束、合格的格式化或 lint 例外，以及带 Issue／RFC 链接且代码本身表达不了的约束。自己的代码里用注释掩盖的意外行为会标出需要改名、抽取、类型或结构调整的符号；无依据的辩解直接删除，已证实的自有代码陷阱注释在获批重构落地前保留最小事实警示。
 
 审查可以用一个委派 Agent，也可以在当前会话按同一套规则做。未指定范围时，对比该仓库的实际基线分支，不假定名字是 `main`。主会话审核删除与 `MUST KILL`；不合格报告最多重派一次。只要求清理注释时停在删除和清单，不改应用代码。用户要求处理注释掩盖的问题，或批准了某一条修复，才做范围内最小根因修复；需要结构方向时先走一次 `lite-brainstorming`。约束类注释只有在编码落地后才删除；用户拒绝编码，或无人值守且没有预先批准时，保留注释并标明未落实。
 
@@ -517,7 +517,7 @@ Spec 和 Plan 保存在实际开发项目中，沿用既有命名规则并按需
 
 ### `lite-teach`、`lite-how`、`lite-why`、`lite-unslop`
 
-这四个 Skill 保持显式调用，也允许由其他 Skill 调用；不会自动加入每次编码或回复的流程。Codex 中可用 `$superpowers-lite:lite-teach` 等名称，其他宿主使用自己的 Skill 调用方式。
+`lite-teach`、`lite-how`、`lite-why` 在用户提出对应的代码讲解、运行机制或历史原因问题时按需触发，也可显式调用或由其他 Skill 调用；`lite-unslop` 保持显式调用或由其他 Skill 调用。四者都不会自动加入常规编码必经阶段。Codex 中可用 `$superpowers-lite:lite-teach` 等名称，其他宿主使用自己的 Skill 调用方式。
 
 `lite-teach` 按用户当前问题和已有知识组织讲解，实际调用 `lite-how` 获取机制、`lite-why` 查明历史理由。中英文讲解再通过 `lite-unslop` 按各自语言的规则整理。完整子系统通常同时调用 how 和 why，并行执行后综合；小问题允许只调用其中一个。有人在对话里时，先给结论并停在最小完整答案。一次性回复按问题给完整讲解，仍然先给结论。保留证据中的不确定性，不测验用户，也不要求用户复述。多部分系统逐步画图，空间问题使用图片生成能力。
 
@@ -583,7 +583,7 @@ Verification 应足以支持声明，而不是默认追求最大范围。
 
 你要粗略量级时跑一次，只查错误和工作是否发生，并说明这是一次。这次结果看起来不对时，再补查其余项目。用来选型或报告一个准备据此行动的差异，就不是粗略量级。比较时交替跑两侧，报告中位数和范围。配置按这次声明来判断：比较开箱表现时，默认配置就是该测的配置；声明比的是实际运行方式，一边却对不上，就不能据此选赢家。说不出瓶颈、有一侧不符合这次声明，或者错误和工作发生没查，比较结论就是无法下结论。粗估不会只因为没有瓶颈分析而变成无法下结论。
 
-它是显式工具，不进入编码阶段，也不进入 review。也可以通过 `$superpowers-lite:lite-benchmark` 调用。
+它是独立的核验工具，在产出、报告或比对实测性能数字时触发，不进入常规编码阶段，也不进入普通 review。也可以通过 `$superpowers-lite:lite-benchmark` 显式调用。
 
 ### `lite-blast-radius`
 
@@ -623,7 +623,7 @@ Verification 应足以支持声明，而不是默认追求最大范围。
 
 ### `lite-show-me-your-work`
 
-长任务、多阶段或无人值守执行期间，维护一份 append-only TSV，记录时间、阶段、决定、原因、证据指针与结果。默认保存在 `decisions.tsv` 或 `.audit/<task>.tsv`，只有审查确实需要时才提交。附带 `log.sh` 负责时间戳和单行化。
+长任务、多阶段或无人值守执行期间，维护一份 append-only TSV，记录时间、阶段、决定、原因、证据指针与结果。默认保存在 `.runtime/decisions.tsv` 或 `.runtime/audit/<task>.tsv`，只有审查确实需要时才提交。附带 `log.sh` 负责时间戳和单行化。
 
 交付前对照当前运行 transcript 检查真实性；宿主能换厂商模型时再交叉审查，否则标明不可用。回复末尾列出需用户注意的薄弱证据或风险。其他 skill 需要审计轨迹时引用它，不要另造格式。也可以通过 `$superpowers-lite:lite-show-me-your-work` 调用。
 
@@ -811,7 +811,8 @@ Superpowers Lite 本身不强制要求：
 
 ```text
 .
-├── AGENTS.md                          # 仓库中维护的长期工程规则
+├── AGENTS.base.md                     # 面向通用模型/宿主的全局工程规则模板
+├── AGENTS.GPT.md                      # 面向 GPT / Codex 的全局工程规则模板
 ├── .agents/
 │   └── plugins/
 │       └── marketplace.json          # Codex marketplace
@@ -881,6 +882,8 @@ Superpowers Lite 本身不强制要求：
 ```
 
 每个 Skill 的 `SKILL.md` 由各宿主共用。Skill 不依赖 top-level `agents/`：这些文件只是支持它们的 Codex 环境可选使用的加速配置。各 Skill 内的 `agents/openai.yaml` 提供 Codex 专用的界面元数据，其他平台会忽略这些辅助文件。
+
+`AGENTS.base.md` 与 `AGENTS.GPT.md` 是供各宿主全局安装的独立工程规则模板，而非本仓库自身的项目规则：`AGENTS.base.md` 面向 Claude Code、Gemini / Antigravity、Kimi、OpenCode、Pi 等通用模型宿主（例如安装至 `~/.claude/CLAUDE.md`、`~/.gemini/GEMINI.md` 或 `~/.config/opencode/AGENTS.md`），`AGENTS.GPT.md` 则针对 GPT / Codex 的执行与汇报特征做了专门强化（例如安装至 `~/.codex/AGENTS.md`）。
 
 ## 设计原则
 

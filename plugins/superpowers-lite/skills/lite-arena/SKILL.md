@@ -61,7 +61,7 @@ If the candidates converge on one shape, note the agreement and ship that shape.
 
 ### Verify
 
-Verify the synthesized artifact with evidence appropriate to the claim. Use `superpowers-lite:lite-verification` when the claim is a completion claim, and `superpowers-lite:lite-benchmark` when the claim is a measured performance number. If verification finds a problem the arena missed, either reframe and re-run, or return to Graft for a missed piece. Do not paper over it.
+Verify the synthesized artifact with evidence appropriate to the claim. Use `superpowers-lite:lite-verification` when the claim is a completion claim, and `superpowers-lite:lite-benchmark` (or read and follow [lite-benchmark](../lite-benchmark/SKILL.md) when model invocation is unavailable) when the claim is a measured performance number. If verification finds a problem the arena missed, either reframe and re-run, or return to Graft for a missed piece. Do not paper over it.
 
 ## Reply
 

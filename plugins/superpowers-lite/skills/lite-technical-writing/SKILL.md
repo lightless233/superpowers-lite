@@ -66,13 +66,13 @@ Diátaxis and the rhythm section apply in every language. The three sections bel
 - Make every "it", "they", and "this" point at one obvious thing. Never use "this" or "which" to point at a whole clause.
 - Don't drop verbs, or the small words that show structure, such as "that".
 - Repeat the article in a series when it prevents a misread. Say which parts "and" or "or" joins.
-- Use periods, not semicolons or em dashes. No slashes, and no "(s)". Make text in parentheses a full grammatical unit.
+- Use periods, not semicolons or em dashes. No slashes, and no "(s)". Keep parentheticals to brief term clarifications or self-contained grammatical units.
 - Call each thing by one name, everywhere.
 - Skip idioms, colloquialisms, Latin abbreviations, and metaphors.
 
 ## Voice and repo specifics
 
-- Apply [lite-unslop](../lite-unslop/SKILL.md) to Chinese and English prose this skill touches. Invoke it as `superpowers-lite:lite-unslop` in plugin hosts, or `lite-unslop` with native skill loaders. If the host has no skill-invocation tool, read and follow its linked instructions.
+- Apply [lite-unslop](../lite-unslop/SKILL.md) to Chinese and English prose this skill touches. Invoke it as `superpowers-lite:lite-unslop` in plugin hosts, or `lite-unslop` with native skill loaders. If the host has no skill-invocation tool or blocks model invocation for it, read and follow its linked instructions.
 - PR descriptions and commit messages use the same language rules. Diátaxis does not apply to them. A PR body is a briefing that a reviewer can read in under a minute. Do not paste delegated-worker logs, SHA lists, or metric tables. Link them.
 - Product UI strings are not documentation. Use your product's copy guidelines for those.
 - Match the repository's existing indentation for code snippets. Write real paths. Make every count or tree claim true at the commit that lands it, and include the command that regenerates it.

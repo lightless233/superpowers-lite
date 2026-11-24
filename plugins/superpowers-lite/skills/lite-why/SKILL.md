@@ -1,7 +1,6 @@
 ---
 name: lite-why
-description: "Use for 'why does X work this way', 'why we picked Y', design rationale, regressions, postmortems, or data-backed thresholds. Returns a cited read on decisions and tradeoffs. Use lite-how for runtime behavior."
-disable-model-invocation: true
+description: "Load for 'why does X work this way' ('为什么这么设计', '这个阈值怎么来的'), design rationale, regressions, or postmortems traced from commits and PR history. Use lite-how for current runtime behavior."
 ---
 
 # Lite Why

@@ -35,7 +35,7 @@ ts	phase	decision	why	evidence	result
 
 ## Logging a row
 
-Write each entry the way you'd tell a teammate what you did. Plain words, concrete actions, no AI speak or abstract jargon. For Chinese or English log text, `superpowers-lite:lite-unslop` applies.
+Write each entry the way you'd tell a teammate what you did. Plain words, concrete actions, no AI speak or abstract jargon. For Chinese or English log text, apply `superpowers-lite:lite-unslop` (or read and follow [lite-unslop](../lite-unslop/SKILL.md) when model invocation is unavailable).
 
 Use the helper `scripts/log.sh <logfile> <phase> <decision> <why> <evidence> <result>`. It stamps `ts`, writes the header on first use, strips stray tabs/newlines, and prefixes any cell starting with `=`, `+`, `-`, or `@` with a single quote. A bare `printf` appending a row works too, but mind those same bytes if cells come from generated or user-supplied text.
 
@@ -47,9 +47,9 @@ Parallel runs use separate logs so `start` rows mark uninterrupted runs.
 
 ## Where it lives
 
-By default the log is a working artifact, not committed. Keep it at `decisions.tsv` in the work dir, or `.audit/<task-slug>.tsv` when several efforts run at once, and leave it out of git.
+By default the log is an uncommitted working artifact. Keep it at `.runtime/decisions.tsv`, or `.runtime/audit/<task-slug>.tsv` when several efforts run at once, unless the project already has an established location. Leave uncommitted logs out of git.
 
-Commit it only when the work is ambitious enough that a reviewer needs the trail to trust the result.
+Commit the trail (for example under `docs/` or the path the reviewer requested) only when the work is ambitious enough that a reviewer needs it to trust the result.
 
 ## Rules
 
@@ -81,4 +81,4 @@ Every reply for a run that produced a trail ends with an "Attention" section. Le
 
 ## Reviewing the trail
 
-Read top to bottom, follow the evidence pointers, spot-check. GitHub renders a committed TSV as a table. `column -s$'\t' -t decisions.tsv` renders it in a terminal.
+Read top to bottom, follow the evidence pointers, spot-check. GitHub renders a committed TSV as a table. `column -s$'\t' -t .runtime/decisions.tsv` renders it in a terminal.

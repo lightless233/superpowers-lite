@@ -9,9 +9,7 @@ Tests should protect behavior, not satisfy ritual.
 
 ## Confirm the Skill Adds Value
 
-A task may need testing without needing `superpowers-lite:lite-testing`. When the appropriate check is obvious—such as parsing a changed configuration—use it directly and return control to `superpowers-lite:using-lite`.
-
-Use this skill when choosing regression coverage, valuable cases, test level, or behavior boundaries requires judgment. Do not create a test strategy whose cost approaches or exceeds the confidence it adds.
+Skip this skill only when verification is a single self-evident check (such as validating a changed configuration file) with no new or modified test cases. Follow it whenever adding or updating tests, choosing regression scope or test level, deciding between real paths and mocks, or protecting changed behavior. Do not create a test strategy whose cost exceeds the confidence it adds.
 
 ## Match the Approach to the Change
 
@@ -51,7 +49,7 @@ When testing a retry contract, choose cases that cover the relevant interruption
 
 ## Keep Scope Proportional
 
-Choose scope from change reach, contract importance, regression risk, reuse, and affected boundaries. Protect the changed behavior and its meaningful blast radius; do not automatically require unit, integration, end-to-end, and full-suite coverage together. Here, blast radius means how far the tests need to reach. When ordinary inspection already shows which consumers and behaviors are affected, decide coverage directly. When it does not, follow `superpowers-lite:lite-blast-radius` for that unknown, then decide coverage from the result. Reuse an investigation that already covers this change. Shared state, a persistence format, an external interface, or an async lifecycle is a place to look, not a reason to run the investigation on its own. If the host has no skill-invocation tool, read and follow [lite-blast-radius](../lite-blast-radius/SKILL.md).
+Choose scope from change reach, contract importance, regression risk, reuse, and affected boundaries. Protect the changed behavior and its meaningful blast radius; do not automatically require unit, integration, end-to-end, and full-suite coverage together. Here, blast radius means how far the tests need to reach. When ordinary inspection already shows which consumers and behaviors are affected, decide coverage directly. When it does not, follow `superpowers-lite:lite-blast-radius` for that unknown, then decide coverage from the result. Reuse an investigation that already covers this change. Shared state, a persistence format, an external interface, or an async lifecycle is a place to look, not a reason to run the investigation on its own. If the host has no skill-invocation tool or blocks model invocation for it, read and follow [lite-blast-radius](../lite-blast-radius/SKILL.md).
 
 Match checks to the workflow stage when review is used:
 

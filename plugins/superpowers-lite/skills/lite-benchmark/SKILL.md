@@ -1,7 +1,6 @@
 ---
 name: lite-benchmark
-description: "Use when producing, reporting, or choosing from a measured speedup, slowdown, throughput, or latency number. A rough magnitude checks errors and whether the work happened. A comparison also checks the limiter, configuration, limits, repeatability, and end-to-end share. Do not use for an ordinary completion claim."
-disable-model-invocation: true
+description: "Load BEFORE producing, reporting, comparing, or choosing from any measured speedup, slowdown, throughput, or latency number (including rough single-run estimates). Do not use for ordinary non-performance completion claims."
 ---
 
 # Lite Benchmark

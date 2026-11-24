@@ -1,7 +1,6 @@
 ---
 name: lite-help
-description: "Answer questions about installing, configuring, and using Superpowers Lite, choosing a skill, or steering a Lite workflow. Give a source and a ready-to-send prompt when useful."
-disable-model-invocation: true
+description: "Load when the user asks how to install, configure, or use Superpowers Lite, which Lite skill to choose, or why a Lite workflow behaved a certain way."
 ---
 
 # Lite Help
