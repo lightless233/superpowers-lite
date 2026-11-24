@@ -13,7 +13,7 @@ Inspect the current inventory or connection configuration and resolve the exact 
 
 Prefer an available typed operation when it expresses the whole intended action. Otherwise use the established SSH or remote command path. Do not invent tool names, require a particular provider, or replace working project tooling merely to obtain a typed interface. Respect explicit connection restrictions when choosing an alternative path.
 
-Use exact paths, service names, containers, and overwrite behavior. Bound command duration and output. Use dry-run or expected-state checks when available and useful for the change, especially when a concurrent edit could be overwritten.
+Use exact paths, service names, containers, and overwrite behavior. Complete read-only preflight checks (including real target data sizes and active write contention before backups or migrations) before mutating local tracked files or remote state, so failed preflights leave both sides clean and re-entrant. Isolate `stdin` (`</dev/null` or `DEVNULL`) on non-interactive remote commands and configure keepalives with bounded transient retries on cross-network reads and transfers. Bound command duration and output, and use dry-run or expected-state checks when available, especially when a concurrent edit could be overwritten.
 
 ## Use Existing Privilege and Secret Channels
 
@@ -27,7 +27,7 @@ Do not turn a task-specific access problem into a permanent sudo rule, new crede
 
 ## Follow Work to Its Actual Outcome
 
-An accepted request, job ID, or successful submission is evidence that work started. For asynchronous operations, retain the job or session handle and follow its status and incremental output to completion. A client wait timeout or disconnected session does not prove the remote work stopped.
+An accepted request, job ID, or successful submission is evidence that work started. Bound remote heavy or write-intensive jobs with explicit timeouts or session-tied lifecycle cleanup so a client timeout or dropped SSH connection never leaves a runaway orphan writer on the host. For asynchronous operations, retain the job or session handle and follow its status and incremental output to completion; a client wait timeout or disconnected session does not prove the remote work stopped.
 
 Before retrying an uncertain mutation, inspect the original job or resulting state. Retry only when evidence shows that the operation did not run or can safely be repeated; do not duplicate an update, restart, or deployment because the client timed out.
 
