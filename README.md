@@ -304,6 +304,7 @@ Qoder 中的插件 Skill 使用插件限定名：
 | `lite-arena` | 同一任务多候选竞赛，选底稿并手工整合，再验证 |
 | `lite-swarm` | 并行分工或竞速，汇总一份报告 |
 | `lite-recall` | 从近期聊天、现场状态和共享记录重建工作上下文 |
+| `lite-handoff` | 开新会话前写一次性交接笔记，新会话核实后接手并删除 |
 | `lite-ketchup` | 汇报当前聊天的新进展和待用户决策事项 |
 | `lite-ketchup-video` | 用带字幕的短视频汇报进展，待决策事项仍用文字 |
 | `lite-show-me-your-work` | 为长任务或无人值守执行留下可复核的决策记录 |
@@ -611,6 +612,12 @@ Verification 应足以支持声明，而不是默认追求最大范围。
 
 产出是短胶囊、带状态标签的工作线程、反复出现的问题，以及最有用的下一步。优先使用宿主提供的会话记录；Cursor 上可用其 transcript 路径。不依赖固定模型面板。只有一两份聊天时可直接搜索；用户已给完整状态说明时可跳过挖掘。也可以通过 `$superpowers-lite:lite-recall` 调用。
 
+### `lite-handoff`
+
+准备重置会话前，仅把同一工作流里聊天才有的拍板/否决决定、口头尾巴、踩坑和精确停点转交给新会话（不替代 Elephant/Goldfish 手动跨角色交接，也不向 `spec-clarity` 盲审泄露作者上下文）。写交接优先遵循用户指定路径，否则默认写入已被 `git check-ignore` 忽略的 `.runtime/handoff-<YYYYMMDD-HHMM>-<slug>.md`；若 `.runtime/` 未被忽略或要求不写文件，则直接输出到对话，严禁写 `AGENTS.md` 或已跟踪的 `HANDOFF.md`。正文控制在约 35 行以内（短则更佳，不凑字数），并附带含宿主调用提示的新会话开场词。
+
+新会话接手时支持内联交接块、指定路径或扫描 `.runtime/handoff-*.md`（多份时按修改时间列明询问，零份时说明缺口并提示改用 `lite-recall`）。接手前先用 `git status`/`git log`（必要时查线上只读状态）核实现场：仅当核实无阻断偏差且已完整接住后才删除 `.runtime/` 下该一次性文件；若核实出偏差或内联接手则保留文件/跳过删除，等确认后再行动。也可以通过 `$superpowers-lite:lite-handoff` 调用。
+
 ### `lite-ketchup`
 
 用户暂时没跟进时，讲清从他上一条消息以来发生了什么，以及现在有哪些事情确实要他决定。语气跟 `lite-bro` 一样：人话、短句、少术语。这轮保持只读，不改代码、不启动任务、不发外部消息。
@@ -866,6 +873,7 @@ Superpowers Lite 本身不强制要求：
 │           ├── lite-arena/
 │           ├── lite-swarm/
 │           ├── lite-recall/
+│           ├── lite-handoff/
 │           ├── lite-ketchup/
 │           ├── lite-ketchup-video/
 │           ├── lite-show-me-your-work/

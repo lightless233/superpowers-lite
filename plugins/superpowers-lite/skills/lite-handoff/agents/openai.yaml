@@ -1,0 +1,7 @@
+interface:
+  display_name: "Lite Handoff"
+  short_description: "Write or pick up a one-time cross-session handoff note"
+  default_prompt: "Use $superpowers-lite:lite-handoff to write a concise one-time handoff note under .runtime/ before starting a fresh session, or to pick up, verify against live state, and delete an existing handoff note."
+
+policy:
+  allow_implicit_invocation: true

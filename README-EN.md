@@ -304,6 +304,7 @@ Ask `lite-help` how to install Lite, pick a skill, or steer a workflow in progre
 | `lite-arena` | Run multi-candidate contests, pick a base, graft, and verify |
 | `lite-swarm` | Partition or race parallel workers and return one report |
 | `lite-recall` | Rebuild recent working context from chats, live state, and the shared record |
+| `lite-handoff` | Write a one-time handoff note before resetting a chat, then verify, pick up, and delete it in the new session |
 | `lite-ketchup` | Catch the user up on this chat's new progress and waiting decisions |
 | `lite-ketchup-video` | Catch up with a short subtitled progress video; keep waiting decisions as text |
 | `lite-show-me-your-work` | Keep a reviewable decision trail for long or unattended runs |
@@ -613,6 +614,12 @@ Use it before starting or resuming a topic to rebuild recent working context. Pi
 
 The output is a short capsule, status-tagged threads, recurring problems, and the single most useful next move. Prefer host-provided session history; on Cursor, use its transcript path. It does not depend on a fixed model panel. Search directly for one or two chats, and skip mining when the user already gave a full state capsule. You can also invoke `$superpowers-lite:lite-recall`.
 
+### `lite-handoff`
+
+Transfer chat-only settled/rejected decisions, open tails, gotchas, and the exact stop point across a same-workflow session reset without leaving stale durable handoff docs behind (distinct from Elephant/Goldfish manual cross-role handoffs; never leak author context into blind `spec-clarity` reviews). When writing a handoff, honor an explicit user path first or default to a `.runtime/handoff-<YYYYMMDD-HHMM>-<slug>.md` file ignored via `git check-ignore` (falling back to inline chat output when `.runtime/` is not ignored or file-free output is requested), never write tracked `HANDOFF.md` or edit `AGENTS.md`, keep it concise (at most ~35 lines; shorter is fine), and return an opening prompt with host invocation guidance.
+
+When picking up in a fresh session, accept an inline block, a named path, or `.runtime/handoff-*.md` (listing multiple by mtime or reporting none and offering `lite-recall`). Verify live state first with `git status` and `git log` (and read-only live checks if needed), and delete the consumed `.runtime/` file **only** when no blocking mismatch is found and it has been absorbed (preserve the file on any mismatch; skip deletion for inline handoffs). Skip handoff notes at clean milestones already captured in Git and Specs. You can also invoke `$superpowers-lite:lite-handoff`.
+
 ### `lite-ketchup`
 
 When the user has stepped away, explain what changed since their last message and every call still waiting on them. Use the same voice as `lite-bro`: plain words, short sentences, little jargon. Keep the turn read-only: no code changes, no jobs, no outbound posts.
@@ -868,6 +875,7 @@ They are simply not part of the workflow unless they add clear value to the curr
 │           ├── lite-arena/
 │           ├── lite-swarm/
 │           ├── lite-recall/
+│           ├── lite-handoff/
 │           ├── lite-ketchup/
 │           ├── lite-ketchup-video/
 │           ├── lite-show-me-your-work/
