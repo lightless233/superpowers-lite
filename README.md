@@ -124,7 +124,7 @@ Broad review 按本轮声明的范围检查完整实现，并把当前可发现�
 
 ## 安装
 
-Superpowers Lite 以 Skills-only 包分发，支持 Codex、Claude Code、CodeBuddy Code、WorkBuddy、Kimi Code、Pi、OpenCode 和 Qoder。各宿主共用同一套 `SKILL.md`，通过相应的插件、包或原生 Skills 机制加载。
+Superpowers Lite 以 Skills 为核心分发，支持 Codex、Claude Code、CodeBuddy Code、WorkBuddy、Kimi Code、Pi、OpenCode 和 Qoder。各宿主共用同一套 `SKILL.md`，通过相应的插件、包或原生 Skills 机制加载（其中 Kimi Code 与 Qoder 会在会话启动时自动注入 `using-lite` 路由规则）。
 
 ### Codex
 
@@ -236,6 +236,8 @@ plugins/superpowers-lite
 ```bash
 qodercli --plugin-dir ./plugins/superpowers-lite
 ```
+
+Qoder 插件通过 `.qoder-plugin/qoder-hooks.json` 在 `SessionStart` 时自动注入 `using-lite` 路由规则（需要环境提供 `node`），其余 Skills 按需加载；该 Hook 隔离在 `.qoder-plugin/` 目录内，不影响其他宿主。
 
 正常使用时，你不需要手动调用每一个 Skill。`superpowers-lite:using-lite` 会作为 Router，只选择能够增加价值的阶段。
 
@@ -847,7 +849,9 @@ Superpowers Lite 本身不强制要求：
 │       ├── .workbuddy-plugin/
 │       │   └── plugin.json           # WorkBuddy manifest
 │       ├── .qoder-plugin/
-│       │   └── plugin.json           # Qoder manifest
+│       │   ├── plugin.json           # Qoder manifest
+│       │   ├── qoder-hooks.json      # Qoder SessionStart hook
+│       │   └── session-start.mjs     # 注入 using-lite 路由规则
 │       └── skills/
 │           ├── using-lite/
 │           ├── lite-help/

@@ -124,7 +124,7 @@ The default automatic budget is one pre-review correction, one broad review, one
 
 ## Installation
 
-Superpowers Lite is a skills-only package for Codex, Claude Code, CodeBuddy Code, WorkBuddy, Kimi Code, Pi, OpenCode, and Qoder. All hosts share the same `SKILL.md` files, loaded through the appropriate plugin, package, or native Skills mechanism.
+Superpowers Lite is distributed as a skills-first package for Codex, Claude Code, CodeBuddy Code, WorkBuddy, Kimi Code, Pi, OpenCode, and Qoder. All hosts share the same `SKILL.md` files, loaded through the appropriate plugin, package, or native Skills mechanism (Kimi Code and Qoder also inject the `using-lite` router at session start).
 
 ### Codex
 
@@ -236,6 +236,8 @@ For Qoder CLI or Agent SDK development, pass the same directory as a local plugi
 ```bash
 qodercli --plugin-dir ./plugins/superpowers-lite
 ```
+
+The Qoder plugin uses `.qoder-plugin/qoder-hooks.json` to inject the `using-lite` router at `SessionStart` (requires `node` in `PATH`), while leaf Skills load on demand. The hook stays isolated under `.qoder-plugin/` and does not affect other hosts.
 
 In normal use, you should not need to invoke every Skill manually. `superpowers-lite:using-lite` acts as the router and selects only the phases that add value.
 
@@ -849,7 +851,9 @@ They are simply not part of the workflow unless they add clear value to the curr
 │       ├── .workbuddy-plugin/
 │       │   └── plugin.json           # WorkBuddy manifest
 │       ├── .qoder-plugin/
-│       │   └── plugin.json           # Qoder manifest
+│       │   ├── plugin.json           # Qoder manifest
+│       │   ├── qoder-hooks.json      # Qoder SessionStart hook
+│       │   └── session-start.mjs     # Injects using-lite router at SessionStart
 │       └── skills/
 │           ├── using-lite/
 │           ├── lite-help/

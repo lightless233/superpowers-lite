@@ -1,5 +1,7 @@
 {
   "name": "superpowers-lite",
   "version": "0.8.0",
-  "description": "A lightweight engineering workflow router and skill set for coding agents."
+  "description": "A lightweight engineering workflow router and skill set for coding agents.",
+  "skills": "./skills/",
+  "hooks": "./.qoder-plugin/qoder-hooks.json"
 }

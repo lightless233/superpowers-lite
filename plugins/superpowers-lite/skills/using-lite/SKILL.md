@@ -1,6 +1,6 @@
 ---
 name: using-lite
-description: "Primary workflow router. Load FIRST before non-trivial coding, bug fixing, refactoring, code review, performance benchmarking, blast-radius checks, remote server operations or recovery, file transfers, or Lite workflow tasks to classify depth, choose execution mode, and load the right leaf skills."
+description: "Primary workflow router. Load FIRST before non-trivial design review, brainstorming, spec/plan writing, coding, debugging, code review, benchmarking, blast-radius checks, or remote ops (设计评审/写spec/plan/编码排障). Skip for trivial edits or pure Q&A."
 ---
 
 # Using Lite
